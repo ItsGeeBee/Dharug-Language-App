@@ -1,0 +1,49 @@
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 200px;
+  margin-bottom: 100px;
+}
+form label {
+  text-align: left;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: 2px solid white !important;
+  background-color: rgba(230, 230, 230, 0.6) !important;
+  font-size: 1.1rem;
+  margin-bottom: 22px;
+  transition: 0.3s;
+}
+
+.form-control:hover {
+  background-color: #b1b1b1 !important;
+}
+
+.form-control:focus {
+  background-color: #fff !important;
+  border: 2px solid #b1b1b1 !important;
+}
+
+textarea {
+  width: 600px;
+  height: 120px;
+  border: 3px solid var(--tertiary);
+  padding: 5px;
+}
+
+.error-message {
+  color: var(--error);
+}
+@media screen and (max-width: 600px) {
+  form {
+    max-width: 400px;
+    margin-top: 150px;
+    margin-bottom: 100px;
+  }
+}

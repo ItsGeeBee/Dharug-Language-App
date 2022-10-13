@@ -1,0 +1,106 @@
+.about-container {
+  margin-bottom: 100px;
+  margin-top: 200px;
+  z-index: 0;
+}
+
+.profile-card {
+  color: var(--tertiary) !important;
+  background-size: cover !important;
+  padding: 4rem 0 0 !important;
+  max-width: 35ch !important;
+  border-radius: 0.5rem !important;
+  overflow: hidden !important;
+  transition: transform 500ms ease !important;
+}
+/* this is dictating how much it expands when the mouse is hovered over it */
+.profile-card:hover,
+.profile-card:focus-within {
+  transform: scale(1.05) !important;
+}
+.profile-card-content {
+  --padding: 1.5rem !important;
+  padding: var(--padding) !important;
+  /* this is dictating the gradient that comes over the card */
+  background: linear-gradient(
+    hsl(0 0% 0% / 0),
+    hsl(20 0% 0% / 0.6) 20%,
+    hsl(0 0% 0% / 10)
+  ) !important;
+}
+/* section body color fade in */
+.profile-card-body {
+  color: --tertiary;
+}
+#profile-card-justification {
+  text-align: left;
+}
+.profile-card-title::after {
+  content: "" !important;
+  position: absolute !important;
+  height: 4px;
+  left: calc(var(--padding) * -1) !important;
+  bottom: -2px;
+  width: calc(100% + var(--padding)) !important;
+  background: var(--yellow) !important;
+  transform-origin: left !important;
+  transition: left !important;
+}
+.profile-card:hover .profile-card-title::after,
+.profile-card:focus-within .profile-card-title::after {
+  transform: scaleX(1) !important;
+}
+
+.aboutlink {
+  color: var(--tertiary) !important;
+}
+
+@media screen and (max-width: 900px) {
+  .about-container {
+    margin-top: 200px !important;
+  }
+  .logo {
+    padding-left: 0 !important;
+  }
+}
+/* This assists in turning off the transitions and effects */
+@media (hover) {
+  .profile-card-content {
+    transform: translateY(65%) !important;
+    transition: transform 500ms ease !important;
+  }
+  .profile-card:hover .profile-card-content,
+  .profile-card:focus-within .profile-card-content {
+    transform: translateY(0) !important;
+    transition-delay: 500ms !important;
+  }
+  .profile-card:focus-within .profile-card-content {
+    transition-duration: 0ms !important;
+  }
+  .profile-card-content > *:not(.card-title) {
+    opacity: 0 !important;
+    transition: opacity 500ms linear !important;
+  }
+  .profile-card:hover .profile-card-content > *:not(.profile-card-title),
+  .profile-card:focus-within
+    .profile-card-content
+    > *:not(.profile-card-title) {
+    opacity: 1 !important;
+    transition-delay: 1000ms !important;
+  }
+  .profile-card-title::after {
+    transform: scaleX(0) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-delay: 0ms !important;
+  }
+}

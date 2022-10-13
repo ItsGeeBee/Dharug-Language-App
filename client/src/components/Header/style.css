@@ -1,0 +1,115 @@
+/* logo location and color */
+.logo {
+  padding-left: 40px !important;
+  line-height: 100px;
+  text-align: center;
+  color: var(--tertiary);
+}
+/* header background color style */
+header {
+  background-color: var(--primary);
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+header img {
+  border-radius: 100%;
+  margin-right: 7px;
+  margin-top: 7px;
+}
+
+nav {
+  text-align: center;
+  line-height: 100px;
+  margin-right: 20px;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li:not(:first-child) {
+  margin-left: 8px;
+}
+
+nav li {
+  display: inline-block;
+  position: relative;
+  padding-top: 10px;
+  margin: 10px;
+}
+
+nav ul li a {
+  color: var(--tertiary);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+}
+/* nav bar hover effect color */
+nav ul li a:hover {
+  color: var(--secondary) !important;
+  text-decoration: none;
+}
+
+nav ul li a::before {
+  content: "";
+  display: block;
+  height: 5px;
+  width: 100%;
+  background-color: var(--secondary);
+  position: absolute;
+  top: 35px;
+  width: 0%;
+  transition: all ease-in-out 250ms;
+}
+
+/* nav list over style */
+nav ul li a:hover::before {
+  width: 100%;
+}
+
+.nav-active {
+  color: var(--secondary) !important;
+  text-decoration: none !important;
+}
+
+@media screen and (max-width: 900px) {
+  header {
+    width: 100%;
+    height: fit-content;
+  }
+  nav {
+    text-align: center;
+    line-height: 20px;
+    margin: 10px;
+  }
+  li {
+    display: block;
+  }
+  .logo {
+    padding-left: 0 !important;
+    margin-bottom: -45px;
+  }
+}
+@media screen and (max-width: 600px) {
+  header {
+    width: 100%;
+    height: fit-content;
+  }
+  nav {
+    text-align: center;
+    line-height: 20px;
+    margin: 10px;
+  }
+}
+@media screen and (max-width: 375px) {
+  header {
+    background-color: var(--primary);
+    width: 100%;
+    height: fit-content;
+  }
+}

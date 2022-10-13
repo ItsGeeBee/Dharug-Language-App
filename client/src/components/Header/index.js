@@ -6,14 +6,7 @@ import Grid from '@mui/material/Grid';
 import Box from "@mui/material/Box";
 
 export default function Header(props) {
-  // const [pages] = useState([
-  //   { name: "about" },
-  //   { name: "portfolio" },
-  //   { name: "resume" },
-  //   { name: "contact" },
-  // ]);
 
-  // const [currentPage, setCurrentPage] = useState(pages[0]);
 
   // header layout
   return (

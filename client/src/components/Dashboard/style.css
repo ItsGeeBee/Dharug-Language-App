@@ -1,0 +1,29 @@
+.resume-top {
+  color: var(--darker);
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-top: 150px;
+  margin-bottom: 100px;
+}
+
+.resume-top a {
+  color: var(--darker);
+}
+
+.resume-top a:hover {
+  color: var(--secondary);
+}
+
+.proficiencies {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  font-weight: normal;
+}
+
+p {
+  font-weight: normal;
+}

@@ -29,5 +29,5 @@ db.once('open', () => {
 app.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`App listening on port ${PORT}!`);
-});
+    });
 });

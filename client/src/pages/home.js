@@ -19,6 +19,7 @@ export default function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/" element={<About />} />
                 <Route path="*" element={<NoPage />} />
             </Routes>
         </section>

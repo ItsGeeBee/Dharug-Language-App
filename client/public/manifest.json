@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Dharug-Language-App",
+  "short_name": "Dharug-Language-App",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,7 +20,7 @@
   ],
   "orientation": "portrait",
   "display": "standalone",
-  "start_url": "/",
+  "start_url": ".",
   "description": "Dharug-Language-App",
   "theme_color": "#000000",
   "background_color": "#ffffff"

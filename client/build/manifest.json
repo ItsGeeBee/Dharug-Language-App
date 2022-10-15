@@ -20,8 +20,8 @@
   ],
   "orientation": "portrait",
   "display": "standalone",
-  "start_url": ".",
-  "description": "Never forget your contacts!",
+  "start_url": "/",
+  "description": "Dharug-Language-App",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }

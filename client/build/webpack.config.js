@@ -31,7 +31,7 @@ module.exports = () => {
         inject: true,
         short_name: "React App",
         name: "Create React App Sample",
-        description: 'Never forget your contacts!',
+        description: 'Dharug-Language-App',
         background_color: '#225ca3',
         theme_color: '#225ca3',
         start_url: '/',

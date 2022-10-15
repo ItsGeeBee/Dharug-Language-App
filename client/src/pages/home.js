@@ -17,8 +17,8 @@ export default function App() {
                 <Route path="/dictionary" element={<Dictionary />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/signIn" element={<SignIn />} />
-                <Route path="/signUp" element={<SignUp />} />
+                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/sign-up" element={<SignUp />} />
                 <Route path="*" element={<NoPage />} />
             </Routes>
         </section>

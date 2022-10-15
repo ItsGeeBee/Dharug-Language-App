@@ -5,7 +5,7 @@ const db = require('./config/connection');
 
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,7 +25,9 @@ app.get("/", (req, res) => {
 app.use(routes);
 
 // eslint-disable-next-line no-shadow, no-unused-vars
+db.once('open', () => {
 app.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`App listening on port ${PORT}!`);
+});
 });

@@ -4,15 +4,16 @@ const secret = 'mysecretssshhhhhhh';
 const expiration = '2h';
 
 module.exports = {
-  authMiddleware: function ({ req }) {
-    let token = req.body.token || req.query.token || req.headers.authorization;
+  authMiddleware: function (req, res, next) {
+    let token = req.query.token || req.headers.authorization;
 
     if (req.headers.authorization) {
       token = token.split(' ').pop().trim();
     }
 
     if (!token) {
-      return req;
+      // return req;
+      return res.status(400).json({message:"No token!"})
     }
 
     try {
@@ -20,9 +21,10 @@ module.exports = {
       req.user = data;
     } catch {
       console.log('Invalid token');
+      return res.status(400).json({message:"No token!2"})
     }
 
-    return req;
+    return next();
   },
   signToken: function ({ email, username, _id }) {
     const payload = { email, username, _id };

@@ -17,7 +17,7 @@ router.route('/').post(createUser).put(authMiddleware, saveWord).get(getAllUsers
 
 router.route('/login').post(login);
 
-router.route('/dashboard').get(authMiddleware, getSingleUser);
+router.route('/me').get(authMiddleware, getSingleUser);
 
 router.route('/word/:word').delete(authMiddleware, deleteWord);
 

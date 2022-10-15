@@ -9,8 +9,8 @@ function App() {
     { name: "dictionary" },
     { name: "dashboard" },
     { name: "contact" },
-    { name: "signIn" },
-    { name: "signUp" },
+    { name: "sign-in" },
+    { name: "sign-up" },
   ];
 
   const [currentPage, setCurrentPage] = useState(pages[0]);

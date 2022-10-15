@@ -1,4 +1,4 @@
-import React from 'react';
+import { Route, Routes } from "react-router-dom"
 import About from '../components/About';
 import Contact from '../components/Contact';
 import Dictionary from '../components/Dictionary';
@@ -12,17 +12,15 @@ export default function App() {
 
     return (
         <section>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<About />} />
-                    <Route path="/dictionary" element={<Dictionary />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/sign-in" element={<SignIn />} />
-                    <Route path="/sign-up" element={<SignUp />} />
-                    <Route path="*" element={<NoPage />} />
-                </Routes>
-            </BrowserRouter>
+            <Routes>
+                <Route path="/" element={<About />} />
+                <Route path="/dictionary" element={<Dictionary />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/sign-up" element={<SignUp />} />
+                <Route path="*" element={<NoPage />} />
+            </Routes>
         </section>
     );
 }

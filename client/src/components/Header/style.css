@@ -7,7 +7,7 @@
 }
 /* header background color style */
 header {
-  background-color: var(--primary);
+  background-color: var(--darker);
   position: fixed;
   width: 100%;
   z-index: 1000;

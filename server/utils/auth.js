@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const secret = 'mysecretssshhhhhhh';
+const secret = process.env.SECRET;
 const expiration = '2h';
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 
     if (!token) {
       // return req;
-      return res.status(400).json({message:"No token!"})
+      return res.status(400).json({ message: "No token!" })
     }
 
     try {
@@ -21,7 +21,7 @@ module.exports = {
       req.user = data;
     } catch {
       console.log('Invalid token');
-      return res.status(400).json({message:"No token!2"})
+      return res.status(400).json({ message: "No token!2" })
     }
 
     return next();

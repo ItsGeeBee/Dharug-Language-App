@@ -1,4 +1,6 @@
 const { Word } = require('../models');
+const { User } = require('../models');
+const { signToken } = require('../utils/auth');
 
 module.exports = {
 
@@ -12,12 +14,15 @@ async getAllWords({word}, res) {
 
       },
 
-      addWord(req, res) {
-        Word.create(req.body)
-          .then((post) => res.json(post))
-          .catch((err) => res.status(500).json(err));
-      }
-    };
+  async addWord({word, body}, res) {
+
+        const addedWords = await Word.create(body);
+        if (!addedWords) {
+          return res.status(400).json({ message: 'Cannot add that word' });
+        }
+      return res.json(addedWords);
+    },
+  };
 // async addWord(req, res) {
 //     console.log(user);
 //     try {  

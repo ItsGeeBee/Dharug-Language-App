@@ -19,6 +19,6 @@ router.route('/login').post(login);
 
 router.route('/me').get(authMiddleware, getSingleUser);
 
-router.route('/word/:word').delete(authMiddleware, deleteWord);
+router.route('/word/:wordId').delete(authMiddleware, deleteWord);
 
 module.exports = router;

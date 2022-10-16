@@ -75,7 +75,7 @@ if (!allUsers) {
   async deleteWord({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
-      { $pull: { savedWords: { word: params.word } } },
+      { $pull: { savedWords: { wordId: params.wordId } } },
       { new: true }
     );
     if (!updatedUser) {
@@ -84,3 +84,5 @@ if (!allUsers) {
     return res.json(updatedUser);
   },
 };
+
+

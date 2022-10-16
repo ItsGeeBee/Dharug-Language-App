@@ -41,7 +41,7 @@ export const getAllWords = (userData) => {
 
 // save book data for a logged in user
 export const saveWord = (wordData, token) => {
-    return fetch('/api/users', {
+    return fetch('/api/users/dashboard', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -52,8 +52,8 @@ export const saveWord = (wordData, token) => {
 };
 
 // remove saved book data for a logged in user
-export const deleteBook = (bookId, token) => {
-    return fetch(`/api/users/books/${bookId}`, {
+export const deleteWord = (wordId, token) => {
+    return fetch(`/api/users/dashboard/${wordId}`, {
         method: 'DELETE',
         headers: {
             authorization: `Bearer ${token}`,
@@ -61,8 +61,4 @@ export const deleteBook = (bookId, token) => {
     });
 };
 
-// make a search to google books api
-// https://www.googleapis.com/books/v1/volumes?q=harry+potter
-export const searchGoogleBooks = (query) => {
-    return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
-};
+

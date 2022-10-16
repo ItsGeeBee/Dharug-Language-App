@@ -26,8 +26,8 @@ app.use(routes);
 
 // eslint-disable-next-line no-shadow, no-unused-vars
 db.once('open', () => {
-app.listen(PORT, () => {
-    // eslint-disable-next-line no-console
-    console.log(`App listening on port ${PORT}!`);
+    app.listen(PORT, () => {
+        // eslint-disable-next-line no-console
+        console.log(`App listening on port ${PORT}!`);
     });
 });

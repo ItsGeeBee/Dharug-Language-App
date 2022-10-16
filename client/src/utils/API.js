@@ -28,6 +28,17 @@ export const loginUser = (userData) => {
     });
 };
 
+export const getAllWords = (userData) => {
+    return fetch('/api/users/dictionary', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
+};
+
+
 // save book data for a logged in user
 export const saveWord = (wordData, token) => {
     return fetch('/api/users', {

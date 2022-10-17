@@ -6,13 +6,10 @@ const Project = ({ data }) => {
   return (
     <section className="display">
       < article className="card" >
-        <h3 className="project-title">{data.name}</h3>
-        <p>{data.url}</p>
-        <p className="display-image-gap">{data.repo}</p>
-        <img
-          alt={data.name}
-          key={data.name}
-        />
+        <h3 className="word-title"></h3>
+        <p></p>
+        <p className="display-image-gap"></p>
+        <img />
       </article >
     </section >
   );

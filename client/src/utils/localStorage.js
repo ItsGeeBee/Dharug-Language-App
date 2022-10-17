@@ -1,4 +1,4 @@
-export const getsavedWordIds = () => {
+export const getSavedWordIds = () => {
     const savedWordIds = localStorage.getItem('saved_words')
         ? JSON.parse(localStorage.getItem('saved_words'))
         : [];
@@ -6,7 +6,7 @@ export const getsavedWordIds = () => {
     return savedWordIds;
 };
 
-export const storeSavedWord = (wordArr) => {
+export const saveWordId = (wordArr) => {
     if (wordArr.length) {
         localStorage.setItem('saved_words', JSON.stringify(wordArr));
     } else {

@@ -73,7 +73,33 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
       </Container>
     </Jumbotron>
+
+    {/* User saved words from dictionary to show */}
     <Container>
+      <h4>
+        {userData.savedWords.length
+          ? `Viewing ${userData.savedWords.length} saved ${userData.savedWords.length === 1 ? 'word' : 'words'}:`
+          : 'You have no saved words!'}
+      </h4>
+      <CardColumns>
+        {userData.savedWords.map((word) => {
+          return (
+            <Card key={word.wordId} border='dark'>
+              <Card.Body>
+                <Card.Title>{word.word}</Card.Title>
+                <Card.Text>{word.definition}</Card.Text>
+                <Button className='btn-block btn-danger' onClick={() => handleDeleteWord(word.wordId)}>
+                  Delete this Word!
+                </Button>
+              </Card.Body>
+            </Card>
+          );
+        })}
+      </CardColumns>
+    </Container>
+    
+{/* User added words to dictionary to show */}
+<Container>
       <h4>
         {userData.savedWords.length
           ? `Viewing ${userData.savedWords.length} saved ${userData.savedWords.length === 1 ? 'word' : 'words'}:`

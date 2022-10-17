@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getMe } from '../../utils/API';
 import Auth from '../../utils/auth';
-// import { removeBookId } from '../utils/localStorage';
+import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 import "./style.css";
 
 
@@ -42,9 +42,61 @@ const Dashboard = () => {
   }
 
   return (
-    <section className="resume-top" id="dashboard">
-      <h1>YOUR DASHBOARD</h1>
-    </section>
+    <>
+    <Jumbotron fluid className='text-light bg-dark'>
+      <Container>
+        <h1>Dashboard</h1>
+      </Container>
+    </Jumbotron>
+
+    {/* User saved words from dictionary to show */}
+    <Container>
+      <h4>
+        {userData.savedWords.length
+          ? `Viewing ${userData.savedWords.length} saved ${userData.savedWords.length === 1 ? 'word' : 'words'}:`
+          : 'You have no saved words!'}
+      </h4>
+      <CardColumns>
+        {userData.savedWords.map((word) => {
+          return (
+            <Card key={word.wordId} border='dark'>
+              <Card.Body>
+                <Card.Title>{word.word}</Card.Title>
+                <Card.Text>{word.definition}</Card.Text>
+                <Button className='btn-block btn-danger' onClick={() => handleDeleteWord(word.wordId)}>
+                  Delete this Word!
+                </Button>
+              </Card.Body>
+            </Card>
+          );
+        })}
+      </CardColumns>
+    </Container>
+    
+{/* User added words to dictionary to show */}
+<Container>
+      <h4>
+        {userData.savedWords.length
+          ? `Viewing ${userData.savedWords.length} saved ${userData.savedWords.length === 1 ? 'word' : 'words'}:`
+          : 'You have no saved words!'}
+      </h4>
+      <CardColumns>
+        {userData.savedWords.map((word) => {
+          return (
+            <Card key={word.wordId} border='dark'>
+              <Card.Body>
+                <Card.Title>{word.word}</Card.Title>
+                <Card.Text>{word.definition}</Card.Text>
+                <Button className='btn-block btn-danger' onClick={() => handleDeleteWord(word.wordId)}>
+                  Delete this Word!
+                </Button>
+              </Card.Body>
+            </Card>
+          );
+        })}
+      </CardColumns>
+    </Container>
+  </>
   );
 }
 // exports file

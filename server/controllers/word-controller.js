@@ -22,7 +22,22 @@ async getAllWords({word}, res) {
         }
       return res.json(addedWords);
     },
-  };
+
+async getUserWords(req,res) {
+
+  const records = await Word.find(
+    { '_id': { $in: ids } });
+
+  const foundUser = await User.findOne(
+    { _id: req.body.userId });
+
+  if (records ) {
+    
+  }
+  return res.json(records);
+
+}
+};
 // async addWord(req, res) {
 //     console.log(user);
 //     try {  

@@ -28,13 +28,13 @@ export const loginUser = (userData) => {
     });
 };
 
-export const getAllWords = (userData) => {
+export const getAllWords = (wordData) => {
     return fetch('/api/users/dictionary', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(wordData),
     });
 };
 

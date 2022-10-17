@@ -6,7 +6,7 @@ export const getSavedWordIds = () => {
     return savedWordIds;
 };
 
-export const storeSavedWord = (wordArr) => {
+export const saveWordId = (wordArr) => {
     if (wordArr.length) {
         localStorage.setItem('saved_words', JSON.stringify(wordArr));
     } else {

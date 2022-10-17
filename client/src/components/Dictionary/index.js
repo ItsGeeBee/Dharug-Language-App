@@ -1,6 +1,6 @@
 // import React from "react";
 import React, { useState, useEffect } from 'react';
-import Project from "../Project/index.js";
+import Wordcard from "../../Wordcard/index.js";
 import '../Project/style.css'
 import Auth from '../../utils/auth';
 import { saveWord, getAllWords } from '../../utils/API';
@@ -8,12 +8,28 @@ import { saveWordId, getSavedWordIds } from '../../utils/localStorage';
 
 
 const Dictionary = () => {
-      const [wordList, setWordList] = useState(getAllWords());
+      const [wordList, setWordList] = useState([]);
+      
+      
       useEffect(() => {
-        console.log(wordList)
-        return () => setWordList(wordList);
-      });
+        const getWordData= async () => {
+        
+          try {
+            const response = await getAllWords()
 
+         if (!response.ok) {
+            throw new Error('something went wrong!');
+            }
+
+        const wordList = await response.json();
+        console.log(wordList)
+        setWordList(wordList);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getWordData();
+      },[]);
   // React.useEffect(() => {
   //   const loadDashboard = async () => {
   //     try {
@@ -178,15 +194,9 @@ const Dictionary = () => {
     //   ];
     //   // returns the project file
       return (
-        <div className="">
-          {/* {wordList.map((word) => ( */}
-            <div className="a-box">
-        <div className="text-container">
-         <p>{wordList.word}</p>
-            </div>
-            <button type="button" className="btn btn-secondary" onClick={handleSaveWord}>Submit</button>
-        </div>
-        </div>
+        <div> 
+      < WordCard wordCard={wordList}/>
+    </div>
 )};
 
 export default Dictionary;

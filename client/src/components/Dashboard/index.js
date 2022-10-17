@@ -63,7 +63,7 @@ const Dashboard = () => {
               <Card.Body>
                 <Card.Title>{word.word}</Card.Title>
                 <Card.Text>{word.definition}</Card.Text>
-                <Button className='btn-block btn-danger' onClick={() => handleDeleteWord(word.wordId)}>
+                <Button >
                   Delete this Word!
                 </Button>
               </Card.Body>
@@ -87,7 +87,7 @@ const Dashboard = () => {
               <Card.Body>
                 <Card.Title>{word.word}</Card.Title>
                 <Card.Text>{word.definition}</Card.Text>
-                <Button className='btn-block btn-danger' onClick={() => handleDeleteWord(word.wordId)}>
+                <Button >
                   Delete this Word!
                 </Button>
               </Card.Body>

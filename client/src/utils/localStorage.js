@@ -1,4 +1,4 @@
-export const getsavedWordIds = () => {
+export const getSavedWordIds = () => {
     const savedWordIds = localStorage.getItem('saved_words')
         ? JSON.parse(localStorage.getItem('saved_words'))
         : [];

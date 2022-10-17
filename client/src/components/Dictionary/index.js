@@ -8,11 +8,11 @@ import { saveWordId, getSavedWordIds } from '../../utils/localStorage';
 
 
 const Dictionary = () => {
-  const [wordList, setWordList] = useState(getAllWords());
-  useEffect(() => {
-    console.log(wordList)
-    return () => setWordList(wordList);
-  });
+      const [wordList, setWordList] = useState(getAllWords());
+      useEffect(() => {
+        console.log(wordList)
+        return () => setWordList(wordList);
+      });
 
   // React.useEffect(() => {
   //   const loadDashboard = async () => {

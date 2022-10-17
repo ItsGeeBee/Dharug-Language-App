@@ -16,13 +16,11 @@ const wordSchema = new Schema(
     type: String,
     required: true,
   },
-
-    User: [
+    User: 
       {
           type: Schema.Types.ObjectId,
           ref: 'user',
       },
-          ],
     },
         {
         toJSON: {

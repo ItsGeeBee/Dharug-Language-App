@@ -1,6 +1,6 @@
 // import React from "react";
 import React, { useState, useEffect } from 'react';
-import Project from "../WordCard/index.js";
+import Wordcard from "../WordCard/index.js";
 import '../WordCard/style.css'
 import Auth from '../../utils/auth';
 import { saveWord, getAllWords } from '../../utils/API';
@@ -8,12 +8,28 @@ import { saveWordId, getSavedWordIds } from '../../utils/localStorage';
 
 
 const Dictionary = () => {
-  const [wordList, setWordList] = useState(getAllWords());
-  useEffect(() => {
-    console.log(wordList)
-    return () => setWordList(wordList);
-  });
+      const [wordList, setWordList] = useState([]);
+      
+      
+      useEffect(() => {
+        const getWordData= async () => {
+        
+          try {
+            const response = await getAllWords()
 
+         if (!response.ok) {
+            throw new Error('something went wrong!');
+            }
+
+        const wordList = await response.json();
+        console.log(wordList)
+        setWordList(wordList);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getWordData();
+      },[]);
   // React.useEffect(() => {
   //   const loadDashboard = async () => {
   //     try {

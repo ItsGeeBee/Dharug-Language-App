@@ -29,7 +29,7 @@ export const loginUser = (userData) => {
 };
 
 export const getAllWords = (wordData) => {
-    return fetch('/api/users/dictionary', {
+    return fetch('/api/dictionary', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

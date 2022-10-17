@@ -2,50 +2,45 @@
 import React, { useState, useEffect } from 'react';
 import Project from "../Project/index.js";
 import '../Project/style.css'
-import { saveWord, getAllWords } from '../utils/API';
-import { saveWordIds, getSavedWordIds } from '../utils/localStorage';
-
+import { saveWord, getAllWords } from '../../utils/API';
+import { saveWordIds, getSavedWordIds, storeSavedWord } from '../../utils/localStorage';
+import Auth from '../../utils/auth.js';
 
 const Dictionary = () => {
   const [wordList, setWordList] = useState([]);
   const [savedWordIds, setSavedWordIds] = useState(getSavedWordIds());
-};
+  useEffect(() => {
+    //  Need to pass in API fetch call as soon as page loads
+    return () => storeSavedWord(savedWordIds);
+  });
+  // create function to handle saving a word to our database
+  const handleSaveWord = async (wordId) => {
 
-useEffect(() => {
-  //  Need to pass in API fetch call as soon as page loads
-  return () => storeSavedWord(savedWordIds);
-});
+    // find the word in `wordList` state by the matching id
+    const wordToSave = wordList.find((word) => word.wordId === wordId);
 
-// create function to handle saving a word to our database
-const handleSaveWord = async (wordId) => {
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  // find the word in `wordList` state by the matching id
-  const wordToSave = wordList.find((word) => word.wordId === wordId);
-
-  // get token
-  const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-  if (!token) {
-    return false;
-  }
-
-  try {
-    const response = await saveWord(wordToSave, token);
-
-    if (!response.ok) {
-      throw new Error('something went wrong!');
+    if (!token) {
+      return false;
     }
 
-    // if word successfully saves to user's account, save book id to state
-    setSavedWordIds([...savedWordIds, wordToSave.wordId]);
-  } catch (err) {
-    console.error(err);
-  }
-};
+    try {
+      const response = await saveWord(wordToSave, token);
 
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
 
-// Dictionary section assigning the words and info to each individual card
-function Dictionary(props) {
+      // if word successfully saves to user's account, save book id to state
+      setSavedWordIds([...savedWordIds, wordToSave.wordId]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Dictionary section assigning the words and info to each individual card
   const featurePhotos = [
     {
       name: "",
@@ -139,5 +134,7 @@ function Dictionary(props) {
     </div>
   );
 }
+  ;
+
 
 export default Dictionary;

@@ -1,7 +1,7 @@
 // import React from "react";
 import React, { useState, useEffect } from 'react';
-import Project from "../Project/index.js";
-import '../Project/style.css'
+import Project from "../WordCard/index.js";
+import '../WordCard/style.css'
 import Auth from '../../utils/auth';
 import { saveWord, getAllWords } from '../../utils/API';
 import { saveWordId, getSavedWordIds } from '../../utils/localStorage';

@@ -12,14 +12,14 @@ section {
   color: var(--darker);
 }
 
-.project-image {
+.word-image {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin-bottom: 200px;
 }
 
-.project-image img {
+.word-image img {
   max-width: 400px;
 }
 

@@ -6,7 +6,6 @@ import Auth from '../../utils/auth';
 import { Jumbotron, Container,  Button } from 'react-bootstrap';
 import "./style.css";
 
-
 const Dashboard = () => {
   // create state for holding returned api data
   const [userData, setUserData] = useState({});

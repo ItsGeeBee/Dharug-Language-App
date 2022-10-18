@@ -10,19 +10,24 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true // removes any unnecessary white space either side
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
+      match: [/.+@.+\..+/, 'Must use a valid email address'], // regex email validator
     },
     password: {
       type: String,
       required: true,
     },
+    date: {
+      type: Date,
+      default: Date.now
+    },
     // set savedWords to be an array of data that adheres to the savedSchema
-     savedWords: [savedSchema],
+    savedWords: [savedSchema],
   },
   // set this to use virtual below
   {
@@ -55,3 +60,5 @@ userSchema.virtual('wordCount').get(function () {
 const User = model('User', userSchema);
 
 module.exports = User;
+
+// module.exports = User = mongoose.model("User", UserSchema);

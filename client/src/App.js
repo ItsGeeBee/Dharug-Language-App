@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
   const pages = [
@@ -14,10 +14,13 @@ function App() {
   ];
 
   const [currentPage, setCurrentPage] = useState(pages[0]);
-
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  useEffect(() => {
+    console.log("isAuthenticated", isAuthenticated)
+  }, [isAuthenticated])
   return (
     <div className="App">
-      <Header setCurrentPage={setCurrentPage} currentPage={currentPage} pages={pages} />
+      <Header setCurrentPage={setCurrentPage} currentPage={currentPage} pages={pages} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       <Footer />
     </div>
   );

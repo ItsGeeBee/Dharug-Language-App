@@ -1,11 +1,11 @@
-// see SignupForm.js for comments
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
 import { loginUser } from '../../utils/API';
 import Auth from '../../utils/auth';
 
-const LoginForm = () => {
+const SignIn = (props) => {
+    console.log("signin", props)
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -23,21 +23,24 @@ const LoginForm = () => {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+            return; // not sure we need this return
         }
 
         try {
             const response = await loginUser(userFormData);
-
             if (!response.ok) {
                 throw new Error('something went wrong!');
             }
 
             const { token, user } = await response.json();
-            console.log(user);
             Auth.login(token);
+            props.setIsAuthenticated(true)
+            window.location.assign('/dashboard'); // find a better way to do this (force nav in react router function)
+
         } catch (err) {
             console.error(err);
             setShowAlert(true);
+            // props.setIsAuthenticated(false)
         }
 
         setUserFormData({
@@ -49,7 +52,7 @@ const LoginForm = () => {
 
     return (
         <>
-            <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+            <Form noValidate validated={validated} onSubmit={(event) => { handleFormSubmit(event) }}>
                 <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
                     Something went wrong with your login credentials!
                 </Alert>
@@ -82,11 +85,11 @@ const LoginForm = () => {
                     disabled={!(userFormData.email && userFormData.password)}
                     type='submit'
                     variant='success'>
-                    Submit
+                    Sign In
                 </Button>
             </Form>
         </>
     );
 };
 
-export default LoginForm;
+export default SignIn;

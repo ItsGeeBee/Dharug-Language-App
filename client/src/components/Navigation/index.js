@@ -6,11 +6,12 @@ function Navigation(props) {
     const {
         pages = [],
         setCurrentPage,
-        currentPage
+        currentPage,
+        isAuthenticated
     } = props;
-
+    console.log(isAuthenticated)
     // navigation layout
-
+    // setCurrentPage and currentPage is being sent from "header" through props
     return (
         <nav>
             <ul>
@@ -26,12 +27,21 @@ function Navigation(props) {
                 <li>
                     <Link to="contact" className={currentPage.name === 'contact' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[3])}>Contact</Link>
                 </li>
-                <li>
-                    <Link to="sign-in" className={currentPage.name === 'sign-in' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[4])}>Sign In</Link>
-                </li>
-                <li>
-                    <Link to="sign-up" className={currentPage.name === 'sign-up' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[5])}>Sign Up</Link>
-                </li>
+                {
+                    (!isAuthenticated) ?
+                        <>
+                            <li>
+                                <Link to="sign-in" className={currentPage.name === 'sign-in' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[4])}>Sign In</Link>
+                            </li>
+                            <li>
+                                <Link to="sign-up" className={currentPage.name === 'sign-up' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[5])}>Sign Up</Link>
+                            </li>
+                        </>
+                        :
+                        <li>
+                            <Link to="sign-out" className={currentPage.name === 'sign-out' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[4])}>Sign Out</Link>
+                        </li>
+                }
             </ul>
         </nav >
     );

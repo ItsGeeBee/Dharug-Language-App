@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const  {addWord} = require('../../controllers/word-controller');
+
+const { addWord } = require('../../controllers/word-controller');
 const {
   getAllUsers,
-  createUser,
   getSingleUser,
+  createUser,
   saveWord,
   deleteWord,
   login,
@@ -11,6 +12,7 @@ const {
 
 // import middleware
 const { authMiddleware } = require('../../utils/auth');
+const { response, request } = require('express');
 
 // put authMiddleware anywhere we need to send a token for verification of user
 router.route('/').post(createUser).put(authMiddleware, saveWord).get(getAllUsers);

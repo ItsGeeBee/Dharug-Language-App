@@ -8,7 +8,8 @@ import SignUp from '../components/SignUp';
 import NoPage from '../components/NoPage';
 
 
-export default function App() {
+export default function App(props) {
+    console.log("home", props)
 
     return (
         <section>
@@ -17,8 +18,8 @@ export default function App() {
                 <Route path="/dictionary" element={<Dictionary />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/sign-in" element={<SignIn />} />
-                <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/sign-in" element={<SignIn setIsAuthenticated={props.setIsAuthenticated} />} />
+                <Route path="/sign-up" element={<SignUp setIsAuthenticated={props.setIsAuthenticated} />} />
                 <Route path="/" element={<About />} />
                 <Route path="*" element={<NoPage />} />
             </Routes>

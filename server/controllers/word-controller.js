@@ -24,27 +24,14 @@ async getAllWords({word}, res) {
     },
 
 async getUserWords(req,res) {
+// where the user id matches current user id 
+    const records = await Word.find({ _id: req.body.userId });
 
-  const records = await Word.find(
-    { '_id': { $in: ids } });
-
-  const foundUser = await User.findOne(
-    { _id: req.body.userId });
-
-  if (records ) {
-    
+    if (!records) {
+      return res.status(400).json({ message: 'Cannot add that word' });
+    }
+    return res.json(records);
   }
-  return res.json(records);
-
-}
 };
-// async addWord(req, res) {
-//     console.log(user);
-//     try {  
-//         const addedWords = await Word.findOneAndUpdate(
-//             { _id: user._id },
-//             { $addToSet:{ word: body}},
-//             { new: true, runValidators: true }
-//         );
-//         return res.json(addedWords);
+
  

@@ -1,28 +1,34 @@
 
-// import React, { useState, useEffect } from 'react';
-// import './style.css';
-// import Card from '../../components/Card';
-// import WordCard from '../../components/Dictionary';
+import React from 'react';
+import './style.css';
 
-// WordCard = (props) => {
+// Words from word schema to show in array on /dictionary 
 
-//   return (
-//     <div className="WordCardContainer">
-//       <Card>
-//         <div className="wordHeader">
-//           <span className="wordCategory">{WordCard.wordCategory}</span>
-//           <h1 className="wordTitle">{WordCard.wordTitle}</h1>
-//           <span className="contributor">posted on {WordCard.addedOn} by {WordCard.name}</span>
-//         </div>
+function WordCard (props)  {
 
-//         <div className="wordContent">
-//           <h3>{WordCard.wordTitle}</h3>
-//           <p>{WordCard.wordText}</p>
-//         </div>
-//       </Card>
-//     </div>
-//   )
+  return (
 
-// }
+     <div className="WordCardContainer">
+        {props.wordcards.map((wordcard, i) => (
+      <div key={wordcard.wordId}>
+        <div className="wordHeader">
+          <h1 className="wordTitle">{wordcard.word}</h1>
+          <span className="contributor">posted on {wordcard.addedOn} by {wordcard.name}</span>
+        </div>
 
-// export default WordCard
+        <div className="wordContent">
+          <h3>{wordcard.definition}</h3>
+          <p>{wordcard.example}</p>
+        </div>
+      </div>
+        ))}
+        <button
+          onClick={props.handleSaveWord}
+          className="btn btn-primary"
+          type="submit">
+          Add to Favourites
+        </button>  
+      </div>
+  )};
+
+export default WordCard;

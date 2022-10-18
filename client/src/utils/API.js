@@ -38,9 +38,39 @@ export const getAllWords = (wordData) => {
     });
 };
 
+export const addWord = (wordData) => {
+    return fetch('/api/dictionary', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(wordData),
+    });
+};
+
+export const getAddedWord = (wordData) => {
+    return fetch('/api/users/dashboard', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(wordData),
+    });
+};
 
 // save book data for a logged in user
 export const saveWord = (wordData, token) => {
+    return fetch('/api/users/dashboard', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(wordData),
+    });
+};
+
+export const DeleleSavedWord = (wordData, token) => {
     return fetch('/api/users/dashboard', {
         method: 'PUT',
         headers: {

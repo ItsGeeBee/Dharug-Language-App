@@ -1,6 +1,6 @@
 // import React from "react";
 import React, { useState, useEffect } from 'react';
-import Wordcard from "../WordCard/index.js";
+import WordCard from "../WordCard/index.js";
 import '../WordCard/style.css'
 import Auth from '../../utils/auth';
 import { saveWord, getAllWords } from '../../utils/API';
@@ -30,49 +30,7 @@ const Dictionary = () => {
     };
     getWordData();
       },[]);
-  // React.useEffect(() => {
-  //   const loadDashboard = async () => {
-  //     try {
-  //     const response = await getAllWords();
-  //     console.log(response)
 
-  //     if (!response.ok) {
-  //       throw new Error('something went wrong!');
-  //     }
-
-  //     const wordList = response.json();
-  //     setWordList(wordList);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  //   loadDashboard();
-  // }, []);
-
-
-
-
-  //  Need to pass in API fetch call as soon as page loads
-  // const [wordList, setWordList] = useState({}); //create state for holding returned api data
-
-  //     const getWordList = async () => {
-  //       try {
-  //          const dictionary = getAllWords();
-
-  //          console.log(dictionary)
-  //         if (!dictionary) {
-  //           throw new Error('Error fetching GET request');
-  //         }
-
-  //         setWordList(dictionary)
-
-  //       } catch (err) {
-  //         console.error('Error when setting word list');
-  //       }
-  //     };
-
-  //     getWordList();
 
   // // create state to hold saved wordId values
   const [savedWordIds, setSavedWordIds] = useState(getSavedWordIds());
@@ -109,14 +67,9 @@ const Dictionary = () => {
 
   // returns the project file
   return (
-    <div className="">
-      {/* {wordList.map((word) => ( */}
-      <div className="a-box">
-        <div className="text-container">
-          <p>{wordList.word}</p>
-        </div>
-        <button type="button" className="btn btn-secondary" onClick={handleSaveWord}>Submit</button>
-      </div>
+    <div>
+      < WordCard wordcards = {wordList}
+        handleSaveWord={handleSaveWord} />
     </div>
   )
 };

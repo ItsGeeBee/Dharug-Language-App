@@ -4,8 +4,6 @@ import Auth from '../../utils/auth';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 import "./style.css";
 
-
-
 const Dashboard = () => {
   // create state for holding returned google api data
   const [userData, setUserData] = useState({});

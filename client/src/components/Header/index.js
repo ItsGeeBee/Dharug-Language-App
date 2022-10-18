@@ -6,8 +6,8 @@ import Grid from '@mui/material/Grid';
 import Box from "@mui/material/Box";
 
 export default function Header(props) {
-
-
+  // passes all the props including setIsAuthenticated function to set the state
+  console.log("header", props)
   // header layout
   return (
     <div>
@@ -23,13 +23,14 @@ export default function Header(props) {
               pages={props.pages}
               setCurrentPage={props.setCurrentPage}
               currentPage={props.currentPage}
+              isAuthenticated={props.isAuthenticated}
             />
           </Box>
         </Grid>
       </Grid>
       </header>
       <main>
-        <Page currentPage={props.currentPage} setCurrentPage={props.setCurrentPage} />
+        <Page currentPage={props.currentPage} setCurrentPage={props.setCurrentPage} setIsAuthenticated={props.setIsAuthenticated} />
       </main>
     </div >
   );

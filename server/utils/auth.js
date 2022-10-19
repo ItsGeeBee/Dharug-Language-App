@@ -1,11 +1,11 @@
-
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+
 const secret = process.env.SECRET;
 const expiration = '2h';
 
 module.exports = {
-  authMiddleware: function (req, res, next) {
+  authMiddleware(req, res, next) {
     let token = req.query.token || req.headers.authorization;
 
     if (req.headers.authorization) {
@@ -14,7 +14,7 @@ module.exports = {
 
     if (!token) {
       // return req;
-      return res.status(400).json({ message: "No token!" })
+      return res.status(400).json({ message: 'No token!' });
     }
 
     try {
@@ -22,12 +22,12 @@ module.exports = {
       req.user = data;
     } catch {
       console.log('Invalid token');
-      return res.status(400).json({ message: "No token!2" })
+      return res.status(400).json({ message: 'No token!2' });
     }
 
     return next();
   },
-  signToken: function ({ email, username, _id }) {
+  signToken({ email, username, _id }) {
     const payload = { email, username, _id };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },

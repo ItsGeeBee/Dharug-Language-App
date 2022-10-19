@@ -20,6 +20,7 @@ export default function App(props) {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/sign-in" element={<SignIn setIsAuthenticated={props.setIsAuthenticated} />} />
                 <Route path="/sign-up" element={<SignUp setIsAuthenticated={props.setIsAuthenticated} />} />
+                <Route path="/sign-out" element={<About/>} />
                 <Route path="/" element={<About />} />
                 <Route path="*" element={<NoPage />} />
             </Routes>

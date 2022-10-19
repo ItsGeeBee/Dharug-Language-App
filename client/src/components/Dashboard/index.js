@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { getMe, addWord, getAddedWord, DeleteSavedWord } from '../../utils/API';
 import { removeSavedWord,getSavedWordIds } from '../../utils/localStorage';
-import { Card } from '../../Cards/index.js'
+import Card from '../Cards'
 import Auth from '../../utils/auth';
-import { Jumbotron, Container,  Button } from 'react-bootstrap';
 import "./style.css";
+
+const handleDeleteWord = ()=>{
+  
+}
 
 const Dashboard = () => {
   // create state for holding returned api data
@@ -52,7 +55,8 @@ const Dashboard = () => {
     console.log(addedwords)
     setaddedWords(addedwords);
   } catch (err) {
-    console.error(err);
+    console.error(err); //console.error(`ERROR: ${err}`);
+
   }
 };
 getWordData();

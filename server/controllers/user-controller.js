@@ -5,7 +5,6 @@ const { signToken } = require('../utils/auth');
 
 module.exports = {
 
-
   async getAllUsers({ user }, res) {
     console.log(user);
     const allUsers = await User.find();
@@ -14,7 +13,6 @@ module.exports = {
       return res.status(400).json({ message: 'Oh no!!' });
     }
     res.json(allUsers);
-
   },
   // get a single user by either their id or their username
   async getSingleUser({ user = null, params }, res) {
@@ -55,7 +53,6 @@ module.exports = {
     res.json({ token, user });
   },
 
-
   // user comes from `req.user` created in the auth middleware function
   async saveWord({ user, body }, res) {
     console.log(user);
@@ -63,7 +60,7 @@ module.exports = {
       const updatedUser = await User.findOneAndUpdate(
         { _id: user._id },
         { $addToSet: { savedWords: body } },
-        { new: true, runValidators: true }
+        { new: true, runValidators: true },
       );
       return res.json(updatedUser);
     } catch (err) {
@@ -76,7 +73,7 @@ module.exports = {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
       { $pull: { savedWords: { wordId: params.wordId } } },
-      { new: true }
+      { new: true },
     );
     if (!updatedUser) {
       return res.status(404).json({ message: "Couldn't find user with this id!" });
@@ -84,5 +81,3 @@ module.exports = {
     return res.json(updatedUser);
   },
 };
-
-

@@ -26,7 +26,7 @@ function WordCard (props)  {
           onClick={props.handleSaveWord}
           className="btn btn-primary"
           type="submit">
-          Add to Favourites
+          Add to Favourate
         </button>  
       </div>
   )};

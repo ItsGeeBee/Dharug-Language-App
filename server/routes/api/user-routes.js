@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 const router = require('express').Router();
 
+const { response, request } = require('express');
 const { addWord } = require('../../controllers/word-controller');
 const {
   getAllUsers,
@@ -12,7 +14,6 @@ const {
 
 // import middleware
 const { authMiddleware } = require('../../utils/auth');
-const { response, request } = require('express');
 
 // put authMiddleware anywhere we need to send a token for verification of user
 router.route('/').post(createUser).put(authMiddleware, saveWord).get(getAllUsers);

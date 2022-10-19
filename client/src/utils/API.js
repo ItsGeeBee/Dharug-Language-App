@@ -70,7 +70,7 @@ export const saveWord = (wordData, token) => {
     });
 };
 
-export const DeleleSavedWord = (wordData, token) => {
+export const DeleteSavedWord = (wordData, token) => {
     return fetch('/api/users/dashboard', {
         method: 'PUT',
         headers: {

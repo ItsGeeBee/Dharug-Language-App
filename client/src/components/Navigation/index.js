@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../../index.css"
+import Auth from "../../utils/auth";
 
 function Navigation(props) {
 
@@ -7,9 +8,16 @@ function Navigation(props) {
         pages = [],
         setCurrentPage,
         currentPage,
-        isAuthenticated
+        isAuthenticated,
+        setIsAuthenticated
     } = props;
+    
+    const logOutHandler = () => {
+    setIsAuthenticated(false)
+    Auth.logout();
+    }
     console.log(isAuthenticated)
+    
     // navigation layout
     // setCurrentPage and currentPage is being sent from "header" through props
     return (
@@ -39,7 +47,7 @@ function Navigation(props) {
                         </>
                         :
                         <li>
-                            <Link to="sign-out" className={currentPage.name === 'sign-out' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[4])}>Sign Out</Link>
+                            <Link to="sign-out" className={currentPage.name === 'sign-out' ? 'nav-active' : ''} onClick={() => logOutHandler()}>Sign Out</Link>
                         </li>
                 }
             </ul>

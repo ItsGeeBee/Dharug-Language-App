@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-
+import { useNavigate } from "react-router-dom";
 import { loginUser } from '../../utils/API';
 import Auth from '../../utils/auth';
 
 const SignIn = (props) => {
-    console.log("signin", props)
+    const navigate = useNavigate();
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -35,7 +35,7 @@ const SignIn = (props) => {
             const { token, user } = await response.json();
             Auth.login(token);
             props.setIsAuthenticated(true)
-            window.location.assign('/dashboard'); // find a better way to do this (force nav in react router function)
+            navigate("/about")// actions landing page post event
 
         } catch (err) {
             console.error(err);

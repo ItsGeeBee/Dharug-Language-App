@@ -4,7 +4,7 @@ import './style.css';
 
 // SavedWords card component to show on dashboard 
 
-const Card = (props) => {
+const SavedCard = (props) => {
 
     return (
     <div className="WordCardContainer">
@@ -27,4 +27,4 @@ const Card = (props) => {
   </div>
 )};
 
-export default Card
+export default SavedCard

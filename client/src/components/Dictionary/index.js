@@ -34,32 +34,33 @@ const Dictionary = () => {
 
   // // create state to hold saved wordId values
   const [savedWordIds, setSavedWordIds] = useState(getSavedWordIds());
-  useEffect(() => {
-    return () => saveWordId(savedWordIds);
-  });
+ // useEffect(() => {
+   // saveWordId(savedWordIds);
+  // }, [savedWordIds]);
 
   // create function to handle saving a word to our database
   const handleSaveWord = async (wordId) => {
-
+   
     // find the word in `wordList` state by the matching id
-    const wordToSave = wordList.find((word) => word.wordId === wordId);
-
+    const wordToSave = wordList.find((word) => word._id === wordId);
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+    
     if (!token) {
-      return false;
-    }
-
-    try {
-      const response = await saveWord(wordToSave, token);
-
-      if (!response.ok) {
-        throw new Error('unable to saveWord');
+        return false;
       }
-
+      
+      try {
+        const response = await saveWord(wordToSave, token);
+        
+        if (!response.ok) {
+          throw new Error('unable to saveWord');
+        }
+        
+        console.log(wordToSave)
       // if word successfully saves to user's account, save book id to state
-      setSavedWordIds([...savedWordIds, wordToSave.wordId]);
+      setSavedWordIds([...savedWordIds, wordToSave._id]);
+      saveWordId([...savedWordIds, wordToSave._id])
     } catch (err) {
       console.error(err);
     }

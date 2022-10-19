@@ -29,9 +29,9 @@ function Navigation(props) {
                 <li>
                     <Link to="dictionary" className={currentPage.name === 'dictionary' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[1])}>Dictionary</Link>
                 </li>
-                <li>
+                {isAuthenticated &&<li>
                     <Link to="dashboard" className={currentPage.name === 'dashboard' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[2])}>Dashboard</Link>
-                </li>
+                </li>}
                 <li>
                     <Link to="contact" className={currentPage.name === 'contact' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[3])}>Contact</Link>
                 </li>

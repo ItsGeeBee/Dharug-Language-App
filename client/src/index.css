@@ -1,8 +1,4 @@
-main {
-  /* margin: 0 auto;
-  max-width: 90%;
-  padding: 50px 30px; */
-}
+
 :root {
   --primary: #8b040b;
   --secondary: #ffc44a;
@@ -16,13 +12,13 @@ main {
   --spacing-five: calc(2.5rem);
 }
 
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 
-html {
+/* html {
   min-height: 100%;
-}
+} */
 
 body {
   margin: 0;
@@ -33,7 +29,7 @@ body {
   letter-spacing: 0.1em;
   background: var(--dark);
   color: var(--light);
-  font-family: "Barlow Condensed", sans-serif, "Montserrat", sans-serif !important;
+  /* font-family: "Barlow Condensed", sans-serif, "Montserrat", sans-serif !important; */
 }
 
 button {

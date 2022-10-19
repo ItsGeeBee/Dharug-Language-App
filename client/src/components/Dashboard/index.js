@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getMe, addWord, getAddedWord, DeleteSavedWord } from '../../utils/API';
 import { removeSavedWord,getSavedWordIds } from '../../utils/localStorage';
-import Card from '../Cards'
+import SavedCard from '../Cards'
 import Auth from '../../utils/auth';
 import "./style.css";
 
@@ -97,34 +97,37 @@ getWordData();
   };
 
 
-  // const handleAddWord = async (wordId) => {
+  const handleAddWord = async (wordId) => {
 
-  //     const token = Auth.loggedIn() ? Auth.getToken() : null;
+      const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  //     if (!token) {
-  //       return false;
-  //     }
-  //     try {
-  //       const response = await addWord(wordToAdd, token)
+      if (!token) {
+        return false;
+      }
+      try {
+        const response = await addWord(wordId, token)
         
-  //       if (!response.ok) {
-  //         throw new Error('unable to addWord');
-  //       }
+        if (!response.ok) {
+          throw new Error('unable to addWord');
+        }
 
-  //       // if word successfully saves to user's account, save book id to state
-  //       setWordList([...wordList, wordToAdd.wordId]);
-  //     } catch (err) {
-  //       console.log('Unable to setWordList')
-  //     }
-  // };
+        // if word successfully saves to user's account, save book id to state
+        setaddedWords([...addedwords, wordId.wordId]);
+      } catch (err) {
+        console.log('Unable to setWordList')
+      }
+  };
 
   return (
-  
     <div className='text-light bg-dark'>
       <div>
         <h1>Dashboard</h1>
       </div>
        {/* User saved words from dictionary to show */}
+       <form>
+        <p>Inputs for added words</p>
+        <button handleAddWord={handleAddWord}></button>
+        </form>
     <div>
       <h4>
         {userData.savedWords.length
@@ -135,8 +138,8 @@ getWordData();
         {userData.savedWords.map((word) => {
           return (
             <div>
-              <Card savedWords={userData}
-                    handleRemoveSaved={handleRemoveSaved} />
+              {/* <Card savedWords={userData}
+                    handleRemoveSaved={handleRemoveSaved} /> */}
             </div>
                 );
         })}
@@ -152,7 +155,7 @@ getWordData();
         {addedwords.map((addedword) => {
           return (
             <div>
-              <Card addedwords={addedwords} 
+              <SavedCard addedwords={addedwords} 
                handleDeleteWord={handleDeleteWord}/>
               </div>
               )})}

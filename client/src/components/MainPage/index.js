@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Page from "../../pages/home";
 
 const MainPage = (props) => {

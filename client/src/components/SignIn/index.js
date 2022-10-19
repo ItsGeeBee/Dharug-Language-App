@@ -35,7 +35,7 @@ const SignIn = (props) => {
             const { token, user } = await response.json();
             Auth.login(token);
             props.setIsAuthenticated(true)
-            navigate("/about")// actions landing page post event
+            navigate("/dictionary")// actions landing page post event
 
         } catch (err) {
             console.error(err);

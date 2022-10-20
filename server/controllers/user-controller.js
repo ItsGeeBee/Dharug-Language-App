@@ -57,7 +57,7 @@ module.exports = {
   // user comes from `req.user` created in the auth middleware function
    async getUserWords(req, res) {
     // where the user id matches current user id
-    const records = await Word.find({ _id: req.body.userId });
+    const records = await Word.find({user: req.params.userId });
 
     if (!records) {
       return res.status(400).json({ message: 'Cannot add that word' });
@@ -68,7 +68,7 @@ module.exports = {
   async addWord(req, res) {
     console.log(req.body);
     const addedWords = await Word.create({...req.body, user: req.params.userId});
-    console.log(addedWords)
+    console.log({...req.body, user: req.params.userId})
     if (!addedWords) {
       return res.status(400).json({ message: 'Cannot add that word' });
     }

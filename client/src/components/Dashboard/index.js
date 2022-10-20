@@ -158,8 +158,8 @@ getWordData();
         {userData.savedWordIds.map((word) => {
           return (
             <div>
-              <SavedCard savedWords={savedWordIds}
-                    handleRemoveSaved={handleRemoveSaved} />
+              {/* <SavedCard savedWords={savedWordIds}
+                    handleRemoveSaved={handleRemoveSaved} /> */}
             </div>
                 );
         })}

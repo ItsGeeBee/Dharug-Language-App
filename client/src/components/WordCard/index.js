@@ -1,37 +1,64 @@
-
 import React from 'react';
 import './style.css';
 
-// Words from word schema to show in array on /dictionary 
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import { DeleteOutlined } from '@mui/icons-material';
 
-function WordCard (props)  {
+export default function WordCard(props) {
+  
+  props.wordcards.map((wordcard, i) => {
+    
+    return (
+      <Card elevation="2" sx={{ maxWidth: 345 }}>
+        <div>  props.wordcards.map((wordcard, i) => {</div>
+        <CardHeader
+          key={wordcard._id}      
+          title={wordcard.word}
+          subheader={wordcard.definition}
+          posted on={wordcard.addedOn}
+          by={wordcard.name}
+        >
+      
+          <IconButton onClick={()=>props.handleDelete(wordcard._id)}>
+            <DeleteOutlined/>
+          </IconButton>
+    
+        </CardHeader>
 
-  return (
-
-     <div className="WordCardContainer">
-        {props.wordcards.map((wordcard, i) => {
-          console.log('>>>', wordcard._id)
-          return (
-      <div key={wordcard._id}>
-        <div className="wordHeader">
-          <h1 className="wordTitle">{wordcard.word}</h1>
-          <span className="contributor">posted on {wordcard.addedOn} by {wordcard.name}</span>
-        </div>
-
-        <div className="wordContent">
-          <h3>{wordcard.definition}</h3>
-          <p>{wordcard.example}</p>
-        </div>
-        <button
-          onClick={()=>props.handleSaveWord(wordcard._id)}
-          className="btn btn-primary"
-          type="submit">
-          Add to Favourate
-        </button> 
-      </div>
-        )
-          })} 
-      </div>
-  )};
-
-export default WordCard;
+        <CardMedia
+          component="img"
+          height="194"
+          image="/static/images/cards/paella.jpg"
+          alt="Paella dish"
+        />
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+          {wordcard.definition}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+          {wordcard.example}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites" onClick={()=>props.handleSaveWord(wordcard._id)}>
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
+    );
+  });
+  
+}
+  // export default WordCard;
+  // SavedWords card component to show on dashboard

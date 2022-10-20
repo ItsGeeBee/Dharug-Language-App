@@ -6,7 +6,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
@@ -18,7 +18,6 @@ export default function WordCard(props) {
     
     return (
       <Card elevation="2" sx={{ maxWidth: 345 }}>
-        props.wordcards.map((wordcard, i) =>
         <CardHeader
           key={wordcard._id}      
           title={wordcard.word}

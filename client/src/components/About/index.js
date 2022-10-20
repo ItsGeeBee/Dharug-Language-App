@@ -1,6 +1,5 @@
 import React from 'react';
 import "./style.css"
-import Grid from '@mui/material/Grid';
 import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/300.css';

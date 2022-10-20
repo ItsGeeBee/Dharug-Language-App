@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import React, { useEffect, useState } from "react";
 import MainPage from "./components/MainPage";
 import Grid from '@mui/material/Grid';
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Container from '@mui/material/Container';
 
 function App() {

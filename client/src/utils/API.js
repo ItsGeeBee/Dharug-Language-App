@@ -1,6 +1,6 @@
 // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
-    return fetch('/api/users/me', {
+    return fetch('/api/users', {
         headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ export const addWord = (wordData) => {
 };
 
 export const getAddedWord = (wordData) => {
-    return fetch('/api/users/dashboard', {
+    return fetch('/api/dictionary', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -60,7 +60,8 @@ export const getAddedWord = (wordData) => {
 
 // save book data for a logged in user
 export const saveWord = (wordData, token) => {
-    return fetch('/api/users/dashboard', {
+    console.log('SavewordAPI', wordData)
+    return fetch('/api/users/dictionary', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

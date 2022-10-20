@@ -18,7 +18,7 @@ export default function WordCard(props) {
     
     return (
       <Card elevation="2" sx={{ maxWidth: 345 }}>
-        <div>  props.wordcards.map((wordcard, i) => {</div>
+        props.wordcards.map((wordcard, i) =>
         <CardHeader
           key={wordcard._id}      
           title={wordcard.word}

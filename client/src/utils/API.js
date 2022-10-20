@@ -1,6 +1,6 @@
 // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
-    return fetch('/api/users', {
+    return fetch('/api/users/:userId', {
         headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ export const getAllWords = (wordData) => {
 };
 
 export const addWord = (wordData) => {
-    return fetch('/api/dictionary', {
+    return fetch('/api/:userId/added', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export const addWord = (wordData) => {
 };
 
 export const getAddedWord = (wordData) => {
-    return fetch('/api/dictionary', {
+    return fetch('/api/users/:userId/added', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -58,10 +58,10 @@ export const getAddedWord = (wordData) => {
     });
 };
 
-// save book data for a logged in user
-export const saveWord = (wordData, token) => {
-    console.log('SavewordAPI', wordData)
-    return fetch('/api/users/dictionary', {
+// Favourite book data for a logged in user
+export const FavouriteWord = (wordData, token) => {
+    console.log('FavouritewordAPI', wordData)
+    return fetch('/api/dictionary', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -71,8 +71,8 @@ export const saveWord = (wordData, token) => {
     });
 };
 
-export const DeleteSavedWord = (wordData, token) => {
-    return fetch('/api/users/dashboard', {
+export const deleteFavourite = (wordData, token) => {
+    return fetch('/api/users/:userId/deletefavourite', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -82,9 +82,9 @@ export const DeleteSavedWord = (wordData, token) => {
     });
 };
 
-// remove saved book data for a logged in user
+// remove AllFavourites book data for a logged in user
 export const deleteWord = (wordId, token) => {
-    return fetch(`/api/users/dashboard/${wordId}`, {
+    return fetch(`/api/users/:userId/${wordId}`, {
         method: 'DELETE',
         headers: {
             authorization: `Bearer ${token}`,

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import WordCard from "../WordCard/index.js";
 import '../WordCard/style.css'
 import Auth from '../../utils/auth';
-import { saveWord, getAllWords } from '../../utils/API';
-import { saveWordId, getSavedWordIds } from '../../utils/localStorage';
+import { FavouriteWord, getAllWords } from '../../utils/API';
+import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStorage';
 
 
 const Dictionary = () => {
@@ -32,17 +32,17 @@ const Dictionary = () => {
       },[]);
 
 
-  // // create state to hold saved wordId values
-  const [savedWordIds, setSavedWordIds] = useState(getSavedWordIds());
+  // // create state to hold AllFavourites wordId values
+  const [AllFavouritesWordIds, setAllFavouritesWordIds] = useState(getAllFavouritesWordIds());
  // useEffect(() => {
-   // saveWordId(savedWordIds);
-  // }, [savedWordIds]);
+   // FavouriteWordId(AllFavouritesWordIds);
+  // }, [AllFavouritesWordIds]);
 
   // create function to handle saving a word to our database
-  const handleSaveWord = async (wordId) => {
+  const handleFavouriteWord = async (wordId) => {
    
     // find the word in `wordList` state by the matching id
-    const wordToSave = wordList.find((word) => word._id === wordId);
+    const wordToFavourite = wordList.find((word) => word._id === wordId);
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     
@@ -51,16 +51,16 @@ const Dictionary = () => {
       }
       
       try {
-        const response = await saveWord(wordToSave, token);
+        const response = await FavouriteWord(wordToFavourite, token);
         
         if (!response.ok) {
-          throw new Error('unable to saveWord');
+          throw new Error('unable to FavouriteWord');
         }
         
-        console.log(wordToSave)
-      // if word successfully saves to user's account, save book id to state
-      setSavedWordIds([...savedWordIds, wordToSave._id]);
-      saveWordId([...savedWordIds, wordToSave._id])
+        console.log(wordToFavourite)
+      // if word successfully Favourites to user's account, Favourite book id to state
+      setAllFavouritesWordIds([...AllFavouritesWordIds, wordToFavourite._id]);
+      FavouriteWordId([...AllFavouritesWordIds, wordToFavourite._id])
     } catch (err) {
       console.error(err);
     }
@@ -70,7 +70,7 @@ const Dictionary = () => {
   return (
     <div>
       < WordCard wordcards = {wordList}
-        handleSaveWord={handleSaveWord} />
+        handleFavouriteWord={handleFavouriteWord} />
     </div>
   )
 };

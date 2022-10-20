@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getMe, addWord, getAddedWord, DeleteSavedWord } from '../../utils/API';
-import { removeSavedWord,getSavedWordIds } from '../../utils/localStorage';
-import SavedCard from '../Cards'
+import { getMe, addWord, getAddedWord, deleteFavourite, deleteWord, } from '../../utils/API';
+import { removeAllFavouritesWord,getAllFavouritesWordIds } from '../../utils/localStorage';
+// import AllFavouritesCard from '../Cards'
 import Auth from '../../utils/auth';
 import "./style.css";
 
@@ -10,7 +10,7 @@ const Dashboard = () => {
   // create state for holding returned api data
   const [userData, setUserData] = useState({});
   const [addedwords, setaddedWords] = useState([]);
-  const [savedWordIds, setSavedWordIds] = useState(getSavedWordIds());
+  const [allFavouritesWordIds, setAllFavouritesWordIds] = useState(getAllFavouritesWordIds());
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
 
@@ -64,11 +64,11 @@ const Dashboard = () => {
 getWordData();
   },[addedwords]);
 
-  // Remove Saved word from database and local storage 
-  const handleRemoveSaved = async (wordId) => {
+  // Remove AllFavourites word from database and local storage 
+  const handleDeleteFavourite = async (wordId) => {
 
-    // Find the selected word in the 'savedWordIds' state
-    const wordToRemove = savedWordIds.find((word) => word._id === wordId);
+    // Find the selected word in the 'AllFavouritesWordIds' state
+    const wordToRemove = allFavouritesWordIds.find((word) => word._id === wordId);
     
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -77,17 +77,17 @@ getWordData();
       return false;
     }
 
-    try { // Delete from Saved Schema 
-      const response = await DeleteSavedWord(wordToRemove, token);
+    try { // Delete from AllFavourites Schema 
+      const response = await deleteFavourite(wordToRemove, token);
 
       if (!response.ok) {
-        throw new Error('unable to saveWord');
+        throw new Error('unable to FavouriteWord');
       }
      
       console.log(wordToRemove)
-      setSavedWordIds([...savedWordIds, wordToRemove._id]);
+      setAllFavouritesWordIds([...allFavouritesWordIds, wordToRemove._id]);
       //remove from local storage 
-      removeSavedWord([...savedWordIds, wordToRemove._id])
+      removeAllFavouritesWord([...allFavouritesWordIds, wordToRemove._id])
     } catch (err) {
       console.error(err);
     }
@@ -108,7 +108,7 @@ getWordData();
           throw new Error('unable to addWord');
         }
 
-        // if word successfully saves to user's account, save word id to state
+        // if word successfully Favourites to user's account, Favourite word id to state
         setaddedWords([...addedwords, wordId.wordId]);
       } catch (err) {
         console.log('Unable to setWordList')
@@ -123,13 +123,13 @@ getWordData();
       return false;
     }
     try {
-      const response = await DeleteSavedWord(wordId, token)
+      const response = await deleteWord(wordId, token)
       
       if (!response.ok) {
         throw new Error('unable to addWord');
       }
   
-      // if word successfully saves to user's account, save book id to state
+      // if word successfully Favourites to user's account, Favourite book id to state
       setaddedWords([...addedwords, wordId.wordId]);
     } catch (err) {
       console.log('Unable to setWordList')
@@ -143,23 +143,23 @@ getWordData();
       <div>
         <h1>Dashboard</h1>
       </div>
-       {/* User saved words from dictionary to show */}
+       {/* User AllFavourites words from dictionary to show */}
        <form>
         <p>Inputs for added words</p>
         <button handleAddWord={handleAddWord}></button>
         </form>
     <div>
       <h4>
-        {savedWordIds.length
-          ? `Viewing ${savedWordIds.length} saved ${savedWordIds.length === 1 ? 'word' : 'words'}:`
-          : 'You have no saved words!'}
+        {allFavouritesWordIds.length
+          ? `Viewing ${allFavouritesWordIds.length} AllFavourites ${allFavouritesWordIds.length === 1 ? 'word' : 'words'}:`
+          : 'You have no AllFavourites words!'}
       </h4>
       </div>
-        {userData.savedWordIds.map((word) => {
+        {userData.allFavouritesWordIds.map((word) => {
           return (
             <div>
-              {/* <SavedCard savedWords={savedWordIds}
-                    handleRemoveSaved={handleRemoveSaved} /> */}
+              {/* <AllFavouritesCard AllFavouritesWords={AllFavouritesWordIds}
+                    handleDeleteFavourite={handleDeleteFavourite} /> */}
             </div>
                 );
         })}

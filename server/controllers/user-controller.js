@@ -1,5 +1,6 @@
 // import user model
 const { User } = require('../models');
+const { Word } = require('../models');
 // import sign token function from auth
 const { signToken } = require('../utils/auth');
 
@@ -54,25 +55,56 @@ module.exports = {
   },
 
   // user comes from `req.user` created in the auth middleware function
-  // async saveWord({ user, body }, res) {
-  //   console.log('**********************');
-  //   try {
-  //     const updatedUser = await User.findOneAndUpdate(
-  //       { _id: user._id },
-  //       { $addToSet: { savedWords: body } },
-  //       { new: true, runValidators: true },
-  //     );
-  //     return res.json(updatedUser);
-  //   } catch (err) {
-  //     console.log(err);
-  //     return res.status(400).json(err);
-  //   }
-  // },
-  // remove a word from `savedwords`
-  async deleteWord({ user, params }, res) {
+   async getUserWords(req, res) {
+    // where the user id matches current user id
+    const records = await Word.find({ _id: req.body.userId });
+
+    if (!records) {
+      return res.status(400).json({ message: 'Cannot add that word' });
+    }
+    return res.json(records);
+  },
+
+  async addWord(req, res) {
+    console.log(req.body);
+    const addedWords = await Word.create({...req.body, user: req.params.userId});
+    console.log(addedWords)
+    if (!addedWords) {
+      return res.status(400).json({ message: 'Cannot add that word' });
+    }
+    return res.json(addedWords);
+  },
+
+  async deleteWord(req, res) {
+    const records = await Word.deleteOne({ _id: req.params.wordId });
+
+    if (!records) {
+      return res.status(400).json({ message: 'Cannot add that word' });
+    }
+    return res.json(records);
+  },
+
+  async addFavourite({ user, body }, res) {
+      console.log('**********************');
+      try {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: user._id },
+          { $addToSet: { FavouriteWords: body } },
+          { new: true, runValidators: true },
+        );
+        return res.json(updatedUser);
+      } catch (err) {
+        console.log(err);
+        return res.status(400).json(err);
+      }
+    },
+
+
+  // remove a word from `AllFavouriteswords`
+  async deleteFavourite({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
-      { $pull: { savedWords: { wordId: params.wordId } } },
+      { $pull: { FavouriteWords: { wordId: params.wordId } } },
       { new: true },
     );
     if (!updatedUser) {

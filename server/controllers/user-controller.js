@@ -54,20 +54,20 @@ module.exports = {
   },
 
   // user comes from `req.user` created in the auth middleware function
-  async saveWord({ user, body }, res) {
-    console.log(user);
-    try {
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: user._id },
-        { $addToSet: { savedWords: body } },
-        { new: true, runValidators: true },
-      );
-      return res.json(updatedUser);
-    } catch (err) {
-      console.log(err);
-      return res.status(400).json(err);
-    }
-  },
+  // async saveWord({ user, body }, res) {
+  //   console.log('**********************');
+  //   try {
+  //     const updatedUser = await User.findOneAndUpdate(
+  //       { _id: user._id },
+  //       { $addToSet: { savedWords: body } },
+  //       { new: true, runValidators: true },
+  //     );
+  //     return res.json(updatedUser);
+  //   } catch (err) {
+  //     console.log(err);
+  //     return res.status(400).json(err);
+  //   }
+  // },
   // remove a word from `savedwords`
   async deleteWord({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(

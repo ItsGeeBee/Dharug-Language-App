@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 // import schema from Word.js
-const savedSchema = require('./Saved');
+const FavouritesSchema = require('./Favourites');
 
 const userSchema = new Schema(
   {
@@ -26,8 +26,8 @@ const userSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    // set savedWords to be an array of data that adheres to the savedSchema
-    savedWords: [savedSchema],
+    // set AllFavouritesWords to be an array of data that adheres to the AllFavouritesSchema
+    FavouriteWords: [FavouritesSchema],
   },
   // set this to use virtual below
   {
@@ -53,10 +53,10 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 // when we query a user, we'll also get another field called `wordCount`
-// with the number of saved books we have
+// with the number of AllFavourites books we have
 
 userSchema.virtual('wordCount').get(function () {
-  return this.savedWords.length;
+  return this.FavouriteWords.length;
 });
 
 const User = model('User', userSchema);

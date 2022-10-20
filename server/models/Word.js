@@ -1,9 +1,9 @@
 const { Schema, model } = require('mongoose');
 // eslint-disable-next-line no-unused-vars
-const savedSchema = require('./Saved');
+const FavouriteSchema = require('./Favourites');
 
 // This is a subdocument schema, it won't become its own model but we'll use it as the schema for
-// the User's `savedBooks` array in User.js
+// the User's `AllFavouritesBooks` array in User.js
 
 const wordSchema = new Schema(
 

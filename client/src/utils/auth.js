@@ -10,7 +10,7 @@ class AuthService {
 
     // check if user's logged in
     loggedIn() {
-        // Checks if there is a saved token and it's still valid
+        // Checks if there is a AllFavourites token and it's still valid
         const token = this.getToken();
         return !!token && !this.isTokenExpired(token); // handwaiving here
     }
@@ -33,7 +33,7 @@ class AuthService {
     }
 
     login(idToken) {
-        // Saves user token to localStorage
+        // Favourites user token to localStorage
         localStorage.setItem('id_token', idToken);
     }
 

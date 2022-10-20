@@ -47,7 +47,7 @@ export default function WordCard(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={()=>props.handleSaveWord(wordcard._id)}>
+          <IconButton aria-label="add to favorites" onClick={()=>props.handleFavouriteWord(wordcard._id)}>
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">
@@ -60,4 +60,4 @@ export default function WordCard(props) {
   
 }
   // export default WordCard;
-  // SavedWords card component to show on dashboard
+  // AllFavouritesWords card component to show on dashboard

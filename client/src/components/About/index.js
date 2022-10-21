@@ -21,7 +21,6 @@ theme.typography.h3 = {
 };
 
 function About() {
-    console.log("about")
     // about me layout
     return (
         <Box 

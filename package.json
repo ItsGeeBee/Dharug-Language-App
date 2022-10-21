@@ -31,6 +31,8 @@
     },
     "dependencies": {
         "@fontsource/roboto": "^4.5.8",
+        "@material-ui/styles": "^4.11.5",
+        "@material/card": "^14.0.0",
         "@mui/icons-material": "^5.10.9",
         "@mui/material": "^5.10.10",
         "@mui/styled-engine-sc": "^5.10.6",

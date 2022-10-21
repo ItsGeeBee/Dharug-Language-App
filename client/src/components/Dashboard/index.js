@@ -54,7 +54,6 @@ const Dashboard = () => {
         }
 
     const addedwords = await response.json();
-    console.log(addedwords)
     setaddedWords(addedwords);
   } catch (err) {
     console.error(err); //console.error(`ERROR: ${err}`);

@@ -5,24 +5,27 @@ const { Word } = require('../models');
 const { signToken } = require('../utils/auth');
 
 module.exports = {
-
   async getAllUsers({ user }, res) {
-    console.log(user);
     const allUsers = await User.find();
 
     if (!allUsers) {
-      return res.status(400).json({ message: 'Oh no!!' });
+      return res.status(400).json({ message: "Oh no!!" });
     }
     res.json(allUsers);
   },
   // get a single user by either their id or their username
   async getSingleUser({ user = null, params }, res) {
     const foundUser = await User.findOne({
-      $or: [{ _id: user ? user._id : params.id }, { username: params.username }],
+      $or: [
+        { _id: user ? user._id : params.id },
+        { username: params.username },
+      ],
     });
 
     if (!foundUser) {
-      return res.status(400).json({ message: 'Cannot find a user with this id!' });
+      return res
+        .status(400)
+        .json({ message: "Cannot find a user with this id!" });
     }
 
     res.json(foundUser);
@@ -32,7 +35,7 @@ module.exports = {
     const user = await User.create(body);
 
     if (!user) {
-      return res.status(400).json({ message: 'Something is wrong!' });
+      return res.status(400).json({ message: "Something is wrong!" });
     }
     const token = signToken(user);
     res.json({ token, user });
@@ -40,7 +43,9 @@ module.exports = {
   // login a user, sign a token, and send it back (to client/src/components/SignIn.js)
   // {body} is destructured req.body
   async login({ body }, res) {
-    const user = await User.findOne({ $or: [{ username: body.username }, { email: body.email }] });
+    const user = await User.findOne({
+      $or: [{ username: body.username }, { email: body.email }],
+    });
     if (!user) {
       return res.status(400).json({ message: "Can't find this user" });
     }
@@ -48,29 +53,31 @@ module.exports = {
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(400).json({ message: 'Wrong password!' });
+      return res.status(400).json({ message: "Wrong password!" });
     }
     const token = signToken(user);
     res.json({ token, user });
   },
 
   // user comes from `req.user` created in the auth middleware function
-   async getUserWords(req, res) {
+  async getUserWords(req, res) {
     // where the user id matches current user id
-    const records = await Word.find({user: req.params.userId });
+    const records = await Word.find({ user: req.params.userId });
 
     if (!records) {
-      return res.status(400).json({ message: 'Cannot add that word' });
+      return res.status(400).json({ message: "Cannot add that word" });
     }
     return res.json(records);
   },
 
   async addWord(req, res) {
-    console.log(req.body);
-    const addedWords = await Word.create({...req.body, user: req.params.userId});
-    console.log({...req.body, user: req.params.userId})
+    const addedWords = await Word.create({
+      ...req.body,
+      user: req.params.userId,
+    });
+
     if (!addedWords) {
-      return res.status(400).json({ message: 'Cannot add that word' });
+      return res.status(400).json({ message: "Cannot add that word" });
     }
     return res.json(addedWords);
   },
@@ -79,36 +86,36 @@ module.exports = {
     const records = await Word.deleteOne({ _id: req.params.wordId });
 
     if (!records) {
-      return res.status(400).json({ message: 'Cannot add that word' });
+      return res.status(400).json({ message: "Cannot add that word" });
     }
     return res.json(records);
   },
 
   async addFavourite({ user, body }, res) {
-      console.log('**********************');
-      try {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: user._id },
-          { $addToSet: { FavouriteWords: body } },
-          { new: true, runValidators: true },
-        );
-        return res.json(updatedUser);
-      } catch (err) {
-        console.log(err);
-        return res.status(400).json(err);
-      }
-    },
-
+    try {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: user._id },
+        { $addToSet: { FavouriteWords: body } },
+        { new: true, runValidators: true }
+      );
+      return res.json(updatedUser);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
 
   // remove a word from `AllFavouriteswords`
   async deleteFavourite({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
       { $pull: { FavouriteWords: { wordId: params.wordId } } },
-      { new: true },
+      { new: true }
     );
     if (!updatedUser) {
-      return res.status(404).json({ message: "Couldn't find user with this id!" });
+      return res
+        .status(404)
+        .json({ message: "Couldn't find user with this id!" });
     }
     return res.json(updatedUser);
   },

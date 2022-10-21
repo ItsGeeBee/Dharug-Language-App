@@ -91,26 +91,28 @@ module.exports = {
     return res.json(records);
   },
 
-  async addFavourite({ user, body }, res) {
-    try {
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: user._id },
-        { $addToSet: { FavouriteWords: body } },
-        { new: true, runValidators: true }
-      );
-      return res.json(updatedUser);
-    } catch (err) {
-      console.log(err);
-      return res.status(400).json(err);
-    }
-  },
+  async addFavourite(req, res) {
+      try {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: req.params.userId },
+          { $addToSet: { FavouriteWords: req.body } },
+          { new: true, runValidators: true },
+        );
 
-  // remove a word from `AllFavouriteswords`
-  async deleteFavourite({ user, params }, res) {
+        return res.json(updatedUser);
+      } catch (err) {
+        console.log(err);
+        return res.status(400).json(err);
+      }
+    },
+
+  // remove a word from `Favouritewords`
+  async deleteFavourite(req, res) {
     const updatedUser = await User.findOneAndUpdate(
-      { _id: user._id },
-      { $pull: { FavouriteWords: { wordId: params.wordId } } },
-      { new: true }
+
+      { _id: req.params.userId },
+      { $pull: { FavouriteWords: { _id: req.params.wordId } } },
+      { new: true },
     );
     if (!updatedUser) {
       return res

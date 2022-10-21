@@ -29,8 +29,8 @@ router.route('/:userId/create').post(addWord);
 
 router.route('/:userId/:wordId').delete(deleteWord);
 
-router.route('/:userId/addfavourite').post(addFavourite);
+router.route('/:userId/addfavourite').put(addFavourite);
 
-router.route('/:userId/deletefavourite').delete(deleteFavourite);
+router.route('/:userId/addfavourite/:wordId').delete(deleteFavourite);
 
 module.exports = router;

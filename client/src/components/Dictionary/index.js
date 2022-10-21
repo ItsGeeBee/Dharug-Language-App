@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import WordCard from "../WordCard/index.js";
 import '../WordCard/style.css'
 import Auth from '../../utils/auth';
-import { FavouriteWord, getAllWords } from '../../utils/API';
+import { addFavourite, getAllWords } from '../../utils/API';
 import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStorage';
 import { Grid } from '@mui/material';
 
@@ -51,7 +51,7 @@ import { Grid } from '@mui/material';
       }
       
       try {
-        const response = await FavouriteWord(wordToFavourite, token);
+        const response = await addFavourite(wordToFavourite, token);
         
         if (!response.ok) {
           throw new Error('unable to FavouriteWord');

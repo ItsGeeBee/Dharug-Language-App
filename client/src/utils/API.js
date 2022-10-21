@@ -59,9 +59,9 @@ export const getAddedWord = (wordData) => {
 };
 
 // Favourite book data for a logged in user
-export const FavouriteWord = (wordData, token) => {
+export const addFavourite = (wordData, token) => {
     console.log('FavouritewordAPI', wordData)
-    return fetch('/api/dictionary', {
+    return fetch('/api/users/:userId/addfavourite', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -71,14 +71,14 @@ export const FavouriteWord = (wordData, token) => {
     });
 };
 
-export const deleteFavourite = (wordData, token) => {
-    return fetch('/api/users/:userId/deletefavourite', {
+export const deleteFavourite = (wordId, token) => {
+    return fetch(`/api/users/:userId/addfavourite/${wordId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(wordData),
+        body: JSON.stringify(wordId),
     });
 };
 

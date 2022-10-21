@@ -27,18 +27,17 @@ const Dashboard = () => {
         }
 
         const response = await getMe(token);
-
         if (!response.ok) {
           throw new Error('something went wrong!');
         }
 
         const user = await response.json();
+        console.log(user)
         setUserData(user);
       } catch (err) {
         console.error(err);
       }
     };
-
     getUserData();
   }, [userDataLength]);
 
@@ -136,7 +135,9 @@ getWordData();
     }
   }
 
-
+ if(!userDataLength){
+  return <h3>FUCK!</h3>
+ }
 
   return (
     <div className='text-light bg-dark'>
@@ -145,10 +146,34 @@ getWordData();
       </div>
        {/* User AllFavourites words from dictionary to show */}
        <form>
-        <p>Inputs for added words</p>
-        <button handleAddWord={handleAddWord}></button>
+       <div className="writeFormGroup">
+          <label htmlFor="fileInput">
+            <i className="writeIcon fas fa-plus"></i>
+          </label>
+          <input id="fileInput" type="file" style={{ display: "none" }} />
+          <input
+            className="writeInput"
+            placeholder="Title"
+            type="text"
+            autoFocus={true}
+          />
+        </div>
+        <div className="writeFormGroup">
+          <textarea
+            className="writeInput writeText"
+            placeholder="Tell your story..."
+            type="text"
+            autoFocus={true}
+          />
+        </div>
+        <button onClick={() =>handleAddWord()}></button>
         </form>
-    <div>
+        {/* <div>
+          <h2>{userData.map(user=>{
+            <div>{user.username}</div>
+          })}</h2>
+        </div> */}
+    {/* <div>
       <h4>
         {allFavouritesWordIds.length
           ? `Viewing ${allFavouritesWordIds.length} AllFavourites ${allFavouritesWordIds.length === 1 ? 'word' : 'words'}:`
@@ -158,14 +183,14 @@ getWordData();
         {userData.allFavouritesWordIds.map((word) => {
           return (
             <div>
-              {/* <AllFavouritesCard AllFavouritesWords={AllFavouritesWordIds}
-                    handleDeleteFavourite={handleDeleteFavourite} /> */}
+              <allFavouritesCard allFavouritesWords={allFavouritesWordIds}
+                    handleDeleteFavourite={handleDeleteFavourite} />
             </div>
                 );
         })}
 
     {/* User added words to dictionary to show */}
-    <div className='text-light bg-dark'>
+    {/* <div className='text-light bg-dark'>
       <h4>
         {addedwords.length
           ? `${userData.username}, you have added ${userData.addedwords.length === 1 ? 'word' : 'words'}:`
@@ -175,10 +200,10 @@ getWordData();
         {addedwords.map((addedword) => {
           return (
             <div>
-              {/* <AddedCard addedwords={addedwords}  */}
-               {/* handleDeleteWord={handleDeleteWord}/> */}
+              <AddedCard addedwords={addedwords} 
+               handleDeleteWord={handleDeleteWord}/>
               </div>
-              )})}
+              )})}  */}
        </div>       
         );
 

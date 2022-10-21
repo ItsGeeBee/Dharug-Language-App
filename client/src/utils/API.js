@@ -1,6 +1,6 @@
 // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
-    return fetch('/api/users/:userId', {
+    return fetch('/api/users/:id', {
         headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ export const getAllWords = (wordData) => {
 };
 
 export const addWord = (wordData) => {
-    return fetch('/api/:userId/added', {
+    return fetch('/api/:id/added', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export const addWord = (wordData) => {
 };
 
 export const getAddedWord = (wordData) => {
-    return fetch('/api/users/:userId/added', {
+    return fetch('/api/users/:id/added', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export const getAddedWord = (wordData) => {
 // Favourite book data for a logged in user
 export const addFavourite = (wordData, token) => {
     console.log('FavouritewordAPI', wordData)
-    return fetch('/api/users/:userId/addfavourite', {
+    return fetch('/api/users/:id/addfavourite', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

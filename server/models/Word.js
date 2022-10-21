@@ -20,10 +20,11 @@ const wordSchema = new Schema(
       type: String,
       required: true,
     },
+    // consider changing from object to array that houses user object
     user:
       {
         type: Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
       },
   },
   {

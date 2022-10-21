@@ -8,13 +8,13 @@ const AllFavouritesCard = (props) => {
 
     return (
     <div className="WordCardContainer">
-    {props.AllFavouritesWords.map((AllFavouritesWord, i) => (
-  <div key={AllFavouritesWord.wordId}>
+    {props.allFavouritesWords.map((allFavouritesWord, i) => (
+  <div key={allFavouritesWord.wordId}>
     <div className="wordHeader">
-      <h1 className="wordTitle">{AllFavouritesWord.word}</h1>
+      <h1 className="wordTitle">{allFavouritesWord.word}</h1>
     </div>
     <div className="wordContent">
-      <h4>{AllFavouritesWord.definition}</h4>
+      <h4>{allFavouritesWord.definition}</h4>
     </div>
   </div>
     ))}

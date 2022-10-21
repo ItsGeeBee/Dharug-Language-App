@@ -21,11 +21,11 @@ router.route('/').post(createUser).get(getAllUsers);
 
 router.route('/login').post(login);
 
-router.route('/:userId').get(authMiddleware, getSingleUser);
+router.route('/:id').get(authMiddleware, getSingleUser);
 
-router.route('/:userId/added').get(getUserWords);
+router.route('/:id/added').get(getUserWords);
 
-router.route('/:userId/create').post(addWord);
+router.route('/:id/create').post(addWord);
 
 router.route('/:userId/:wordId').delete(deleteWord);
 

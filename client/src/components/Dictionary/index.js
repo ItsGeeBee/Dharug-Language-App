@@ -5,12 +5,13 @@ import '../WordCard/style.css'
 import Auth from '../../utils/auth';
 import { addFavourite, getAllWords } from '../../utils/API';
 import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStorage';
+import { Grid } from '@mui/material';
 
 
-const Dictionary = () => {
+// const Dictionary = () => {
+  export default function Dictionary() {
       const [wordList, setWordList] = useState([]);
-      
-      
+
       useEffect(() => {
         const getWordData= async () => {
         
@@ -22,7 +23,6 @@ const Dictionary = () => {
             }
 
         const wordList = await response.json();
-        console.log(wordList)
         setWordList(wordList);
       } catch (err) {
         console.error(err);
@@ -57,7 +57,6 @@ const Dictionary = () => {
           throw new Error('unable to FavouriteWord');
         }
         
-        console.log(wordToFavourite)
       // if word successfully Favourites to user's account, Favourite book id to state
       setAllFavouritesWordIds([...AllFavouritesWordIds, wordToFavourite._id]);
       FavouriteWordId([...AllFavouritesWordIds, wordToFavourite._id])
@@ -66,13 +65,18 @@ const Dictionary = () => {
     }
   };
 
-  // returns the project file
+
+  // returns the project file{
+
   return (
-    <div>
-      < WordCard wordcards = {wordList}
-        handleFavouriteWord={handleFavouriteWord} />
-    </div>
-  )
+        <>
+          <WordCard
+            wordcards={wordList}
+            handleFavouriteWord={handleFavouriteWord}
+          />
+        </>
+
+  );
 };
 
-export default Dictionary;
+// export default Dictionary;

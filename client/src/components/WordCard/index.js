@@ -1,63 +1,37 @@
-import React from 'react';
-import './style.css';
+import React from "react";
 
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import { DeleteOutlined } from '@mui/icons-material';
-
-export default function WordCard(props) {
-  
-  props.wordcards.map((wordcard, i) => {
-    
-    return (
-      <Card elevation="2" sx={{ maxWidth: 345 }}>
-        <CardHeader
-          key={wordcard._id}      
-          title={wordcard.word}
-          subheader={wordcard.definition}
-          posted on={wordcard.addedOn}
-          by={wordcard.name}
-        >
-      
-          <IconButton onClick={()=>props.handleDelete(wordcard._id)}>
-            <DeleteOutlined/>
-          </IconButton>
-    
-        </CardHeader>
-
-        <CardMedia
-          component="img"
-          height="194"
-          image="/static/images/cards/paella.jpg"
-          alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-          {wordcard.definition}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-          {wordcard.example}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={()=>props.handleFavouriteWord(wordcard._id)}>
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
-    );
-  });
-  
+import { Card } from '@mui/material';
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { Grid } from '@mui/material';
+import { box } from '@mui/material'
+export default function WordCard({ wordcards }) {
+  return (
+    <>
+      {wordcards.map((wordcard) => (
+        <Grid>
+          <Grid item xs={12} sm={6} md={3} m={3}>
+        <Card elevation="2" sx={{ maxWidth: 345 }}>
+          <CardHeader
+            key={wordcard._id}
+            title={wordcard.word}
+            subheader={wordcard.definition}
+          >
+          </CardHeader>
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {wordcard.example}
+            </Typography>
+          </CardContent>
+        </Card>
+        </Grid>
+        </Grid>
+      ))}
+    </>
+  );
 }
-  // export default WordCard;
-  // AllFavouritesWords card component to show on dashboard
+
+
+// export default WordCard;
+// AllFavouritesWords card component to show on dashboard

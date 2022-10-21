@@ -4,6 +4,7 @@ import { removeAllFavouritesWord,getAllFavouritesWordIds } from '../../utils/loc
 // import AllFavouritesCard from '../Cards'
 import Auth from '../../utils/auth';
 import "./style.css";
+import "../AddWordCard"
 
 
 const Dashboard = () => {

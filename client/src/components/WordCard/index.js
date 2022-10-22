@@ -7,16 +7,17 @@ import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import { Grid} from '@mui/material';
 import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import { DeleteOutlined } from "@mui/icons-material";
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Divider from '@mui/material/Divider';
+import { red } from '@mui/material/colors';
 
 export default function WordCard(props) {
-  console.log("props", props)
 
   return (
     <>
-`    <Grid container columns={12}>
+`    <Grid justifyContent="center" alignItems="center" container columns={12}>
       {props.wordcards.map((wordcard) => (
           <Grid item xs={4} sm={4} md={4} key={wordcard._id} m={4}>
             <Card elevation={2}>
@@ -29,6 +30,7 @@ export default function WordCard(props) {
                   {wordcard.example}
                 </Typography>
               </CardContent>
+              <Divider variant="middle" />
               <CardActions>
                 <IconButton  
                   aria-label="remove from favorites"
@@ -40,7 +42,7 @@ export default function WordCard(props) {
                   aria-label="add to favorites"
                   onClick={() => props.handleFavouriteWord(wordcard._id)}
                 >
-                  <FavoriteIcon />
+                  <FavoriteBorderIcon sx={{ color: red[600] }}/>
                 </IconButton>
               </CardActions>
             </Card>

@@ -4,8 +4,8 @@ import { removeAllFavouritesWord,getAllFavouritesWordIds } from '../../utils/loc
 // import AllFavouritesCard from '../Cards'
 import Auth from '../../utils/auth';
 import "./style.css";
-import "../AddWordCard"
-
+import AddWordCard from "../AddWordCard/index.js";
+import Box from '@mui/material/Box';
 
 const Dashboard = () => {
   // create state for holding returned api data
@@ -136,38 +136,46 @@ getWordData();
   }
 
  if(!userDataLength){
-  return <h3>FUCK!</h3>
+  return <h3>Calm ya Farm</h3>
  }
 
-  return (
-    <div className='text-light bg-dark'>
-      <div>
-        <h1>Dashboard</h1>
-      </div>
-       {/* User AllFavourites words from dictionary to show */}
-       <form>
-       <div className="writeFormGroup">
-          <label htmlFor="fileInput">
-            <i className="writeIcon fas fa-plus"></i>
-          </label>
-          <input id="fileInput" type="file" style={{ display: "none" }} />
-          <input
-            className="writeInput"
-            placeholder="Title"
-            type="text"
-            autoFocus={true}
-          />
-        </div>
-        <div className="writeFormGroup">
-          <textarea
-            className="writeInput writeText"
-            placeholder="Tell your story..."
-            type="text"
-            autoFocus={true}
-          />
-        </div>
-        <button onClick={() =>handleAddWord()}></button>
-        </form>
+ return (
+  <>
+  <Box>
+    <AddWordCard
+      addedwords={addedwords}
+      handleDeleteWord={handleDeleteWord}
+    />
+    </Box>
+  </>
+
+);
+};
+    // <div className='text-light bg-dark'>
+    //    {/* User AllFavourites words from dictionary to show */}
+    //    <form>
+    //    <div className="writeFormGroup">
+    //       <label htmlFor="fileInput">
+    //         <i className="writeIcon fas fa-plus"></i>
+    //       </label>
+    //       <input id="fileInput" type="file" style={{ display: "none" }} />
+    //       <input
+    //         className="writeInput"
+    //         placeholder="Title"
+    //         type="text"
+    //         autoFocus={true}
+    //       />
+    //     </div>
+    //     <div className="writeFormGroup">
+    //       <textarea
+    //         className="writeInput writeText"
+    //         placeholder="Tell your story..."
+    //         type="text"
+    //         autoFocus={true}
+    //       />
+    //     </div>
+    //     <button onClick={() =>handleAddWord()}></button>
+    //     </form>
         {/* <div>
           <h2>{userData.map(user=>{
             <div>{user.username}</div>
@@ -204,9 +212,9 @@ getWordData();
                handleDeleteWord={handleDeleteWord}/>
               </div>
               )})}  */}
-       </div>       
-        );
+//        </div>       
+//         );
 
-};
+// };
 // exports file
 export default Dashboard

@@ -9,14 +9,15 @@ import { Grid} from '@mui/material';
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { DeleteOutlined } from "@mui/icons-material";
-// import { box } from '@mui/material'
 
-export default function WordCard({ wordcards }) {
-console.log("wordcards", wordcards)
+
+export default function WordCard(props) {
+  console.log("props", props)
+
   return (
     <>
 `    <Grid container columns={12}>
-      {wordcards.map((wordcard) => (
+      {props.wordcards.map((wordcard) => (
           <Grid item xs={4} sm={4} md={4} key={wordcard._id} m={4}>
             <Card elevation={2}>
               <CardHeader
@@ -29,14 +30,16 @@ console.log("wordcards", wordcards)
                 </Typography>
               </CardContent>
               <CardActions>
-                <IconButton>
+                <IconButton  
+                  aria-label="remove from favorites"
+                  onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
+                >
                   <DeleteOutlined />
                 </IconButton>
                 <IconButton
                   aria-label="add to favorites"
-                  onClick={() => wordcard.props.handleFavouriteWord(wordcard._id)}
+                  onClick={() => props.handleFavouriteWord(wordcard._id)}
                 >
-                  {wordcard.addFavourite}
                   <FavoriteIcon />
                 </IconButton>
               </CardActions>
@@ -47,7 +50,7 @@ console.log("wordcards", wordcards)
     </>
   );
 }
-
+// router.route('/:userId/addfavourite/:wordId').delete(deleteFavourite);
 // router.route('/:userId/addfavourite').put(addFavourite);
 
 

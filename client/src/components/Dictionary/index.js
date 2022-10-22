@@ -38,19 +38,16 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
 
   // create function to handle saving a word to our database
   const handleFavouriteWord = async (wordId) => {
-   console.log("wordId", wordId)
     // find the word in `wordList` state by the matching id
     const wordToFavourite = wordList.find((word) => word._id === wordId);
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-    console.log("token", token)
     if (!token) {
         return false;
       }
       
       try {
         const response = await addFavourite(wordToFavourite, token);
-        console.log("response", response)
         if (!response.ok) {
           throw new Error('unable to FavouriteWord');
         }
@@ -63,17 +60,14 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
     }
   };
   const handleDeleteFavouriteWord = async (wordId) => {
-    console.log("wordId", wordId)
      // get token
      const token = Auth.loggedIn() ? Auth.getToken() : null;
-     console.log("token", token)
      if (!token) {
          return false;
        }
        
        try {
          const response = await deleteFavourite(wordId, token);
-         console.log("response", response)
          if (!response.ok) {
            throw new Error('unable to FavouriteWord');
          }

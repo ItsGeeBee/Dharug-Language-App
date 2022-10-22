@@ -12,7 +12,6 @@ export default function App(props) {
     console.log("home", props)
 
     return (
-        <section>
             <Routes>
                 <Route path="/about" element={<About />} />
                 <Route path="/dictionary" element={<Dictionary />} />
@@ -24,6 +23,5 @@ export default function App(props) {
                 <Route path="/" element={<About />} />
                 <Route path="*" element={<NoPage />} />
             </Routes>
-        </section>
     );
 }

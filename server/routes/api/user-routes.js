@@ -10,7 +10,7 @@ const {
   deleteWord,
   login,
   addFavourite,
-  deleteFavourite
+  deleteFavourite,
 } = require('../../controllers/user-controller');
 
 // import middleware

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import WordCard from "../WordCard/index.js";
 import '../WordCard/style.css'
 import Auth from '../../utils/auth';
-import { addFavourite, getAllWords, deleteFavourite } from '../../utils/API';
+import { addFavourite, getAllWords, deleteFavourite, deleteWord } from '../../utils/API';
 import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStorage';
 
 // const Dictionary = () => {
@@ -49,7 +49,7 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
       try {
         const response = await addFavourite(wordToFavourite, token);
         if (!response.ok) {
-          throw new Error('unable to FavouriteWord');
+          throw new Error('Whoops! We are unable to add this to your Favourites');
         }
         
       // if word successfully Favourites to user's account, Favourite book id to state
@@ -69,7 +69,7 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
        try {
          const response = await deleteFavourite(wordId, token);
          if (!response.ok) {
-           throw new Error('unable to FavouriteWord');
+           throw new Error('Whoops! We are unable to remove this from your Favourites');
          }
          
        // if word successfully Favourites to user's account, Favourite book id to state
@@ -79,6 +79,26 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
        console.error(err);
      }
    };
+   const handleDeleteWord = async (wordId) => {
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+        return false;
+      }
+      
+      try {
+        const response = await deleteWord(wordId, token);
+        if (!response.ok) {
+          throw new Error('Whoops! We are unable to delete this word');
+        }
+        
+      // if word successfully Favourites to user's account, Favourite book id to state
+     //  setAllFavouritesWordIds([...AllFavouritesWordIds, wordToFavourite._id]);
+     //  FavouriteWordId([...AllFavouritesWordIds, wordToFavourite._id])
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
 
   // returns the project file{
@@ -89,6 +109,7 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
         wordcards={wordList}
         handleFavouriteWord={handleFavouriteWord}
         handleDeleteFavouriteWord={handleDeleteFavouriteWord}
+        handleDeleteWord={handleDeleteWord}
       />
     </>
 

@@ -9,7 +9,7 @@ module.exports = {
     const allUsers = await User.find();
 
     if (!allUsers) {
-      return res.status(400).json({ message: "Oh no!!" });
+      return res.status(400).json({ message: 'Oh no!!' });
     }
     res.json(allUsers);
   },
@@ -25,7 +25,7 @@ module.exports = {
     if (!foundUser) {
       return res
         .status(400)
-        .json({ message: "Cannot find a user with this id!" });
+        .json({ message: 'Cannot find a user with this id!' });
     }
 
     res.json(foundUser);
@@ -35,7 +35,7 @@ module.exports = {
     const user = await User.create(body);
 
     if (!user) {
-      return res.status(400).json({ message: "Something is wrong!" });
+      return res.status(400).json({ message: 'Something is wrong!' });
     }
     const token = signToken(user);
     res.json({ token, user });
@@ -47,13 +47,13 @@ module.exports = {
       $or: [{ username: body.username }, { email: body.email }],
     });
     if (!user) {
-      return res.status(400).json({ message: "Can't find this user" });
+      return res.status(400).json({ message: 'Sorry no user was found' });
     }
 
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(400).json({ message: "Wrong password!" });
+      return res.status(400).json({ message: 'Whoops, Wrong password!' });
     }
     const token = signToken(user);
     res.json({ token, user });
@@ -65,7 +65,7 @@ module.exports = {
     const records = await Word.find({ user: req.params.userId });
 
     if (!records) {
-      return res.status(400).json({ message: "Cannot add that word" });
+      return res.status(400).json({ message: 'Sorry, find that word' });
     }
     return res.json(records);
   },
@@ -77,7 +77,7 @@ module.exports = {
     });
 
     if (!addedWords) {
-      return res.status(400).json({ message: "Cannot add that word" });
+      return res.status(400).json({ message: 'Sorry, We cannot add that word' });
     }
     return res.json(addedWords);
   },
@@ -86,30 +86,29 @@ module.exports = {
     const records = await Word.deleteOne({ _id: req.params.wordId });
 
     if (!records) {
-      return res.status(400).json({ message: "Cannot add that word" });
+      return res.status(400).json({ message: 'Sorry, We cannot delete that word!' });
     }
     return res.json(records);
   },
 
   async addFavourite(req, res) {
-      try {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: req.params.userId },
-          { $addToSet: { FavouriteWords: req.body } },
-          { new: true, runValidators: true },
-        );
+    try {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: { FavouriteWords: req.body } },
+        { new: true, runValidators: true },
+      );
 
-        return res.json(updatedUser);
-      } catch (err) {
-        console.log(err);
-        return res.status(400).json(err);
-      }
-    },
+      return res.json(updatedUser);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
 
   // remove a word from `Favouritewords`
   async deleteFavourite(req, res) {
     const updatedUser = await User.findOneAndUpdate(
-
       { _id: req.params.userId },
       { $pull: { FavouriteWords: { _id: req.params.wordId } } },
       { new: true },
@@ -117,7 +116,7 @@ module.exports = {
     if (!updatedUser) {
       return res
         .status(404)
-        .json({ message: "Couldn't find user with this id!" });
+        .json({ message: 'Sorry, no users were found with that id!' });
     }
     return res.json(updatedUser);
   },

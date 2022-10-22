@@ -8,7 +8,7 @@ const {
 const { authMiddleware } = require('../../utils/auth');
 
 // Get all words on dictionary page
-router.route('/').get(getAllWords)
+router.route('/').get(getAllWords);
 
 // .put(authMiddleware, FavouriteWord);
 // router.route('/').post(addWord);

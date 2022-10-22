@@ -1,4 +1,6 @@
 // route to get logged in user's info (needs the token)
+import Auth from "./auth"
+
 export const getMe = (token) => {
     return fetch('/api/users/:id', {
         headers: {
@@ -60,8 +62,9 @@ export const getAddedWord = (wordData) => {
 
 // Favourite book data for a logged in user
 export const addFavourite = (wordData, token) => {
+    const user = Auth.getProfile(token)
     console.log('FavouritewordAPI', wordData)
-    return fetch('/api/users/:id/addfavourite', {
+    return fetch(`/api/users/${user.data._id}/addfavourite`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -72,13 +75,14 @@ export const addFavourite = (wordData, token) => {
 };
 
 export const deleteFavourite = (wordId, token) => {
-    return fetch(`/api/users/:userId/addfavourite/${wordId}`, {
-        method: 'PUT',
+    const user = Auth.getProfile(token)
+    return fetch(`/api/users/${user.data._id}/addfavourite/${wordId}`, {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(wordId),
+        // body: JSON.stringify(wordId),
     });
 };
 

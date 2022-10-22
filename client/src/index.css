@@ -32,7 +32,7 @@ body {
   /* font-family: "Barlow Condensed", sans-serif, "Montserrat", sans-serif !important; */
 }
 
-button {
+.form-button {
   width: 100%;
   background-color: var(--primary) !important;
   border: 0;
@@ -44,12 +44,12 @@ button {
   padding: 10px 15px !important;
 }
 
-button[disabled] {
+.form-button[disabled] {
   cursor: default;
   opacity: 0.8;
 }
 
-button:hover {
+.form-button:hover {
   background-color: var(--secondary) !important;
   color: var(--tertiary) !important;
   outline: none !important;

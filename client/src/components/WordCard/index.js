@@ -5,20 +5,20 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
-import { Grid } from '@mui/material';
+import { Grid} from '@mui/material';
 import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { DeleteOutlined } from "@mui/icons-material";
 // import { box } from '@mui/material'
 
 export default function WordCard({ wordcards }) {
-
+console.log("wordcards", wordcards)
   return (
     <>
+`    <Grid container columns={12}>
       {wordcards.map((wordcard) => (
-        <Grid container className="card" key={wordcard._id}>
-          <Grid item xs={12} sm={6} md={3} m={3}>
-            <Card elevation="2" sx={{ maxWidth: 345 }}>
+          <Grid item xs={4} sm={4} md={4} key={wordcard._id} m={4}>
+            <Card elevation={2}>
               <CardHeader
                 title={wordcard.word}
                 subheader={wordcard.definition}
@@ -28,27 +28,26 @@ export default function WordCard({ wordcards }) {
                   {wordcard.example}
                 </Typography>
               </CardContent>
-              {/* <CardActions disableSpacing>
+              <CardActions>
                 <IconButton>
                   <DeleteOutlined />
                 </IconButton>
                 <IconButton
                   aria-label="add to favorites"
-                  onClick={() => wordcard.handleFavouriteWord(wordcard._id)}
+                  onClick={() => wordcard.props.handleFavouriteWord(wordcard._id)}
                 >
                   {wordcard.addFavourite}
                   <FavoriteIcon />
                 </IconButton>
-              </CardActions> */}
+              </CardActions>
             </Card>
           </Grid>
-        </Grid>
       ))}
+          </Grid>`
     </>
   );
 }
 
+// router.route('/:userId/addfavourite').put(addFavourite);
 
-// export default WordCard;
-// AllFavouritesWords card component to show on dashboard
 

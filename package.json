@@ -25,20 +25,6 @@
         "eslint-plugin-jsx-a11y": "^6.6.1",
         "eslint-plugin-react": "^7.31.10",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "husky": "^8.0.0",
-        "nodemon": "^2.0.20",
-        "react-router-dom": "^6.4.2"
-    },
-    "dependencies": {
-        "@fontsource/roboto": "^4.5.8",
-        "@material-ui/styles": "^4.11.5",
-        "@material/card": "^14.0.0",
-        "@mui/icons-material": "^5.10.9",
-        "@mui/material": "^5.10.10",
-        "@mui/styled-engine-sc": "^5.10.6",
-        "bootstrap": "^5.2.2",
-        "dotenv": "^16.0.3",
-        "react-bootstrap-validation": "^0.1.11",
-        "styled-components": "^5.3.6"
+        "husky": "^8.0.0"
     }
 }

@@ -5,8 +5,6 @@ import '../WordCard/style.css'
 import Auth from '../../utils/auth';
 import { addFavourite, getAllWords } from '../../utils/API';
 import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStorage';
-import { Grid } from '@mui/material';
-
 
 // const Dictionary = () => {
   export default function Dictionary() {
@@ -40,7 +38,7 @@ import { Grid } from '@mui/material';
 
   // create function to handle saving a word to our database
   const handleFavouriteWord = async (wordId) => {
-   
+   console.log("wordId", wordId)
     // find the word in `wordList` state by the matching id
     const wordToFavourite = wordList.find((word) => word._id === wordId);
     // get token
@@ -69,12 +67,12 @@ import { Grid } from '@mui/material';
   // returns the project file{
 
   return (
-        <>
-          <WordCard
-            wordcards={wordList}
-            handleFavouriteWord={handleFavouriteWord}
-          />
-        </>
+    <>
+      <WordCard
+        wordcards={wordList}
+        handleFavouriteWord={handleFavouriteWord}
+      />
+    </>
 
   );
 };

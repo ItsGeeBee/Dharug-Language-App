@@ -8,6 +8,7 @@ import { useState } from "react";
 import { styled } from "@mui/system";
 import { getAddedWord } from "../../utils/API";
 import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
+import EditIcon from '@mui/icons-material/Edit';
 
 const AddedWordCard = styled(getAddedWord)({
   display: "flex",
@@ -71,6 +72,9 @@ export default function AddWordCard() {
             <Stack spacing={2} marginTop={4}>
               <Button variant="outlined" startIcon={<DeleteIcon />}>
                 Delete
+              </Button>
+              <Button variant="outlined" startIcon={<EditIcon />}>
+                Edit
               </Button>
               <Button variant="outlined" startIcon={<PostAddOutlinedIcon />}>
                 Post

@@ -42,12 +42,18 @@ export default function WordCard(props) {
                 </IconButton>
                 <IconButton
                   aria-label="remove from favorites"
-                  onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
+                  onClick={() => props.handleDeleteWord(wordcard._id)}
                 >
                   <DeleteOutlined />
                 </IconButton>
                 <IconButton>
                   <EditIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="remove from favorites"
+                  onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
+                >
+                  <FavoriteBorderIcon sx={{ color: red[600] }}/>
                 </IconButton>
               </CardActions>
             </Card>

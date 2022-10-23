@@ -40,8 +40,9 @@ export const getAllWords = (wordData) => {
   });
 };
 
-export const addWord = (wordData) => {
-  return fetch("/api/:id/added", {
+export const addWord = (wordData, token) => {
+  const user = Auth.getProfile(token);
+  return fetch(`/api/${user.data._id}/added`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -90,6 +91,8 @@ export const deleteFavourite = (wordId, token) => {
 export const deleteWord = (wordId, token) => {
   console.log("deleteWord", deleteWord);
   const user = Auth.getProfile(token);
+  console.log("user.data._id", user.data._id)
+  console.log("wordId", wordId)
   return fetch(`/api/users/${user.data._id}/deleteWord/${wordId}`, {
     method: "DELETE",
     headers: {

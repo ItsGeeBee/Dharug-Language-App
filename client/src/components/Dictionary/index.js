@@ -9,7 +9,7 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
 // const Dictionary = () => {
   export default function Dictionary() {
       const [wordList, setWordList] = useState([]);
-
+      const [wordDeleted, setWordDeleted] = useState(false);
       useEffect(() => {
         const getWordData= async () => {
         
@@ -27,7 +27,8 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
       }
     };
     getWordData();
-      },[]);
+    setWordDeleted(false);
+      },[wordDeleted]);
 
 
   // // create state to hold AllFavourites wordId values
@@ -91,10 +92,7 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
         if (!response.ok) {
           throw new Error('Whoops! We are unable to delete this word');
         }
-        
-      // if word successfully Favourites to user's account, Favourite book id to state
-     //  setAllFavouritesWordIds([...AllFavouritesWordIds, wordToFavourite._id]);
-     //  FavouriteWordId([...AllFavouritesWordIds, wordToFavourite._id])
+        setWordDeleted(true);
     } catch (err) {
       console.error(err);
     }

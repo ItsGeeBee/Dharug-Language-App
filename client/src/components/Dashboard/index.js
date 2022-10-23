@@ -33,7 +33,6 @@ const Dashboard = () => {
         }
 
         const user = await response.json();
-        console.log(user)
         setUserData(user);
       } catch (err) {
         console.error(err);
@@ -49,7 +48,7 @@ const Dashboard = () => {
 
       try {
         const response = await getAddedWord()
-        console.log(response)
+
      if (!response.ok) {
         throw new Error('something went wrong!');
         }
@@ -86,7 +85,6 @@ getWordData();
         throw new Error('unable to FavouriteWord');
       }
      
-      console.log(wordToRemove)
       setAllFavouritesWordIds([...allFavouritesWordIds, wordToRemove._id]);
       //remove from local storage 
       removeAllFavouritesWord([...allFavouritesWordIds, wordToRemove._id])

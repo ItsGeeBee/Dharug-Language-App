@@ -5,7 +5,7 @@ const MainPage = (props) => {
 
     return (
       <main>
-        <Page currentPage={props.currentPage} setCurrentPage={props.setCurrentPage} setIsAuthenticated={props.setIsAuthenticated} />
+        <Page currentPage={props.currentPage} setCurrentPage={props.setCurrentPage} setIsAuthenticated={props.setIsAuthenticated} isAuthenticated={props.isAuthenticated}/>
       </main>
     );
 };

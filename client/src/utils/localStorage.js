@@ -7,7 +7,6 @@ export const getAllFavouritesWordIds = () => {
 };
 
 export const FavouriteWordId = (wordArr) => {
-    console.log(wordArr)
     if (wordArr.length) {
         localStorage.setItem('AllFavourites_words', JSON.stringify(wordArr));
     } else {

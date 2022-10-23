@@ -7,17 +7,18 @@ import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-// import FavoriteIcon from '@mui/icons-material/Favorite';
 import { DeleteOutlined } from "@mui/icons-material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Divider from "@mui/material/Divider";
 import { red } from "@mui/material/colors";
 import EditIcon from "@mui/icons-material/Edit";
-import Auth from '../../utils/auth';
+import Auth from "../../utils/auth";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function WordCard(props) {
+
   const user = Auth.getProfile(Auth.getToken());
-  console.log("user", user)
+console.log("props.isAuthenticated",props.isAuthenticated)
   return (
     <>
       `{" "}
@@ -36,30 +37,41 @@ export default function WordCard(props) {
               </CardContent>
               <Divider variant="middle" />
               <CardActions>
-              <IconButton
-                  aria-label="add to favorites"
-                  onClick={() => props.handleFavouriteWord(wordcard._id)}
-                >
-                  <FavoriteBorderIcon sx={{ color: red[600] }} />
-                </IconButton>
-                {
+                { 
+                  props.isAuthenticated
+                  ?
+                    (props.AllFavouritesWordIds.indexOf(wordcard._id) > -1) 
+                      ? 
+                      <IconButton
+                        aria-label="add to favorites"
+                        onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
+                      >
+                        <FavoriteIcon sx={{ color: red[600] }} />
+                      </IconButton>
 
-                  wordcard.user === user.data._id
-                  ? 
-                  <IconButton aria-label="handle delete word" onClick={() => props.handleDeleteWord(wordcard._id)} >
-                  <DeleteOutlined />
-                </IconButton>
-                : null
+                        
+                      :  
+                      <IconButton
+                      aria-label="remove from favorites"
+                      onClick={() =>
+                        props.handleFavouriteWord(wordcard._id)
+                      }
+                    >
+                      <FavoriteBorderIcon sx={{ color: red[600] }} />
+                    </IconButton>
+                  : null
                 }
                 <IconButton>
                   <EditIcon />
                 </IconButton>
-                <IconButton
-                  aria-label="remove from favorites"
-                  onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
-                >
-                  <FavoriteBorderIcon sx={{ color: red[600] }}/>
-                </IconButton>
+                {wordcard.user === user.data._id ? (
+                  <IconButton
+                    aria-label="handle delete word"
+                    onClick={() => props.handleDeleteWord(wordcard._id)}
+                  >
+                    <DeleteOutlined />
+                  </IconButton>
+                ) : null}
               </CardActions>
             </Card>
           </Grid>

@@ -9,12 +9,11 @@ import NoPage from '../components/NoPage';
 
 
 export default function App(props) {
-    console.log("home", props)
-
+   console.log("props.isAuthenticated HOME", props.isAuthenticated)
     return (
             <Routes>
                 <Route path="/about" element={<About />} />
-                <Route path="/dictionary" element={<Dictionary />} />
+                <Route path="/dictionary" element={<Dictionary isAuthenticated={props.isAuthenticated} />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/sign-in" element={<SignIn setIsAuthenticated={props.setIsAuthenticated} />} />

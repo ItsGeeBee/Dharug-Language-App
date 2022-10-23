@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MainPage from "./components/MainPage";
 import Grid from '@mui/material/Grid';
 // import Box from "@mui/material/Box";
@@ -19,9 +19,7 @@ function App() {
 
   const [currentPage, setCurrentPage] = useState(pages[0]);
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  useEffect(() => {
-    console.log("isAuthenticated", isAuthenticated)
-  }, [isAuthenticated])
+
   return (
     <div className="App">
       <Container disableGutters sx={{ m: 0 }} maxWidth={false}>

@@ -5,7 +5,6 @@ import { createUser } from '../../utils/API';
 import Auth from '../../utils/auth';
 
 const SignupForm = (props) => {
-    console.log("signup", props)
     // set initial form state
     const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
     // set state for form validation
@@ -36,7 +35,6 @@ const SignupForm = (props) => {
             }
 
             const { token, user } = await response.json();
-            console.log(user);
             Auth.login(token);
             props.setIsAuthenticated(true)
 

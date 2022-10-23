@@ -51,11 +51,13 @@ export const addWord = (wordData, token) => {
   });
 };
 
-export const getAddedWord = (wordData) => {
-  return fetch("/api/users/:id/added", {
+export const getAddedWord = (wordData, token) => {
+  const user = Auth.getProfile(token);
+  return fetch(`/api/users/${user.data._id}/added`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(wordData),
   });

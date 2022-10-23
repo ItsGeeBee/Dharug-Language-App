@@ -1,6 +1,7 @@
 // import user model
 const { User } = require('../models');
 const { Word } = require('../models');
+var ObjectId = require('mongoose').Types.ObjectId;
 // import sign token function from auth
 const { signToken } = require('../utils/auth');
 
@@ -62,7 +63,7 @@ module.exports = {
   // user comes from `req.user` created in the auth middleware function
   async getUserWords(req, res) {
     // where the user id matches current user id
-    const records = await Word.find({ user: req.params.userId });
+    const records = await Word.find({ user: req.params.id });
 
     if (!records) {
       return res.status(400).json({ message: 'Sorry, find that word' });

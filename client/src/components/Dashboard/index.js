@@ -45,7 +45,10 @@ const Dashboard = () => {
   // Get the word a User has added to the dictionary on dashboard load
   useEffect(() => {
     const getWordData= async () => {
-    
+
+      const userId = userData.id
+      console.log(userId)
+
       try {
         const response = await getAddedWord()
 
@@ -54,6 +57,7 @@ const Dashboard = () => {
         }
 
     const addedwords = await response.json();
+    console.log(addedwords)
     setaddedWords(addedwords);
   } catch (err) {
     console.error(err); //console.error(`ERROR: ${err}`);
@@ -61,7 +65,7 @@ const Dashboard = () => {
   }
 };
 getWordData();
-  },[addedwords]);
+  },[]);
 
   // Remove AllFavourites word from database and local storage 
   const handleDeleteFavourite = async (wordId) => {
@@ -141,12 +145,23 @@ getWordData();
 
  return (
   <>
-  <Box>
+  
+  <div> <h2>Welcome {userData.username}!</h2>
+  <div>{addedwords.map((added) =>{
+  return ( 
+<div>
+        <p key={added.id}> {added.word}</p>
+  </div>
+  );
+   })}
+  </div>
+  </div>
+  {/* <Box>
     <AddWordCard
       addedwords={addedwords}
       handleDeleteWord={handleDeleteWord}
     />
-    </Box>
+    </Box> */}
   </>
 
 );

@@ -25,7 +25,6 @@ const UserBox = styled(Box)({
 });
 
 // export default function AddedWordCard(props) {
-//   console.log("props", props)
 
 export default function AddWordCard() {
   const [addWord, setaddedWords] = useState(false);

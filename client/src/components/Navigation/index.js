@@ -16,7 +16,7 @@ function Navigation(props) {
     setIsAuthenticated(false)
     Auth.logout();
     }
-    console.log(isAuthenticated)
+
     
     // navigation layout
     // setCurrentPage and currentPage is being sent from "header" through props

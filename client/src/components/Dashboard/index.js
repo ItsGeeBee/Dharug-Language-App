@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getMe, addWord, getAddedWord, deleteFavourite, deleteWord, } from '../../utils/API';
 import { removeAllFavouritesWord,getAllFavouritesWordIds } from '../../utils/localStorage';
-// import AllFavouritesCard from '../Cards'
 import Auth from '../../utils/auth';
 import "./style.css";
 import AddWordCard from "../AddWordCard/index.js";
+import AddedWords from "../Cards/index.js"
 import Box from '@mui/material/Box';
+import { responsiveFontSizes } from "@mui/material";
 
 const Dashboard = () => {
   // create state for holding returned api data
@@ -13,7 +14,7 @@ const Dashboard = () => {
   const [addedwords, setaddedWords] = useState([]);
   const [allFavouritesWordIds, setAllFavouritesWordIds] = useState(getAllFavouritesWordIds());
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
+  // const userDataLength = Object.keys(userData).length;
 
 
   // Get User data on dashboard load, retrieving token auth, 
@@ -39,25 +40,23 @@ const Dashboard = () => {
       }
     };
     getUserData();
-  }, [userDataLength]);
+  }, []);
 
 
   // Get the word a User has added to the dictionary on dashboard load
   useEffect(() => {
     const getWordData= async () => {
 
-      const userId = userData.id
-      console.log(userId)
-
       try {
         const response = await getAddedWord()
-
+        console.log(response)
      if (!response.ok) {
         throw new Error('something went wrong!');
         }
 
     const addedwords = await response.json();
-    console.log(addedwords)
+
+  
     setaddedWords(addedwords);
   } catch (err) {
     console.error(err); //console.error(`ERROR: ${err}`);
@@ -139,29 +138,20 @@ getWordData();
     }
   }
 
- if(!userDataLength){
+ if(!userData){
   return <h3>Calm ya Farm</h3>
  }
 
  return (
   <>
-  
-  <div> <h2>Welcome {userData.username}!</h2>
-  <div>{addedwords.map((added) =>{
-  return ( 
-<div>
-        <p key={added.id}> {added.word}</p>
-  </div>
-  );
-   })}
-  </div>
-  </div>
-  {/* <Box>
+  <Box>
     <AddWordCard
       addedwords={addedwords}
-      handleDeleteWord={handleDeleteWord}
+      handleDeleteWord={handleAddWord}
     />
-    </Box> */}
+    <AddedWords addedwords={addedwords}
+      handleDeleteWord={handleDeleteWord}/>
+    </Box>
   </>
 
 );

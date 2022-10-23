@@ -66,7 +66,6 @@ export const getAddedWord = (wordData, token) => {
 // Favourite book data for a logged in user
 export const addFavourite = (wordData, token) => {
   const user = Auth.getProfile(token);
-  console.log("FavouritewordAPI", wordData);
   return fetch(`/api/users/${user.data._id}/addfavourite`, {
     method: "PUT",
     headers: {
@@ -91,10 +90,8 @@ export const deleteFavourite = (wordId, token) => {
 
 // delete a word for a logged in user
 export const deleteWord = (wordId, token) => {
-  console.log("deleteWord", deleteWord);
+
   const user = Auth.getProfile(token);
-  console.log("user.data._id", user.data._id)
-  console.log("wordId", wordId)
   return fetch(`/api/users/${user.data._id}/deleteWord/${wordId}`, {
     method: "DELETE",
     headers: {

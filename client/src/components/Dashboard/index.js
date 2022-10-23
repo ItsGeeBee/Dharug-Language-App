@@ -49,7 +49,7 @@ const Dashboard = () => {
 
       try {
         const response = await getAddedWord()
-        console.log(response)
+
      if (!response.ok) {
         throw new Error('something went wrong!');
         }
@@ -109,8 +109,7 @@ getFavourites();
         throw new Error('unable to FavouriteWord');
       }
      
-      console.log(wordToRemove)
-      setAllFavouritesWordIds([...AllFavouritesWordIds, wordToRemove._id]);
+      setAllFavouritesWordIds([...allFavouritesWordIds, wordToRemove._id]);
       //remove from local storage 
       removeAllFavouritesWord([...AllFavouritesWordIds, wordToRemove._id])
     } catch (err) {

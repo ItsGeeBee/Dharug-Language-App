@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { getMe, addWord, getAddedWord, deleteFavourite, deleteWord, } from '../../utils/API';
+import { getMe, addWord, getAddedWord, deleteFavourite, deleteWord, getFavouriteWords, } from '../../utils/API';
 import { removeAllFavouritesWord,getAllFavouritesWordIds } from '../../utils/localStorage';
 import Auth from '../../utils/auth';
 import "./style.css";
+import FavouritesCard from "../FavouritesCard";
 import AddWordCard from "../AddWordCard/index.js";
-import AddedWords from "../Cards/index.js"
+import AddedWords from "../AddedWordsCard/index.js"
 import Box from '@mui/material/Box';
 import { responsiveFontSizes } from "@mui/material";
 
@@ -12,7 +13,7 @@ const Dashboard = () => {
   // create state for holding returned api data
   const [userData, setUserData] = useState({});
   const [addedwords, setaddedWords] = useState([]);
-  const [allFavouritesWordIds, setAllFavouritesWordIds] = useState(getAllFavouritesWordIds());
+  const [AllFavouritesWordIds, setAllFavouritesWordIds] = useState([]);
   // use this to determine if `useEffect()` hook needs to run again
   // const userDataLength = Object.keys(userData).length;
 
@@ -33,7 +34,6 @@ const Dashboard = () => {
         }
 
         const user = await response.json();
-        console.log(user)
         setUserData(user);
       } catch (err) {
         console.error(err);
@@ -66,11 +66,34 @@ const Dashboard = () => {
 getWordData();
   },[]);
 
+
+  useEffect(() => {
+    const getFavourites= async () => {
+
+      try {
+        const response = await getFavouriteWords()
+        console.log(response)
+     if (!response.ok) {
+        throw new Error('something went wrong!');
+        }
+
+    const AllFavouritesWordIds = await response.json();
+
+  
+    setAllFavouritesWordIds(AllFavouritesWordIds);
+  } catch (err) {
+    console.error(err); 
+
+  }
+};
+getFavourites();
+  },[]);
+
   // Remove AllFavourites word from database and local storage 
   const handleDeleteFavourite = async (wordId) => {
 
     // Find the selected word in the 'AllFavouritesWordIds' state
-    const wordToRemove = allFavouritesWordIds.find((word) => word._id === wordId);
+    const wordToRemove = AllFavouritesWordIds.find((word) => word._id === wordId);
     
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -87,9 +110,9 @@ getWordData();
       }
      
       console.log(wordToRemove)
-      setAllFavouritesWordIds([...allFavouritesWordIds, wordToRemove._id]);
+      setAllFavouritesWordIds([...AllFavouritesWordIds, wordToRemove._id]);
       //remove from local storage 
-      removeAllFavouritesWord([...allFavouritesWordIds, wordToRemove._id])
+      removeAllFavouritesWord([...AllFavouritesWordIds, wordToRemove._id])
     } catch (err) {
       console.error(err);
     }
@@ -141,7 +164,7 @@ getWordData();
  if(!userData){
   return <h3>Calm ya Farm</h3>
  }
-
+console.log(AllFavouritesWordIds)
  return (
   <>
   <Box>
@@ -151,11 +174,12 @@ getWordData();
     />
     <AddedWords addedwords={addedwords}
       handleDeleteWord={handleDeleteWord}/>
+      
+    < FavouritesCard favouritewords={AllFavouritesWordIds}
+    userData={userData}/>
     </Box>
   </>
-
-);
-};
+)};
     // <div className='text-light bg-dark'>
     //    {/* User AllFavourites words from dictionary to show */}
     //    <form>

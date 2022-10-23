@@ -121,4 +121,17 @@ module.exports = {
     }
     return res.json(updatedUser);
   },
+
+  async getFavouriteWords(req, res) {
+    const updatedUser = await User.find(
+      { _id: req.params.userId })
+      .populate({path: 'FavouriteWords'})
+    if (!updatedUser) {
+      return res
+        .status(404)
+        .json({ message: 'Sorry, no users were found with that id!' });
+    }
+    return res.json(updatedUser);
+  },
+
 };

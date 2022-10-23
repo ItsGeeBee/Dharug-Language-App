@@ -101,12 +101,19 @@ export const deleteWord = (wordId, token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    // remove AllFavourites book data for a logged in user
-    // export const deleteWord = (wordId, token) => {
-    //     return fetch(`/api/users/:userId/${wordId}`, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             authorization: `Bearer ${token}`,
-    //         },
   });
 };
+
+    export const getFavouriteWords = (wordData, token) => {
+      const user = Auth.getProfile(token);
+      console.log("FavouritewordAPI", wordData);
+      return fetch(`/api/users/${user.data._id}/favourite`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+    };    
+

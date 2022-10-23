@@ -10,7 +10,5 @@ module.exports = {
       return res.status(400).json({ message: 'Oh no! Misplaced the dictionary!' });
     }
     res.json(allWords);
-  }
-
-  
+  },
 };

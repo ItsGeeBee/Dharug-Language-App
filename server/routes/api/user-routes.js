@@ -25,9 +25,9 @@ router.route('/:id').get(authMiddleware, getSingleUser);
 
 router.route('/:id/added').get(getUserWords);
 
-router.route('/:id/create').post(addWord);
+router.route('/:userId/create').post(addWord);
 
-router.route('/:userId/:wordId').delete(deleteWord);
+router.route('/:userId/deleteWord/:wordId').delete(deleteWord);
 
 router.route('/:userId/addfavourite').put(addFavourite);
 

@@ -12,10 +12,12 @@ import { DeleteOutlined } from "@mui/icons-material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Divider from "@mui/material/Divider";
 import { red } from "@mui/material/colors";
-import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
+import Auth from '../../utils/auth';
 
 export default function WordCard(props) {
+  const user = Auth.getProfile(Auth.getToken());
+  console.log("user", user)
   return (
     <>
       `{" "}
@@ -40,12 +42,15 @@ export default function WordCard(props) {
                 >
                   <FavoriteBorderIcon sx={{ color: red[600] }} />
                 </IconButton>
-                <IconButton
-                  aria-label="remove from favorites"
-                  onClick={() => props.handleDeleteWord(wordcard._id)}
-                >
+                {
+
+                  wordcard.user === user.data._id
+                  ? 
+                  <IconButton aria-label="handle delete word" onClick={() => props.handleDeleteWord(wordcard._id)} >
                   <DeleteOutlined />
                 </IconButton>
+                : null
+                }
                 <IconButton>
                   <EditIcon />
                 </IconButton>

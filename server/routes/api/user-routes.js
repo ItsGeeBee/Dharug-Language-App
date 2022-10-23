@@ -9,6 +9,7 @@ const {
   createUser,
   deleteWord,
   login,
+  getFavouriteWords,
   addFavourite,
   deleteFavourite,
 } = require('../../controllers/user-controller');
@@ -29,7 +30,9 @@ router.route('/:userId/create').post(addWord);
 
 router.route('/:userId/deleteWord/:wordId').delete(deleteWord);
 
-router.route('/:userId/addfavourite').put(addFavourite);
+router.route('/:userId/addfavourite').put(addFavourite)
+
+router.route('/:userId/favourite').get(getFavouriteWords)
 
 router.route('/:userId/addfavourite/:wordId').delete(deleteFavourite);
 

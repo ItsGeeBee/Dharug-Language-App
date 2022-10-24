@@ -9,6 +9,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { createTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import RandomWordCard from '../RandomWord/index.js';
 
 const theme = createTheme();
@@ -25,17 +26,25 @@ theme.typography.h3 = {
 
 function About() {
 
-  const [randomWord, setRandomWord] = useState([]);
+//   const [randomWord, setRandomWord] = useState([]);
 
-  useEffect(() => {
-    const generateRandomWord= async () => {
+//   useEffect(() => {
+//     const generateRandomWord= async () => {
 
-      try {
-        const response = await getRandomWord()
+//       try {
+//         const response = await getRandomWord()
 
-     if (!response.ok) {
-        throw new Error('something went wrong!');
-        }
+//      if (!response.ok) {
+//         throw new Error('something went wrong!');
+//         }
+
+
+//     const word = await response.json();
+//         console.log(word)
+
+//     setRandomWord(word);
+//   } catch (err) {
+//     console.error(err)
 
     const randomWord = await response.json();
         
@@ -44,14 +53,18 @@ function About() {
   } catch (err) {
     console.error(err)
 
-  }
-};
-generateRandomWord();
-  },[]);
+//   }
+// };
+// generateRandomWord();
+//   },[]);
 
 
     // about me layout
     return (
+
+      <div>
+        {/* <Box 
+
       <>
       <Grid container spacing={3}gap={2}>
         <Grid item xs={12}>
@@ -94,6 +107,7 @@ generateRandomWord();
 
 {/* 
         <Box 
+
         margin="55px"
         alignItems="center"
         justifyContent="center"
@@ -129,9 +143,28 @@ generateRandomWord();
         variant="outlined"
         randomWord={randomWord}/>
         </Box>
+
+        {randomWord.map((random) => (
+         <Card variant="outlined" sx={{ width: 320 }} key={random._id}>
+      <Typography level="h2" sx={{ fontSize: 'md', mt: 2 }}>
+        {random.word}
+      </Typography>
+      <Typography level="body2" sx={{ mt: 0.5, mb: 2 }}>
+       {random.definition}
+      </Typography>
+        <Typography level="body3" sx={{ fontWeight: 'md', color: 'text.secondary' }}>
+         {random.example}
+        </Typography>
+       </Card>
+      ))} */}
+<Button>DONATE</Button>
+</div>
+        );
+
         </Box> */}
          </>
     )
+
 };
 
 // exports file

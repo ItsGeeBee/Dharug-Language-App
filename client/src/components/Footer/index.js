@@ -14,6 +14,7 @@ import { Box, Typography } from "@mui/material";
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import donation from '../../utils/API'
+
 import { createTheme } from '@mui/material/styles';
 import { positions } from '@mui/system';
 
@@ -25,7 +26,6 @@ const theme = createTheme({
     },
     secondary: {
       main: '#c62828',
-    },
   },
 });
 
@@ -56,6 +56,7 @@ export default function Contact(props) {
     'contact4-desc': '(03) 5340 5993',
     ...props.content
   };
+
 
   return (
     <section>

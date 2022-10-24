@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { getMe, addWord, getAddedWord, deleteFavourite, deleteWord, getFavouriteWords, } from '../../utils/API';
-import { removeAllFavouritesWord,getAllFavouritesWordIds } from '../../utils/localStorage';
+import { getMe, addWord, getAddedWord, deleteFavourite, deleteWord, getFavouriteWords, addFavourite , editWord} from '../../utils/API';
 import Auth from '../../utils/auth';
 import "./style.css";
 import FavouritesCard from "../FavouritesCard";
 import AddWordCard from "../AddWordCard/index.js";
-import AddedWords from "../AddedWordsCard/index.js"
+import WordCard from "../WordCard/index.js";
 import Box from '@mui/material/Box';
-import { responsiveFontSizes } from "@mui/material";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddIcon from '@mui/icons-material/Add';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
 const Dashboard = () => {
   // create state for holding returned api data
   const [userData, setUserData] = useState({});
   const [addedwords, setaddedWords] = useState([]);
-  const [AllFavouritesWordIds, setAllFavouritesWordIds] = useState([]);
-  // use this to determine if `useEffect()` hook needs to run again
-  // const userDataLength = Object.keys(userData).length;
+  const [AllFavouritesWords, setAllFavouritesWords] = useState([]);
+  const [value, setValue] = React.useState('one');
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
 
-  // Get User data on dashboard load, retrieving token auth, 
+  // Get User data on dashboard load, retrieving token auth,
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -56,7 +61,7 @@ const Dashboard = () => {
 
     const addedwords = await response.json();
 
-  
+
     setaddedWords(addedwords);
   } catch (err) {
     console.error(err); //console.error(`ERROR: ${err}`);
@@ -77,24 +82,43 @@ getWordData();
         throw new Error('something went wrong!');
         }
 
-    const AllFavouritesWordIds = await response.json();
+    const AllFavouritesWords = await response.json();
 
-  
-    setAllFavouritesWordIds(AllFavouritesWordIds);
+
+    setAllFavouritesWords(AllFavouritesWords);
   } catch (err) {
-    console.error(err); 
+    console.error(err);
 
   }
 };
 getFavourites();
   },[]);
 
-  // Remove AllFavourites word from database and local storage 
-  const handleDeleteFavourite = async (wordId) => {
+  const handleFavouriteWord = async (wordId) => {
+    console.log("handleFavouriteWord", wordId)
+    // find the word in `wordList` state by the matching id
+    const wordToFavourite = addedwords.find((word) => word._id === wordId);
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
 
-    // Find the selected word in the 'AllFavouritesWordIds' state
-    const wordToRemove = AllFavouritesWordIds.find((word) => word._id === wordId);
-    
+    try {
+      const response = await addFavourite(wordToFavourite, token);
+      if (!response.ok) {
+        throw new Error('Whoops! We are unable to add this to your Favourites');
+      }
+
+      // if word successfully Favourites to user's account, Favourite book id to state
+      setAllFavouritesWords([...AllFavouritesWords, wordToFavourite]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Remove AllFavourites word from database and local storage
+  const handleDeleteFavouriteWord = async (wordId) => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -102,23 +126,29 @@ getFavourites();
       return false;
     }
 
-    try { // Delete from AllFavourites Schema 
-      const response = await deleteFavourite(wordToRemove, token);
+    try { // Delete from AllFavourites Schema
+      const response = await deleteFavourite(wordId, token);
 
       if (!response.ok) {
         throw new Error('unable to FavouriteWord');
       }
-     
-      setAllFavouritesWordIds([...allFavouritesWordIds, wordToRemove._id]);
-      //remove from local storage 
-      removeAllFavouritesWord([...AllFavouritesWordIds, wordToRemove._id])
+
+      // create copy of state array
+      const tempFavsArray = [...AllFavouritesWords];
+
+      // array filter returns all elements of asrray that don't === wordId
+      const newArray = tempFavsArray.filter(item => item._id !== wordId);
+
+      // write over state array with the new array
+      setAllFavouritesWords(newArray);
     } catch (err) {
       console.error(err);
     }
   };
 
-// Add word to Dictionary 
-  const handleAddWord = async (wordId) => {
+// Add word to Dictionary
+  const handleAddWord = async (wordData) => {
+    console.log('handle add word', wordData)
 
       const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -126,33 +156,63 @@ getFavourites();
         return false;
       }
       try {
-        const response = await addWord(wordId, token)
-        
+        const response = await addWord(wordData, token)
+
         if (!response.ok) {
           throw new Error('unable to addWord');
         }
 
+        const responseJson = await response.json()
         // if word successfully Favourites to user's account, Favourite word id to state
-        setaddedWords([...addedwords, wordId.wordId]);
+        setaddedWords([...addedwords, responseJson]);
       } catch (err) {
         console.log('Unable to setWordList')
       }
   };
 
-// Delete Users added word from Dictionary 
+  const handleEditWord = async (wordId, wordData) => {
+    console.log('handle edit word', wordData)
+
+      const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+      if (!token) {
+        return false;
+      }
+      try {
+        const response = await editWord(wordId, wordData, token)
+
+        if (!response.ok) {
+          throw new Error('unable to addWord');
+        }
+
+        const responseJson = await response.json()
+
+        // if word successfully Favourites to user's account, Favourite word id to state
+        setaddedWords([...addedwords.map(w => {
+          if (w._id === wordId) {
+            return responseJson
+          }
+          return w
+        })]);
+      } catch (err) {
+        console.log('Unable to setWordList')
+      }
+  };
+
+// Delete Users added word from Dictionary
   const handleDeleteWord = async (wordId)=>{
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-  
+
     if (!token) {
       return false;
     }
     try {
       const response = await deleteWord(wordId, token)
-      
+
       if (!response.ok) {
         throw new Error('unable to addWord');
       }
-  
+
       // if word successfully Favourites to user's account, Favourite book id to state
       setaddedWords([...addedwords, wordId.wordId]);
     } catch (err) {
@@ -163,86 +223,33 @@ getFavourites();
  if(!userData){
   return <h3>Calm ya Farm</h3>
  }
-console.log(AllFavouritesWordIds)
  return (
   <>
   <Box>
+  <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
+      <Tab icon={<AddIcon />} label="ADD WORD" />
+      <Tab icon={<FavoriteIcon />} label="FAVORITES" />
+      <Tab icon={<BookmarkAddedIcon />} label="PREVIOUSLY ADDED" />
+    </Tabs>
     <AddWordCard
       addedwords={addedwords}
-      handleDeleteWord={handleAddWord}
+      handleAddWord={handleAddWord}
     />
-    <AddedWords addedwords={addedwords}
-      handleDeleteWord={handleDeleteWord}/>
-      
-    < FavouritesCard favouritewords={AllFavouritesWordIds}
+
+    <WordCard
+      isAuthenticated={Auth.loggedIn()}
+      wordcards={addedwords}
+      handleFavouriteWord={handleFavouriteWord}
+      handleDeleteFavouriteWord={handleDeleteFavouriteWord}
+      handleDeleteWord={handleDeleteWord}
+      handleEditWord={handleEditWord}
+      AllFavouritesWords={AllFavouritesWords}
+    />
+
+    < FavouritesCard favouritewords={AllFavouritesWords}
     userData={userData}/>
     </Box>
   </>
 )};
-    // <div className='text-light bg-dark'>
-    //    {/* User AllFavourites words from dictionary to show */}
-    //    <form>
-    //    <div className="writeFormGroup">
-    //       <label htmlFor="fileInput">
-    //         <i className="writeIcon fas fa-plus"></i>
-    //       </label>
-    //       <input id="fileInput" type="file" style={{ display: "none" }} />
-    //       <input
-    //         className="writeInput"
-    //         placeholder="Title"
-    //         type="text"
-    //         autoFocus={true}
-    //       />
-    //     </div>
-    //     <div className="writeFormGroup">
-    //       <textarea
-    //         className="writeInput writeText"
-    //         placeholder="Tell your story..."
-    //         type="text"
-    //         autoFocus={true}
-    //       />
-    //     </div>
-    //     <button onClick={() =>handleAddWord()}></button>
-    //     </form>
-        {/* <div>
-          <h2>{userData.map(user=>{
-            <div>{user.username}</div>
-          })}</h2>
-        </div> */}
-    {/* <div>
-      <h4>
-        {allFavouritesWordIds.length
-          ? `Viewing ${allFavouritesWordIds.length} AllFavourites ${allFavouritesWordIds.length === 1 ? 'word' : 'words'}:`
-          : 'You have no AllFavourites words!'}
-      </h4>
-      </div>
-        {userData.allFavouritesWordIds.map((word) => {
-          return (
-            <div>
-              <allFavouritesCard allFavouritesWords={allFavouritesWordIds}
-                    handleDeleteFavourite={handleDeleteFavourite} />
-            </div>
-                );
-        })}
 
-    {/* User added words to dictionary to show */}
-    {/* <div className='text-light bg-dark'>
-      <h4>
-        {addedwords.length
-          ? `${userData.username}, you have added ${userData.addedwords.length === 1 ? 'word' : 'words'}:`
-          : 'Post some words and see them here!'}
-      </h4>
-      </div>
-        {addedwords.map((addedword) => {
-          return (
-            <div>
-              <AddedCard addedwords={addedwords} 
-               handleDeleteWord={handleDeleteWord}/>
-              </div>
-              )})}  */}
-//        </div>       
-//         );
-
-// };
-// exports file
 export default Dashboard

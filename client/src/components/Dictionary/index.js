@@ -3,20 +3,19 @@ import React, { useState, useEffect } from 'react';
 import WordCard from "../WordCard/index.js";
 import '../WordCard/style.css'
 import Auth from '../../utils/auth';
-import { addFavourite, getAllWords, deleteFavourite, deleteWord } from '../../utils/API';
-import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStorage';
+import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFavouriteWords } from '../../utils/API';
 
 // const Dictionary = () => {
   export default function Dictionary(props) {
       const [wordList, setWordList] = useState([]);
-      const [wordDeleted, setWordDeleted] = useState(false);  
-      
+      const [wordDeleted, setWordDeleted] = useState(false);
+
       // // create state to hold AllFavourites wordId values
-      const [AllFavouritesWordIds, setAllFavouritesWordIds] = useState(getAllFavouritesWordIds());
-      
+      const [AllFavouritesWords, setAllFavouritesWords] = useState([]);
+
       useEffect(() => {
         const getWordData= async () => {
-        
+
           try {
             const response = await getAllWords()
 
@@ -34,11 +33,28 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
     setWordDeleted(false);
       },[wordDeleted]);
 
+    useEffect(() => {
+      const getFavourites= async () => {
+
+      try {
+        const response = await getFavouriteWords()
+        console.log(response)
+        if (!response.ok) {
+          throw new Error('something went wrong!');
+        }
+
+        const AllFavouritesWords = await response.json();
 
 
-  useEffect(() =>{
-    console.log("AllFavouritesWordIds",AllFavouritesWordIds);
-  },[AllFavouritesWordIds])
+        setAllFavouritesWords(AllFavouritesWords);
+      } catch (err) {
+        console.error(err);
+
+      }
+    };
+    getFavourites();
+  },[]);
+
   // create function to handle saving a word to our database
   const handleFavouriteWord = async (wordId) => {
     console.log("handleFavouriteWord", wordId)
@@ -49,16 +65,15 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
     if (!token) {
         return false;
       }
-      
+
       try {
         const response = await addFavourite(wordToFavourite, token);
         if (!response.ok) {
           throw new Error('Whoops! We are unable to add this to your Favourites');
         }
-        
+
       // if word successfully Favourites to user's account, Favourite book id to state
-      setAllFavouritesWordIds([...AllFavouritesWordIds, wordToFavourite._id]);
-      FavouriteWordId([...AllFavouritesWordIds, wordToFavourite._id])
+      setAllFavouritesWords([...AllFavouritesWords, wordToFavourite]);
     } catch (err) {
       console.error(err);
     }
@@ -71,7 +86,7 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
      if (!token) {
          return false;
        }
-       
+
        try {
          const response = await deleteFavourite(wordId, token);
          console.log(response);
@@ -80,16 +95,14 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
          }
 
         // create copy of state array
-        const tempFavsArray = [...AllFavouritesWordIds];
+        const tempFavsArray = [...AllFavouritesWords];
 
         // array filter returns all elements of asrray that don't === wordId
-        const newArray = tempFavsArray.filter(item => item !== wordId);
+        const newArray = tempFavsArray.filter(item => item._id !== wordId);
 
         // write over state array with the new array
-        setAllFavouritesWordIds(newArray);
+        setAllFavouritesWords(newArray);
 
-         // upon success, remove book's id from localStorage
-         deleteFavourite(wordId);
        } catch (err) {
          console.error(err);
        }
@@ -101,13 +114,42 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
   //  };
 
 
+  const handleEditWord = async (wordId, wordData) => {
+    console.log('handle edit word', wordData)
+
+      const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+      if (!token) {
+        return false;
+      }
+      try {
+        const response = await editWord(wordId, wordData, token)
+
+        if (!response.ok) {
+          throw new Error('unable to addWord');
+        }
+
+        const responseJson = await response.json()
+
+        // if word successfully Favourites to user's account, Favourite word id to state
+        setWordList([...wordList.map(w => {
+          if (w._id === wordId) {
+            return responseJson
+          }
+          return w
+        })]);
+      } catch (err) {
+        console.log('Unable to setWordList')
+      }
+  };
+
    const handleDeleteWord = async (wordId) => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
         return false;
       }
-      
+
       try {
         const response = await deleteWord(wordId, token);
         if (!response.ok) {
@@ -130,7 +172,8 @@ import { FavouriteWordId, getAllFavouritesWordIds } from '../../utils/localStora
         handleFavouriteWord={handleFavouriteWord}
         handleDeleteFavouriteWord={handleDeleteFavouriteWord}
         handleDeleteWord={handleDeleteWord}
-        AllFavouritesWordIds={AllFavouritesWordIds}
+        handleEditWord={handleEditWord}
+        AllFavouritesWords={AllFavouritesWords}
       />
     </>
 

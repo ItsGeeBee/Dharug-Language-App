@@ -6,7 +6,9 @@ import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { styled } from "@mui/system";
 import { getAddedWord } from "../../utils/API";
-import AddIcon from '@mui/icons-material/Add';
+import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
+
 const AddedWordCard = styled(getAddedWord)({
   display: "flex",
   alignItems: "center",
@@ -23,11 +25,11 @@ const UserBox = styled(Box)({
 
 // export default function AddedWordCard(props) {
 
-export default function AddWordCard(props) {
-  const { handleAddWord } = props
-  const [word, setWord] = useState('')
-  const [definition, setDefinition] = useState('')
-  const [example, setExample] = useState('')
+export default function EditWordCard(props) {
+  const { handleEditWord } = props
+  const [word, setWord] = useState(props.word.word)
+  const [definition, setDefinition] = useState(props.word.definition)
+  const [example, setExample] = useState(props.word.example)
   return (
     <>
       <Box justifyContent="center" alignItems="center" m={8}>
@@ -80,9 +82,9 @@ export default function AddWordCard(props) {
             </Stack>
             <Stack spacing={2} marginTop={4}>
               <Button onClick={() => {
-                handleAddWord({ word, definition, example })
-              }} variant="outlined" startIcon={<AddIcon />}>
-                Add Word
+                handleEditWord(props.word._id, { word, definition, example })
+              }} variant="outlined" startIcon={<PublishedWithChangesIcon />}>
+                Update Word
               </Button>
             </Stack>
           </Box>
@@ -91,3 +93,39 @@ export default function AddWordCard(props) {
     </>
   );
 }
+
+// export { AddWordCard };
+
+// import "./style.css";
+
+// export default function Write() {
+//   return (
+//     <div className="write">
+//       <form className="writeForm">
+//         <div className="writeFormGroup">
+//           <label htmlFor="fileInput">
+//             <i className="writeIcon fas fa-plus"></i>
+//           </label>
+//           <input id="fileInput" type="file" style={{ display: "none" }} />
+//           <input
+//             className="writeInput"
+//             placeholder="Title"
+//             type="text"
+//             autoFocus={true}
+//           />
+//         </div>
+//         <div className="writeFormGroup">
+//           <textarea
+//             className="writeInput writeText"
+//             placeholder="Tell your story..."
+//             type="text"
+//             autoFocus={true}
+//           />
+//         </div>
+//         <button className="writeSubmit" type="submit">
+//           Publish
+//         </button>
+//       </form>
+//     </div>
+//   );
+// }

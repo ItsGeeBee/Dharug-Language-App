@@ -83,6 +83,22 @@ module.exports = {
     return res.json(addedWords);
   },
 
+  async editWord(req, res) {
+    const record = await Word.findByIdAndUpdate(
+      req.params.wordId,
+      {
+        ...req.body,
+        user: req.params.userId,
+      },
+      { new: true },
+    );
+
+    if (!record) {
+      return res.status(400).json({ message: 'Sorry, We cannot edit that word!' });
+    }
+    return res.json(record);
+  },
+
   async deleteWord(req, res) {
     const records = await Word.deleteOne({ _id: req.params.wordId });
 
@@ -123,7 +139,7 @@ module.exports = {
   },
 
   async getFavouriteWords(req, res) {
-    const updatedUser = await User.find(
+    const updatedUser = await User.findOne(
       { _id: req.params.userId })
       .populate({path: 'FavouriteWords'})
     if (!updatedUser) {
@@ -131,7 +147,7 @@ module.exports = {
         .status(404)
         .json({ message: 'Sorry, no users were found with that id!' });
     }
-    return res.json(updatedUser);
+    return res.json(updatedUser.FavouriteWords);
   },
 
 };

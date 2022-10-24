@@ -7,6 +7,7 @@ const {
   getAllUsers,
   getSingleUser,
   createUser,
+  editWord,
   deleteWord,
   login,
   getFavouriteWords,
@@ -27,6 +28,8 @@ router.route('/:id').get(authMiddleware, getSingleUser);
 router.route('/:id/added').get(getUserWords);
 
 router.route('/:userId/create').post(addWord);
+
+router.route('/:userId/editWord/:wordId').put(editWord);
 
 router.route('/:userId/deleteWord/:wordId').delete(deleteWord);
 

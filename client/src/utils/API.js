@@ -40,6 +40,16 @@ export const getAllWords = (wordData) => {
   });
 };
 
+export const getRandomWord = (wordData) => {
+  return fetch("/api/dictionary/randomword", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(wordData),
+  });
+};
+
 export const addWord = (wordData, token) => {
   const user = Auth.getProfile(token);
   return fetch(`/api/users/${user.data._id}/create`, {

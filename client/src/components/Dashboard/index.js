@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { getMe, addWord, getAddedWord, deleteFavourite, deleteWord, getFavouriteWords, addFavourite , editWord} from '../../utils/API';
 import Auth from '../../utils/auth';
 import "./style.css";
-import FavouritesCard from "../FavouritesCard";
 import AddWordCard from "../AddWordCard/index.js";
 import WordCard from "../WordCard/index.js";
 import Box from '@mui/material/Box';
@@ -246,8 +245,16 @@ getFavourites();
       AllFavouritesWords={AllFavouritesWords}
     />
 
-    < FavouritesCard favouritewords={AllFavouritesWords}
-    userData={userData}/>
+    <WordCard
+      isAuthenticated={Auth.loggedIn()}
+      wordcards={AllFavouritesWords}
+      handleFavouriteWord={handleFavouriteWord}
+      handleDeleteFavouriteWord={handleDeleteFavouriteWord}
+      handleDeleteWord={handleDeleteWord}
+      handleEditWord={handleEditWord}
+      AllFavouritesWords={AllFavouritesWords}
+    />
+
     </Box>
   </>
 )};

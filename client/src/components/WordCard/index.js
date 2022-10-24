@@ -19,7 +19,7 @@ import EditWordCard from '../EditWordCard';
 
 export default function WordCard(props) {
 
-  const user = Auth.getProfile(Auth.getToken());
+  const user = props.isAuthenticated ? Auth.getProfile(Auth.getToken()) : null;
   console.log("props.isAuthenticated",props.isAuthenticated)
   const allFavouriteWordIds = props.AllFavouritesWords.map(w => w._id)
   const [wordEditable, setWordEditable] = useState(null)
@@ -53,31 +53,28 @@ export default function WordCard(props) {
                   {wordcard.example}
                 </Typography>
               </CardContent>
-              <Divider variant="middle" />
-              <CardActions>
-                {
-                  props.isAuthenticated
-                  ?
-                    (allFavouriteWordIds.indexOf(wordcard._id) > -1)
-                      ?
-                      <IconButton
-                        aria-label="remove from favorites"
-                        onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
-                      >
-                        <FavoriteIcon sx={{ color: red[600] }} />
-                      </IconButton>
-                      :
-                      <IconButton
-                      aria-label="add to favorites"
-                      onClick={() =>
-                        props.handleFavouriteWord(wordcard._id)
-                      }
+              {props.isAuthenticated && (<>
+                <Divider variant="middle" />
+                <CardActions>
+                {(allFavouriteWordIds.indexOf(wordcard._id) > -1)
+                    ?
+                    <IconButton
+                      aria-label="remove from favorites"
+                      onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
                     >
-                      <FavoriteBorderIcon sx={{ color: red[600] }} />
+                      <FavoriteIcon sx={{ color: red[600] }} />
                     </IconButton>
-                  : null
+                    :
+                    <IconButton
+                    aria-label="add to favorites"
+                    onClick={() =>
+                      props.handleFavouriteWord(wordcard._id)
+                    }
+                  >
+                    <FavoriteBorderIcon sx={{ color: red[600] }} />
+                  </IconButton>
                 }
-                  {wordcard.user === user.data._id ? (<IconButton
+                {wordcard.user === user.data._id ? (<IconButton
                   aria-label="edit word"
                   onClick={() => setWordEditable(wordcard)}
                 >
@@ -92,6 +89,7 @@ export default function WordCard(props) {
                   </IconButton>
                 ) : null}
               </CardActions>
+              </>)}
             </Card>
           </Grid>
         ))}

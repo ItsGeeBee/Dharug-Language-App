@@ -5,9 +5,6 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import Divider from "@mui/material/Divider";
 import Auth from '../../utils/auth';
 
 export default function FavouritesCard(props) {
@@ -28,47 +25,6 @@ export default function FavouritesCard(props) {
                 {favourite.definition}
                 </Typography>
               </CardContent>
-              {/* <Divider variant="middle" />
-            <CardActions>
-                {
-                  props.isAuthenticated
-                  ?
-                    (allFavouriteWordIds.indexOf(wordcard._id) > -1)
-                      ?
-                      <IconButton
-                        aria-label="remove from favorites"
-                        onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
-                      >
-                        <FavoriteIcon sx={{ color: red[600] }} />
-                      </IconButton>
-
-
-                      :
-                      <IconButton
-                      aria-label="add to favorites"
-                      onClick={() =>
-                        props.handleFavouriteWord(wordcard._id)
-                      }
-                    >
-                      <FavoriteBorderIcon sx={{ color: red[600] }} />
-                    </IconButton>
-                  : null
-                }
-                <IconButton
-                  aria-label="edit word"
-                  onClick={() => setWordEditable(wordcard)}
-                >
-                  <EditIcon />
-                </IconButton>
-                {wordcard.user === user.data._id ? (
-                  <IconButton
-                    aria-label="handle delete word"
-                    onClick={() => props.handleDeleteWord(wordcard._id)}
-                  >
-                    <DeleteOutlined />
-                  </IconButton>
-                ) : null}
-              </CardActions> */}
             </Card>
           </Grid>
         ))}

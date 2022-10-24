@@ -4,7 +4,6 @@ import Footer from './components/Footer';
 import React, { useState } from "react";
 import MainPage from "./components/MainPage";
 import Grid from '@mui/material/Grid';
-// import Box from "@mui/material/Box";
 import Container from '@mui/material/Container';
 
 function App() {
@@ -29,7 +28,7 @@ function App() {
         <Grid item xs={12}>
           <MainPage currentPage={currentPage} pages={pages} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/> 
         </Grid>
-        <Grid item xs={12}>
+        <Grid>
           <Footer />
         </Grid>
       </Container>

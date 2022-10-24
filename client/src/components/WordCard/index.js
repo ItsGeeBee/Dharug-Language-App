@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { Card } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
@@ -9,19 +9,37 @@ import { Grid } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { DeleteOutlined } from "@mui/icons-material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Divider from "@mui/material/Divider";
 import { red } from "@mui/material/colors";
 import EditIcon from "@mui/icons-material/Edit";
 import Auth from "../../utils/auth";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import Modal from '@mui/material/Modal';
+import EditWordCard from '../EditWordCard';
 
 export default function WordCard(props) {
 
   const user = Auth.getProfile(Auth.getToken());
-console.log("props.isAuthenticated",props.isAuthenticated)
+  console.log("props.isAuthenticated",props.isAuthenticated)
+  const allFavouriteWordIds = props.AllFavouritesWords.map(w => w._id)
+  const [wordEditable, setWordEditable] = useState(null)
   return (
     <>
       `{" "}
+      <Modal
+        open={!!wordEditable}
+        onClose={() => setWordEditable(null)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <EditWordCard
+          word={wordEditable}
+          handleEditWord={(id, data) => {
+            setWordEditable(null)
+            props.handleEditWord(id, data)
+          }}
+        />
+      </Modal>
       <Grid justifyContent="center" alignItems="center" container columns={12}>
         {props.wordcards.map((wordcard) => (
           <Grid item xs={4} sm={4} md={4} key={wordcard._id} m={4}>
@@ -37,22 +55,20 @@ console.log("props.isAuthenticated",props.isAuthenticated)
               </CardContent>
               <Divider variant="middle" />
               <CardActions>
-                { 
+                {
                   props.isAuthenticated
                   ?
-                    (props.AllFavouritesWordIds.indexOf(wordcard._id) > -1) 
-                      ? 
+                    (allFavouriteWordIds.indexOf(wordcard._id) > -1)
+                      ?
                       <IconButton
-                        aria-label="add to favorites"
+                        aria-label="remove from favorites"
                         onClick={() => props.handleDeleteFavouriteWord(wordcard._id)}
                       >
                         <FavoriteIcon sx={{ color: red[600] }} />
                       </IconButton>
-
-                        
-                      :  
+                      :
                       <IconButton
-                      aria-label="remove from favorites"
+                      aria-label="add to favorites"
                       onClick={() =>
                         props.handleFavouriteWord(wordcard._id)
                       }
@@ -61,9 +77,12 @@ console.log("props.isAuthenticated",props.isAuthenticated)
                     </IconButton>
                   : null
                 }
-                <IconButton>
+                  {wordcard.user === user.data._id ? (<IconButton
+                  aria-label="edit word"
+                  onClick={() => setWordEditable(wordcard)}
+                >
                   <EditIcon />
-                </IconButton>
+                </IconButton>): null}
                 {wordcard.user === user.data._id ? (
                   <IconButton
                     aria-label="handle delete word"
@@ -81,5 +100,3 @@ console.log("props.isAuthenticated",props.isAuthenticated)
     </>
   );
 }
-// router.route('/:userId/addfavourite/:wordId').delete(deleteFavourite);
-// router.route('/:userId/addfavourite').put(addFavourite);

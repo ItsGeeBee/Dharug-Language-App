@@ -37,12 +37,20 @@ function About() {
             >
                 About Dharug
         </Typography>
-        <Typography 
+        <Typography            
             direction="flex" 
             alignItems="center" 
             justifyContent="center" 
             textAlign="center" 
             align="center">
+            We respect and honour Aboriginal and Torres Strait Islander Elders past, present and future. We acknowledge the stories, traditions and living cultures of Aboriginal and Torres Strait Islander peoples on this land and commit to building a brighter future together.
+        </Typography>
+        <Typography 
+            direction="flex" 
+            alignItems="center" 
+            justifyContent="center" 
+            textAlign="center" 
+            align="center">              
             The Dharug language, also spelt Darug, Dharuk, and other variants, and also known as the Sydney language, Gadigal language, is an Australian Aboriginal language of the Yuin–Kuric group that was traditionally spoken in the region of Sydney, New South Wales.
             It is the traditional language of the Dharug people.
         </Typography>

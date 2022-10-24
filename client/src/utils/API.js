@@ -42,7 +42,7 @@ export const getAllWords = (wordData) => {
 
 export const addWord = (wordData, token) => {
   const user = Auth.getProfile(token);
-  return fetch(`/api/${user.data._id}/added`, {
+  return fetch(`/api/users/${user.data._id}/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -101,6 +101,20 @@ export const deleteWord = (wordId, token) => {
   });
 };
 
+// edit a word for a logged in user
+export const editWord = (wordId, data, token) => {
+
+  const user = Auth.getProfile(token);
+  return fetch(`/api/users/${user.data._id}/editWord/${wordId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data)
+  });
+};
+
     export const getFavouriteWords = (wordData, token) => {
       const user = Auth.getProfile(token);
       console.log("FavouritewordAPI", wordData);
@@ -112,5 +126,5 @@ export const deleteWord = (wordId, token) => {
         },
       });
 
-    };    
+    };
 

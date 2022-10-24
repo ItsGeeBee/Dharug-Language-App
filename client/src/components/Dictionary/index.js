@@ -105,11 +105,6 @@ import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFa
        }
      };
 
-  //    } catch (err) {
-  //      console.error(err);
-  //    }
-  //  };
-
 
   const handleEditWord = async (wordId, wordData) => {
     console.log('handle edit word', wordData)

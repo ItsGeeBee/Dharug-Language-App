@@ -9,7 +9,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { createTheme } from '@mui/material/styles';
-
+import Button from '@mui/material/Button';
 const theme = createTheme();
 
 theme.typography.h3 = {
@@ -24,35 +24,35 @@ theme.typography.h3 = {
 
 function About(props) {
 
-  const [randomWord, setRandomWord] = useState([]);
+//   const [randomWord, setRandomWord] = useState([]);
 
-  useEffect(() => {
-    const generateRandomWord= async () => {
+//   useEffect(() => {
+//     const generateRandomWord= async () => {
 
-      try {
-        const response = await getRandomWord()
+//       try {
+//         const response = await getRandomWord()
 
-     if (!response.ok) {
-        throw new Error('something went wrong!');
-        }
+//      if (!response.ok) {
+//         throw new Error('something went wrong!');
+//         }
 
-    const word = await response.json();
-        console.log(word)
+//     const word = await response.json();
+//         console.log(word)
 
-    setRandomWord(word);
-  } catch (err) {
-    console.error(err)
+//     setRandomWord(word);
+//   } catch (err) {
+//     console.error(err)
 
-  }
-};
-generateRandomWord();
-  },[]);
+//   }
+// };
+// generateRandomWord();
+//   },[]);
 
 
     // about me layout
     return (
       <div>
-        <Box 
+        {/* <Box 
         margin="55px"
         alignItems="center"
         justifyContent="center"
@@ -96,7 +96,8 @@ generateRandomWord();
          {random.example}
         </Typography>
        </Card>
-      ))}
+      ))} */}
+<Button>DONATE</Button>
 </div>
         );
 };

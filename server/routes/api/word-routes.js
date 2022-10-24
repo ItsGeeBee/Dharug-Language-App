@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const {
   getAllWords,
-  getRandomWord
+  // getRandomWord
 } = require('../../controllers/word-controller');
 
 

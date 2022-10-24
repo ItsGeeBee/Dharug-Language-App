@@ -1,16 +1,18 @@
 // import user model
-const { User } = require('../models');
-const { Word } = require('../models');
-var ObjectId = require('mongoose').Types.ObjectId;
+const { User } = require("../models");
+const { Word } = require("../models");
+const { checkout } = require("../routes/api/user-routes");
+var ObjectId = require("mongoose").Types.ObjectId;
 // import sign token function from auth
-const { signToken } = require('../utils/auth');
+const { signToken } = require("../utils/auth");
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 module.exports = {
   async getAllUsers({ user }, res) {
     const allUsers = await User.find();
 
     if (!allUsers) {
-      return res.status(400).json({ message: 'Oh no!!' });
+      return res.status(400).json({ message: "Oh no!!" });
     }
     res.json(allUsers);
   },
@@ -26,7 +28,7 @@ module.exports = {
     if (!foundUser) {
       return res
         .status(400)
-        .json({ message: 'Cannot find a user with this id!' });
+        .json({ message: "Cannot find a user with this id!" });
     }
 
     res.json(foundUser);
@@ -36,7 +38,7 @@ module.exports = {
     const user = await User.create(body);
 
     if (!user) {
-      return res.status(400).json({ message: 'Something is wrong!' });
+      return res.status(400).json({ message: "Something is wrong!" });
     }
     const token = signToken(user);
     res.json({ token, user });
@@ -48,13 +50,13 @@ module.exports = {
       $or: [{ username: body.username }, { email: body.email }],
     });
     if (!user) {
-      return res.status(400).json({ message: 'Sorry no user was found' });
+      return res.status(400).json({ message: "Sorry no user was found" });
     }
 
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(400).json({ message: 'Whoops, Wrong password!' });
+      return res.status(400).json({ message: "Whoops, Wrong password!" });
     }
     const token = signToken(user);
     res.json({ token, user });
@@ -66,7 +68,7 @@ module.exports = {
     const records = await Word.find({ user: req.params.id });
 
     if (!records) {
-      return res.status(400).json({ message: 'Sorry, find that word' });
+      return res.status(400).json({ message: "Sorry, find that word" });
     }
     return res.json(records);
   },
@@ -78,7 +80,9 @@ module.exports = {
     });
 
     if (!addedWords) {
-      return res.status(400).json({ message: 'Sorry, We cannot add that word' });
+      return res
+        .status(400)
+        .json({ message: "Sorry, We cannot add that word" });
     }
     return res.json(addedWords);
   },
@@ -90,11 +94,13 @@ module.exports = {
         ...req.body,
         user: req.params.userId,
       },
-      { new: true },
+      { new: true }
     );
 
     if (!record) {
-      return res.status(400).json({ message: 'Sorry, We cannot edit that word!' });
+      return res
+        .status(400)
+        .json({ message: "Sorry, We cannot edit that word!" });
     }
     return res.json(record);
   },
@@ -103,7 +109,9 @@ module.exports = {
     const records = await Word.deleteOne({ _id: req.params.wordId });
 
     if (!records) {
-      return res.status(400).json({ message: 'Sorry, We cannot delete that word!' });
+      return res
+        .status(400)
+        .json({ message: "Sorry, We cannot delete that word!" });
     }
     return res.json(records);
   },
@@ -113,7 +121,7 @@ module.exports = {
       const updatedUser = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { FavouriteWords: req.body } },
-        { new: true, runValidators: true },
+        { new: true, runValidators: true }
       );
 
       return res.json(updatedUser);
@@ -128,26 +136,41 @@ module.exports = {
     const updatedUser = await User.findOneAndUpdate(
       { _id: req.params.userId },
       { $pull: { FavouriteWords: { _id: req.params.wordId } } },
-      { new: true },
+      { new: true }
     );
     if (!updatedUser) {
       return res
         .status(404)
-        .json({ message: 'Sorry, no users were found with that id!' });
+        .json({ message: "Sorry, no users were found with that id!" });
     }
     return res.json(updatedUser);
   },
 
   async getFavouriteWords(req, res) {
-    const updatedUser = await User.findOne(
-      { _id: req.params.userId })
-      .populate({path: 'FavouriteWords'})
+    const updatedUser = await User.findOne({ _id: req.params.userId }).populate(
+      { path: "FavouriteWords" }
+    );
     if (!updatedUser) {
       return res
         .status(404)
-        .json({ message: 'Sorry, no users were found with that id!' });
+        .json({ message: "Sorry, no users were found with that id!" });
     }
     return res.json(updatedUser.FavouriteWords);
   },
 
+  // stripe payment function
+  async checkout(req, res) {
+    console.log("trying to checkout")
+    const url = new URL(context.headers.referer).origin;
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: { price: 5, quantity: 1 },
+      mode: "payment",
+      success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${url}/`,
+    });
+console.log(session)
+    return res.status(200).json({ session: session.id });
+  },
 };

@@ -100,7 +100,6 @@ export const deleteFavourite = (wordId, token) => {
 
 // delete a word for a logged in user
 export const deleteWord = (wordId, token) => {
-
   const user = Auth.getProfile(token);
   return fetch(`/api/users/${user.data._id}/deleteWord/${wordId}`, {
     method: "DELETE",
@@ -113,7 +112,6 @@ export const deleteWord = (wordId, token) => {
 
 // edit a word for a logged in user
 export const editWord = (wordId, data, token) => {
-
   const user = Auth.getProfile(token);
   return fetch(`/api/users/${user.data._id}/editWord/${wordId}`, {
     method: "PUT",
@@ -121,20 +119,28 @@ export const editWord = (wordId, data, token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   });
 };
 
-    export const getFavouriteWords = (wordData, token) => {
-      const user = Auth.getProfile(token);
-      console.log("FavouritewordAPI", wordData);
-      return fetch(`/api/users/${user.data._id}/favourite`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-    };
-
+export const getFavouriteWords = (wordData, token) => {
+  const user = Auth.getProfile(token);
+  console.log("FavouritewordAPI", wordData);
+  return fetch(`/api/users/${user.data._id}/favourite`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+// Stripe
+export const donation = () => {
+  return fetch("/api/users/donate", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(),
+  });
+};

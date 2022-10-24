@@ -13,6 +13,7 @@ const {
   getFavouriteWords,
   addFavourite,
   deleteFavourite,
+  // checkout,
 } = require('../../controllers/user-controller');
 
 // import middleware
@@ -33,10 +34,12 @@ router.route('/:userId/editWord/:wordId').put(editWord);
 
 router.route('/:userId/deleteWord/:wordId').delete(deleteWord);
 
-router.route('/:userId/addfavourite').put(addFavourite)
+router.route('/:userId/addfavourite').put(addFavourite);
 
-router.route('/:userId/favourite').get(getFavouriteWords)
+router.route('/:userId/favourite').get(getFavouriteWords);
 
 router.route('/:userId/addfavourite/:wordId').delete(deleteFavourite);
+
+// router.route('/donate').get(checkout);
 
 module.exports = router;

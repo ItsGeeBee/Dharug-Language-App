@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import "./style.css"
 import { getRandomWord } from '../../utils/API';
-import Box from "@mui/material/Box";
-import { Card } from "@mui/material";
+import Divider from "@mui/material/Divider";
 import Typography from '@mui/material/Typography';
+import { Grid} from '@mui/material';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { createTheme } from '@mui/material/styles';
+import RandomWordCard from '../RandomWord/index.js';
 
 const theme = createTheme();
 
@@ -22,7 +23,7 @@ theme.typography.h3 = {
   },
 };
 
-function About(props) {
+function About() {
 
   const [randomWord, setRandomWord] = useState([]);
 
@@ -36,10 +37,10 @@ function About(props) {
         throw new Error('something went wrong!');
         }
 
-    const word = await response.json();
-        console.log(word)
+    const randomWord = await response.json();
+        
 
-    setRandomWord(word);
+    setRandomWord(randomWord);
   } catch (err) {
     console.error(err)
 
@@ -51,7 +52,47 @@ generateRandomWord();
 
     // about me layout
     return (
-      <div>
+      <>
+      <Grid container spacing={3}gap={2}>
+        <Grid item xs={12}>
+        <Typography 
+            id="About" 
+            variant="h3"
+            align="center"
+            gutterBottom
+            >
+                About Dharug
+        </Typography>
+        </Grid>
+        <Grid item xs={7}>
+        <Typography            
+            direction="flex" 
+            alignItems="center" 
+            justifyContent="center" 
+            textAlign="center" 
+            align="center">
+            We respect and honour Aboriginal and Torres Strait Islander Elders past, present and future. We acknowledge the stories, traditions and living cultures of Aboriginal and Torres Strait Islander peoples on this land and commit to building a brighter future together.
+            <br/>
+            <br/>
+            <br/>
+            The Dharug language, also spelt Darug, Dharuk, and other variants, and also known as the Sydney language, Gadigal language, is an Australian Aboriginal language of the Yuin–Kuric group that was traditionally spoken in the region of Sydney, New South Wales.
+            It is the traditional language of the Dharug people.
+        </Typography>
+        </Grid>
+        <Grid xs
+         direction="flex" 
+         alignItems="center" 
+         justifyContent="center" 
+         textAlign="center" 
+         align="center"> 
+        <RandomWordCard 
+        variant="outlined"
+        randomWord={randomWord}/>
+        </Grid>
+      </Grid>
+
+
+{/* 
         <Box 
         margin="55px"
         alignItems="center"
@@ -83,22 +124,14 @@ generateRandomWord();
             The Dharug language, also spelt Darug, Dharuk, and other variants, and also known as the Sydney language, Gadigal language, is an Australian Aboriginal language of the Yuin–Kuric group that was traditionally spoken in the region of Sydney, New South Wales.
             It is the traditional language of the Dharug people.
         </Typography>
+        <Box sx={{ minWidth: 275 }} >
+        <RandomWordCard 
+        variant="outlined"
+        randomWord={randomWord}/>
         </Box>
-        {randomWord.map((random) => (
-         <Card variant="outlined" sx={{ width: 320 }} key={random._id}>
-      <Typography level="h2" sx={{ fontSize: 'md', mt: 2 }}>
-        {random.word}
-      </Typography>
-      <Typography level="body2" sx={{ mt: 0.5, mb: 2 }}>
-       {random.definition}
-      </Typography>
-        <Typography level="body3" sx={{ fontWeight: 'md', color: 'text.secondary' }}>
-         {random.example}
-        </Typography>
-       </Card>
-      ))}
-</div>
-        );
+        </Box> */}
+         </>
+    )
 };
 
 // exports file

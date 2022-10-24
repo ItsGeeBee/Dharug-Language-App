@@ -10,9 +10,6 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { createTheme } from '@mui/material/styles';
 
-
-
-
 const theme = createTheme();
 
 theme.typography.h3 = {

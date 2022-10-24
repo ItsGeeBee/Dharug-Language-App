@@ -2,11 +2,9 @@ import { Box, Card, Typography, TextField } from "@mui/material";
 import React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-// import CardActions from "@mui/material/CardActions";
 import { useState } from "react";
 import { styled } from "@mui/system";
 import { getAddedWord } from "../../utils/API";
-import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 
 const AddedWordCard = styled(getAddedWord)({

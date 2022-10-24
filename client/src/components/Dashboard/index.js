@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [addedwords, setaddedWords] = useState([]);
   const [AllFavouritesWords, setAllFavouritesWords] = useState([]);
   const [value, setValue] = React.useState('one');
+  const [tabActive, setTabActive] = useState(0)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -219,33 +220,31 @@ getFavourites();
     }
   }
 
+  const handleTabChange = (tabNumber) => {
+    setTabActive(tabNumber);
+  }
+
  if(!userData){
   return <h3>Calm ya Farm</h3>
  }
  return (
   <>
   <Box>
-  <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
-      <Tab icon={<AddIcon />} label="ADD WORD" />
-      <Tab icon={<FavoriteIcon />} label="FAVORITES" />
-      <Tab icon={<BookmarkAddedIcon />} label="PREVIOUSLY ADDED" />
+  <Tabs value={tabActive} aria-label="icon label tabs example">
+      <Tab id="0" icon={<AddIcon />} label="ADD WORD" onClick={() => {handleTabChange(0)}}/>
+      <Tab id="1" icon={<FavoriteIcon />} label="FAVORITES" onClick={() => {handleTabChange(1)}}/>
+      <Tab id="2" icon={<BookmarkAddedIcon />} label="PREVIOUSLY ADDED" onClick={() => {handleTabChange(2)}}/>
     </Tabs>
-    <AddWordCard
-      addedwords={addedwords}
-      handleAddWord={handleAddWord}
-    />
 
-    <WordCard
-      isAuthenticated={Auth.loggedIn()}
-      wordcards={addedwords}
-      handleFavouriteWord={handleFavouriteWord}
-      handleDeleteFavouriteWord={handleDeleteFavouriteWord}
-      handleDeleteWord={handleDeleteWord}
-      handleEditWord={handleEditWord}
-      AllFavouritesWords={AllFavouritesWords}
-    />
 
-    <WordCard
+    {
+      (tabActive === 0)
+      ? <AddWordCard addedwords={addedwords} handleAddWord={handleAddWord} />
+      : null
+    }
+    {
+      (tabActive === 1)
+    ?<WordCard
       isAuthenticated={Auth.loggedIn()}
       wordcards={AllFavouritesWords}
       handleFavouriteWord={handleFavouriteWord}
@@ -254,6 +253,21 @@ getFavourites();
       handleEditWord={handleEditWord}
       AllFavouritesWords={AllFavouritesWords}
     />
+      :null
+    }
+    {
+    (tabActive === 2)
+    ?<WordCard
+      isAuthenticated={Auth.loggedIn()}
+      wordcards={addedwords}
+      handleFavouriteWord={handleFavouriteWord}
+      handleDeleteFavouriteWord={handleDeleteFavouriteWord}
+      handleDeleteWord={handleDeleteWord}
+      handleEditWord={handleEditWord}
+      AllFavouritesWords={AllFavouritesWords}
+    />
+      :null
+    }
 
     </Box>
   </>

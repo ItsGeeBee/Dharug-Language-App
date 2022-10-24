@@ -1,13 +1,11 @@
 import React from "react";
 import Navigation from "../Navigation";
-// import Page from "../../pages/home";
 import "./style.css";
 import Grid from '@mui/material/Grid';
 import Box from "@mui/material/Box";
 
 export default function Header(props) {
-  // passes all the props including setIsAuthenticated function to set the state
-  // header layout
+
   return (
     <div>
       <header><Grid container>
@@ -28,8 +26,7 @@ export default function Header(props) {
           </Box>
         </Grid>
       </Grid>
-      </header>
-    
+      </header>  
     </div >
   );
 }

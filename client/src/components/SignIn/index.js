@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import {Box, Card, Typography, TextField, Alert, Button, Stack}  from '@mui/material'
+import { validateEmail, checkPassword } from '../../utils/helpers';
 import { useNavigate } from "react-router-dom";
 import { loginUser } from '../../utils/API';
 import Auth from '../../utils/auth';
@@ -16,15 +17,11 @@ const SignIn = (props) => {
     };
 
     const handleFormSubmit = async (event) => {
-        event.preventDefault();
-
-        // check if form has everything (as per react-bootstrap docs)
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-            return; // not sure we need this return
-        }
+        
+        // validation to check email address when signing in
+        if (!validateEmail(userFormData.email)) {
+            return setShowAlert(true)
+          }
 
         try {
             const response = await loginUser(userFormData);
@@ -35,16 +32,14 @@ const SignIn = (props) => {
             const { token, user } = await response.json();
             Auth.login(token);
             props.setIsAuthenticated(true)
-            navigate("/dictionary")// actions landing page post event
+            navigate("/dashboard")// actions landing page post event
 
         } catch (err) {
             console.error(err);
             setShowAlert(true);
-            // props.setIsAuthenticated(false)
         }
 
         setUserFormData({
-            username: '',
             email: '',
             password: '',
         });
@@ -52,43 +47,64 @@ const SignIn = (props) => {
 
     return (
         <>
-            <Form noValidate validated={validated} onSubmit={(event) => { handleFormSubmit(event) }}>
-                <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                    Something went wrong with your login credentials!
-                </Alert>
-                <Form.Group>
-                    <Form.Label htmlFor='email'>Email</Form.Label>
-                    <Form.Control
-                        type='text'
-                        placeholder='Your email'
-                        name='email'
-                        onChange={handleInputChange}
-                        value={userFormData.email}
-                        required
-                    />
-                    <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
-                </Form.Group>
+            <Box justifyContent="center" alignItems="center" m={10} >
+        {showAlert && ( 
+     <Alert dismissible onClose={() => setShowAlert(false)} severity="error">Oops! Looks like your details were invalid - <strong>Try again</strong></Alert>)}
+        <Card sx={{ minWidth: 275}}>
+          <Box justifyContent="center" alignItems="center" m={8}>
+            <Stack marginTop={2} marginBottom={1}>
+              <Typography variant="h4" color="gray" textAlign="center ">
+                Email Address
+              </Typography>
+              <TextField
+                inputProps={{style: {fontSize: 18}}} 
+                InputLabelProps={{style: {fontSize: 18}}}
+                 type='email'
+                 placeholder='Your email address'
+                 name='email'
+                 id="filled-required"
+                 label="Required"
+                 variant="filled"
+                 onChange={handleInputChange}
+                 value={userFormData.email}
+                 required
+              />
+            </Stack>
+            <Stack>
+              <Typography
+                variant="h4"
+                color="gray"
+                textAlign="center"
+                marginTop={2}
+              >
+                Password
+              </Typography>
+              <TextField
+              inputProps={{style: {fontSize: 18}}} 
+              InputLabelProps={{style: {fontSize: 18}}}
+              id="filled-required"
+              label="Required"
+              variant="filled"
+                type='password'
+                placeholder='Your password'
+                name='password'
+                onChange={handleInputChange}
+                value={userFormData.password}
+                required
+              />
+            </Stack>
+            <Stack spacing={2} marginTop={4}>
+              <Button size="large" variant="contained" style={{backgroundColor: '#ffc44a', fontSize: 18, borderColor: 'black', color:'black'}} disabled={!(userFormData.email && userFormData.password)} onClick={() => {
+                handleFormSubmit()
+              }}>
+                Sign In!
+              </Button>
+            </Stack>
+          </Box>
+        </Card>
+      </Box>
+    </>
 
-                <Form.Group>
-                    <Form.Label htmlFor='password'>Password</Form.Label>
-                    <Form.Control
-                        type='password'
-                        placeholder='Your password'
-                        name='password'
-                        onChange={handleInputChange}
-                        value={userFormData.password}
-                        required
-                    />
-                    <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
-                </Form.Group>
-                <Button
-                    disabled={!(userFormData.email && userFormData.password)}
-                    type='submit'
-                    variant='success'>
-                    Sign In
-                </Button>
-            </Form>
-        </>
     );
 };
 

@@ -20,14 +20,13 @@ import EditWordCard from '../EditWordCard';
 export default function WordCard(props) {
 
   const user = props.isAuthenticated ? Auth.getProfile(Auth.getToken()) : null;
-  console.log("props.isAuthenticated",props.isAuthenticated)
   const allFavouriteWordIds = props.AllFavouritesWords.map(w => w._id)
   const [wordEditable, setWordEditable] = useState(null)
+  
   return (
     <>
-      `{" "}
       <Modal
-        open={!!wordEditable}
+        open={wordEditable}
         onClose={() => setWordEditable(null)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -79,7 +78,10 @@ export default function WordCard(props) {
                   onClick={() => setWordEditable(wordcard)}
                 >
                   <EditIcon />
-                </IconButton>): null}
+                </IconButton>
+                )
+                : null
+                }
                 {wordcard.user === user.data._id ? (
                   <IconButton
                     aria-label="handle delete word"
@@ -87,14 +89,15 @@ export default function WordCard(props) {
                   >
                     <DeleteOutlined />
                   </IconButton>
-                ) : null}
+                ) 
+                : 
+                null}
               </CardActions>
               </>)}
             </Card>
           </Grid>
         ))}
       </Grid>
-      `
     </>
   );
 }

@@ -5,12 +5,9 @@ import '../WordCard/style.css'
 import Auth from '../../utils/auth';
 import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFavouriteWords } from '../../utils/API';
 
-// const Dictionary = () => {
   export default function Dictionary(props) {
       const [wordList, setWordList] = useState([]);
       const [wordDeleted, setWordDeleted] = useState(false);
-
-      // // create state to hold AllFavourites wordId values
       const [AllFavouritesWords, setAllFavouritesWords] = useState([]);
 
       useEffect(() => {
@@ -161,9 +158,6 @@ import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFa
     }
   };
 
-
-  // returns the project file{
-
   return (
     <>
       <WordCard
@@ -179,5 +173,3 @@ import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFa
 
   );
 };
-
-// export default Dictionary;

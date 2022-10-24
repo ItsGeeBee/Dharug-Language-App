@@ -9,7 +9,6 @@ import NoPage from '../components/NoPage';
 
 
 export default function App(props) {
-   console.log("props.isAuthenticated HOME", props.isAuthenticated)
     return (
             <Routes>
                 <Route path="/about" element={<About />} />

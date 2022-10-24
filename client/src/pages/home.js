@@ -5,7 +5,7 @@ import Dashboard from '../components/Dashboard';
 import Contact from '../components/Contact';
 import SignIn from '../components/SignIn';
 import SignUp from '../components/SignUp';
-import NoPage from '../components/NoPage';
+import ErrorPage from '../components/ErrorPage';
 
 
 export default function App(props) {
@@ -19,7 +19,7 @@ export default function App(props) {
                 <Route path="/sign-up" element={<SignUp setIsAuthenticated={props.setIsAuthenticated} />} />
                 <Route path="/sign-out" element={<About/>} />
                 <Route path="/" element={<About />} />
-                <Route path="*" element={<NoPage />} />
+                <Route path="*" element={<ErrorPage />} />
             </Routes>
     );
 }

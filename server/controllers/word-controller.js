@@ -11,4 +11,17 @@ module.exports = {
     }
     res.json(allWords);
   },
+
+
+  async getRandomWord(req, res) {
+    
+    const word = await Word.aggregate(
+      [{ $sample: {size:1}}]
+
+    )
+    if (!word) {
+      return res.status(400).json({ message: 'Cannot find random word' });
+    }
+    res.json(word);
+  },
 };

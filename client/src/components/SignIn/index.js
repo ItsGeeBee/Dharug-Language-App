@@ -18,15 +18,10 @@ const SignIn = (props) => {
 
     const handleFormSubmit = async (event) => {
         
-        
+        // validation to check email address when signing in
         if (!validateEmail(userFormData.email)) {
             return setShowAlert(true)
-            // We want to exit out of this code block if something is wrong so that the user can correct it
-            // Then we check to see if the password is not valid. If so, we set an error message regarding the password.
           }
-        if (!checkPassword(userFormData.password)) {
-           return setShowAlert(true)
-        } 
 
         try {
             const response = await loginUser(userFormData);

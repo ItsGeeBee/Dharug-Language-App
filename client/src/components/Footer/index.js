@@ -13,7 +13,6 @@ import styled from '@emotion/styled'
 import { Box, Typography } from "@mui/material";
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import {donation} from '../../utils/API'
 import "./style.css";
 import { createTheme } from '@mui/material/styles';
 
@@ -88,10 +87,10 @@ export default function Contact(props) {
             </Grid>
             <Grid item xs={12} sm={6} md={4} >
               <div className={classes.midColumn}>
-                <Box display="flex" mb={3} justifyContent="center" alignItems="center" >
+              <Box display="flex" mb={3}>
                   <div>
                     <Avatar className={classes.iconWrapper}>
-                      <RoomIcon color="primary" fontSize="12" />
+                      <RoomIcon color="textSecondary" fontSize="12" />
                     </Avatar>
                   </div>
                   <Box ml={2}>
@@ -100,10 +99,10 @@ export default function Contact(props) {
                     <Typography variant="body2" color="textSecondary">{content['contact1-desc2']}</Typography>
                   </Box>
                 </Box>
-                <Box display="flex" justifyContent="center" alignItems="center" mr={4} >
+                <Box display="flex">
                   <div>
                     <Avatar className={classes.iconWrapper}>
-                      <EmailIcon color="primary" fontSize="12" />
+                      <EmailIcon color="textSecondary" fontSize="12" />
                     </Avatar>
                   </div>
                   <Box ml={2}>
@@ -117,7 +116,7 @@ export default function Contact(props) {
               <Box display="flex" mb={3}>
                 <div>
                   <Avatar className={classes.iconWrapper}>
-                    <WebAssetIcon color="primary" fontSize="12" />
+                    <WebAssetIcon color="textSecondary" fontSize="12" />
                   </Avatar>
                 </div>
                 <Box ml={2}>
@@ -128,7 +127,7 @@ export default function Contact(props) {
                   <IconButton href="#" color="inherit">
                     <TwitterIcon />
                   </IconButton>
-                  <IconButton href="#" color="inherit">
+                  <IconButton className="Icon-Button" href="#" color="inherit">
                     <LinkedInIcon />
                   </IconButton>
                 </Box>
@@ -136,13 +135,13 @@ export default function Contact(props) {
               <Box display="flex">
                 <div>
                   <Avatar className={classes.iconWrapper}>
-                    <PhoneIcon color="primary" fontSize="12" />
+                    <PhoneIcon color="textSecondary" fontSize="12" />
                   </Avatar>
                 </div>
                 <Box ml={2}>
                   <Typography variant="h6" gutterBottom={true}>{content['contact4']}</Typography>
                   <Typography variant="body2" color="textSecondary">{content['contact4-desc']}</Typography>
-                </Box>
+                  </Box>
               </Box>
             </Grid>
           </Grid>

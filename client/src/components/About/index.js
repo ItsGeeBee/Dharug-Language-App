@@ -28,27 +28,27 @@ function About() {
 
   const [randomWord, setRandomWord] = useState([]);
 
-  useEffect(() => {
-    const generateRandomWord= async () => {
+//   useEffect(() => {
+//     const generateRandomWord= async () => {
 
-      try {
-        const response = await getRandomWord()
+//       try {
+//         const response = await getRandomWord()
 
-     if (!response.ok) {
-        throw new Error('something went wrong!');
-        }
+//      if (!response.ok) {
+//         throw new Error('something went wrong!');
+//         }
 
-    const randomWord = await response.json();
+//     const randomWord = await response.json();
         
 
-    setRandomWord(randomWord);
-  } catch (err) {
-    console.error(err)
+//     setRandomWord(randomWord);
+//   } catch (err) {
+//     console.error(err)
 
-  }
-};
-generateRandomWord();
-  },[]);
+//   }
+// };
+// generateRandomWord();
+//   },[]);
 
 
     return (
@@ -67,7 +67,7 @@ generateRandomWord();
         </Grid>
         <Grid item xs={7} ml={6} mt={6}>
         <Typography            
-            direction="flex" 
+            // direction="flex" 
             alignItems="center" 
             justifyContent="center" 
             textAlign="center" 
@@ -86,6 +86,7 @@ generateRandomWord();
             It is the traditional language of the Dharug people.
         </Typography>
         </Grid>
+
         <Grid item xs mr={10}
           direction="flex" 
           alignItems="center" 

@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-// import { loadStripe } from '@stripe/stripe-js';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -17,7 +16,6 @@ import Button from '@mui/material/Button';
 import {donation} from '../../utils/API'
 import "./style.css";
 import { createTheme } from '@mui/material/styles';
-import { positions } from '@mui/system';
 
 const theme = createTheme({
   palette: {
@@ -58,28 +56,11 @@ export default function Contact(props) {
     ...props.content
   };
 
-
-  // useEffect(() => {
-  //   const handleDonation = async () => { 
-  //     try { 
-  //       const response = await donation()
-  //       console.log(response)
-
-  //       res.redirectToCheckout({ sessionId: data.checkout.session });
-        
-  //     } catch {
-  //       console.log('no dice!')
-
-  //     }
-  //   }
-  // }, []);
-
   const handleDonation = async () => { 
     try { 
       const response = await donation()
       console.log(response)
 
-      // res.redirectToCheckout({ sessionId: data.checkout.session });
       
     } catch {
       console.log('no dice!')
@@ -95,7 +76,7 @@ export default function Contact(props) {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        // minHeight: '20vh',
+        minHeight: '80vh',
         
       }} >
       
@@ -114,8 +95,7 @@ export default function Contact(props) {
             <Grid item xs={12} md={4}>
               <Typography variant="h6" component="h2" gutterBottom={true}>{content['header']}</Typography>
               <Typography variant="subtitle1" color="textSecondary" paragraph={true}>{content['description']}</Typography>
-              <Button onClick={() => handleDonation()} variant="contained" >Donate</Button>
-                {/* href="https://donate.stripe.com/6oE02s4q6fR4cz6000" */}
+              <Button href="https://donate.stripe.com/6oE02s4q6fR4cz6000" variant="contained" >Donate</Button>
             </Grid>
             <Grid item xs={12} sm={6} md={4} >
               <div className={classes.midColumn}>

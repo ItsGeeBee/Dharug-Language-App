@@ -32,9 +32,6 @@ function Navigation(props) {
                 {isAuthenticated &&<li>
                     <Link to="dashboard" className={currentPage.name === 'dashboard' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[2])}>Dashboard</Link>
                 </li>}
-                <li>
-                    <Link to="contact" className={currentPage.name === 'contact' ? 'nav-active' : ''} onClick={() => setCurrentPage(pages[3])}>Contact</Link>
-                </li>
                 {
                     (!isAuthenticated) ?
                         <>

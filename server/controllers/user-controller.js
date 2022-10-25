@@ -8,6 +8,8 @@ const { signToken } = require("../utils/auth");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 module.exports = {
+
+  // GET all users, for admin use only
   async getAllUsers({ user }, res) {
     const allUsers = await User.find();
 
@@ -62,7 +64,7 @@ module.exports = {
     res.json({ token, user });
   },
 
-  // user comes from `req.user` created in the auth middleware function
+  // GET words that a specifc user has entered
   async getUserWords(req, res) {
     // where the user id matches current user id
     const records = await Word.find({ user: req.params.id });
@@ -73,6 +75,8 @@ module.exports = {
     return res.json(records);
   },
 
+
+  // POST a new word to the Word schema 
   async addWord(req, res) {
     const addedWords = await Word.create({
       ...req.body,
@@ -87,6 +91,7 @@ module.exports = {
     return res.json(addedWords);
   },
 
+  //PUT request to update selected word to edit 
   async editWord(req, res) {
     const record = await Word.findByIdAndUpdate(
       req.params.wordId,
@@ -105,6 +110,7 @@ module.exports = {
     return res.json(record);
   },
 
+  // DELETE word from Word schema
   async deleteWord(req, res) {
     const records = await Word.deleteOne({ _id: req.params.wordId });
 
@@ -116,6 +122,8 @@ module.exports = {
     return res.json(records);
   },
 
+
+  // PUT request to add word from dictionary to FavouriteWords
   async addFavourite(req, res) {
     try {
       const updatedUser = await User.findOneAndUpdate(
@@ -146,6 +154,7 @@ module.exports = {
     return res.json(updatedUser);
   },
 
+  // GET all users favouriate words on dashboard load 
   async getFavouriteWords(req, res) {
     const updatedUser = await User.findOne({ _id: req.params.userId }).populate(
       { path: "FavouriteWords" }

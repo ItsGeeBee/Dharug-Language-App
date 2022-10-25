@@ -19,6 +19,7 @@ import EditWordCard from '../EditWordCard';
 
 export default function WordCard(props) {
 
+  // if user is logged in, they are able to favouriate words
   const user = props.isAuthenticated ? Auth.getProfile(Auth.getToken()) : null;
   const allFavouriteWordIds = props.AllFavouritesWords.map(w => w._id)
   const [wordEditable, setWordEditable] = useState(null)

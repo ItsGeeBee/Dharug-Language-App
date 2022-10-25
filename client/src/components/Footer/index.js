@@ -56,17 +56,6 @@ export default function Contact(props) {
     ...props.content
   };
 
-  const handleDonation = async () => { 
-    try { 
-      const response = await donation()
-      console.log(response)
-
-      
-    } catch {
-      console.log('no dice!')
-
-    }
-  }
 
   return (
 
@@ -76,7 +65,7 @@ export default function Contact(props) {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '80vh',
+        minHeight: '100vh',
         
       }} >
       

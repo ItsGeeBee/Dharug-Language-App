@@ -10,7 +10,7 @@ import '@fontsource/roboto/700.css';
 import { createTheme } from '@mui/material/styles';
 import CardMedia from '@mui/material/CardMedia';
 import RandomWordCard from '../RandomWord/index.js';
-import Painting from '../../images/painting.png'
+import Painting from '../../assets/painting.png';
 
 const theme = createTheme();
 

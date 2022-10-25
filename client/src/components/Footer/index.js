@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { loadStripe } from '@stripe/stripe-js';
+// import { loadStripe } from '@stripe/stripe-js';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';

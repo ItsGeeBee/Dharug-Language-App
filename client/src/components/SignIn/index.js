@@ -52,12 +52,12 @@ const SignIn = (props) => {
         <Card sx={{ minWidth: 275}}>
           <Box justifyContent="center" alignItems="center" m={8}>
             <Stack marginTop={2} marginBottom={1}>
-              <Typography variant="h4" color="gray" textAlign="center ">
+              <Typography variant="h5" color="gray" textAlign="center ">
                 Email Address
               </Typography>
               <TextField
-                inputProps={{style: {fontSize: 16}}} 
-                InputLabelProps={{style: {fontSize: 16}}}
+                inputProps={{style: {fontSize: 10}}} 
+                InputLabelProps={{style: {fontSize: 10}}}
                  type='email'
                  placeholder='Your email address'
                  name='email'
@@ -71,7 +71,7 @@ const SignIn = (props) => {
             </Stack>
             <Stack>
               <Typography
-                variant="h4"
+                variant="h5"
                 color="gray"
                 textAlign="center"
                 marginTop={2}
@@ -79,8 +79,8 @@ const SignIn = (props) => {
                 Password
               </Typography>
               <TextField
-              inputProps={{style: {fontSize: 16}}} 
-              InputLabelProps={{style: {fontSize: 16}}}
+              inputProps={{style: {fontSize: 10}}} 
+              InputLabelProps={{style: {fontSize: 10}}}
               id="filled-required"
               label="Required"
               variant="filled"

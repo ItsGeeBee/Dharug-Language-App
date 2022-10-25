@@ -28,27 +28,26 @@ function About() {
 
   const [randomWord, setRandomWord] = useState([]);
 
-//   useEffect(() => {
-//     const generateRandomWord= async () => {
+  useEffect(() => {
+    const generateRandomWord= async () => {
 
-//       try {
-//         const response = await getRandomWord()
+      try {
+        const response = await getRandomWord()
 
-//      if (!response.ok) {
-//         throw new Error('something went wrong!');
-//         }
+     if (!response.ok) {
+        throw new Error('something went wrong!');
+        }
 
-//     const randomWord = await response.json();
+    const randomWord = await response.json();
         
 
-//     setRandomWord(randomWord);
-//   } catch (err) {
-//     console.error(err)
-
-//   }
-// };
-// generateRandomWord();
-//   },[]);
+    setRandomWord(randomWord);
+  } catch (err) {
+    console.error(err)
+  }
+};
+generateRandomWord();
+  },[]);
 
 
     return (

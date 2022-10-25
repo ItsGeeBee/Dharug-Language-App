@@ -36,8 +36,8 @@ function App() {
         <Grid item xs={12}>
           <MainPage currentPage={currentPage} pages={pages} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/> 
         </Grid>
-        <Grid>
-          <Footer />
+        <Grid >
+          <Footer item xs={12}/>
         </Grid>
       </Container>
     </div>

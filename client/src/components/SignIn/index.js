@@ -56,8 +56,8 @@ const SignIn = (props) => {
                 Email Address
               </Typography>
               <TextField
-                inputProps={{style: {fontSize: 18}}} 
-                InputLabelProps={{style: {fontSize: 18}}}
+                inputProps={{style: {fontSize: 16}}} 
+                InputLabelProps={{style: {fontSize: 16}}}
                  type='email'
                  placeholder='Your email address'
                  name='email'
@@ -79,8 +79,8 @@ const SignIn = (props) => {
                 Password
               </Typography>
               <TextField
-              inputProps={{style: {fontSize: 18}}} 
-              InputLabelProps={{style: {fontSize: 18}}}
+              inputProps={{style: {fontSize: 16}}} 
+              InputLabelProps={{style: {fontSize: 16}}}
               id="filled-required"
               label="Required"
               variant="filled"
@@ -93,7 +93,7 @@ const SignIn = (props) => {
               />
             </Stack>
             <Stack spacing={2} marginTop={4}>
-              <Button size="large" variant="contained" style={{backgroundColor: '#ffc44a', fontSize: 18, borderColor: 'black', color:'black'}} disabled={!(userFormData.email && userFormData.password)} onClick={() => {
+              <Button size="large" variant="contained" style={{backgroundColor: '#ffc44a', fontSize: 16, borderColor: 'black', color:'black'}} disabled={!(userFormData.email && userFormData.password)} onClick={() => {
                 handleFormSubmit()
               }}>
                 Sign In!

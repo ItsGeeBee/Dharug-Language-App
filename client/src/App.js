@@ -1,10 +1,11 @@
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainPage from "./components/MainPage";
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import Auth from './utils/auth';
 
 function App() {
   const pages = [
@@ -18,6 +19,13 @@ function App() {
 
   const [currentPage, setCurrentPage] = useState(pages[0]);
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+
+  useEffect(() => {
+    setIsAuthenticated(Auth.loggedIn())
+    }
+  )
+
 
   return (
     <div className="App">

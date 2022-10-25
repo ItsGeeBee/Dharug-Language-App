@@ -4,16 +4,3 @@ footer {
   bottom: 0;
   width: 100%;
 }
-
-footer a {
-  color: var(--dark);
-}
-
-#footer img {
-  width: 30px;
-  margin: 0 20px;
-}
-
-.social-links {
-  text-align: center;
-}

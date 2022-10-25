@@ -68,8 +68,8 @@ const SignupForm = (props) => {
                 Username
               </Typography>
               <TextField
-                inputProps={{style: {fontSize: 18}}} 
-                InputLabelProps={{style: {fontSize: 18}}}
+                inputProps={{style: {fontSize: 16}}} 
+                InputLabelProps={{style: {fontSize: 16}}}
                 id="filled-required"
                 variant="filled"
                 label="Required"
@@ -86,8 +86,8 @@ const SignupForm = (props) => {
                 Email Address
               </Typography>
               <TextField
-                inputProps={{style: {fontSize: 18}}} 
-                InputLabelProps={{style: {fontSize: 18}}}
+                inputProps={{style: {fontSize: 16}}} 
+                InputLabelProps={{style: {fontSize: 16}}}
                  type='email'
                  placeholder='Your email address'
                  name='email'
@@ -109,8 +109,8 @@ const SignupForm = (props) => {
                 Password
               </Typography>
               <TextField
-              inputProps={{style: {fontSize: 18}}} 
-              InputLabelProps={{style: {fontSize: 18}}}
+              inputProps={{style: {fontSize: 16}}} 
+              InputLabelProps={{style: {fontSize: 16}}}
               id="filled-required"
               label="Required"
               variant="filled"

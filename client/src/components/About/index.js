@@ -8,8 +8,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { createTheme } from '@mui/material/styles';
-import Button from '@mui/material/Button';
+import CardMedia from '@mui/material/CardMedia';
 import RandomWordCard from '../RandomWord/index.js';
+import Painting from '../../images/painting.png'
 
 const theme = createTheme();
 
@@ -53,7 +54,7 @@ function About() {
     return (
 
       <div>
-      <Grid container spacing={2}gap={3} pt={10} pb={20}>
+      <Grid container spacing={2}gap={3} pt={10} pb={13}>
         <Grid item xs={12}>
         <Typography 
             id="About" 
@@ -61,7 +62,7 @@ function About() {
             align="center"
             gutterBottom
             >
-                About Dharug
+               <strong>About Dharug</strong>
         </Typography>
         </Grid>
         <Grid item xs={7} ml={6} mt={6}>
@@ -73,19 +74,25 @@ function About() {
             align="center"
             variant="h5"> 
             We respect and honour Aboriginal and Torres Strait Islander Elders past, present and future. We acknowledge the stories, traditions and living cultures of Aboriginal and Torres Strait Islander peoples on this land and commit to building a brighter future together.
-            <br p={16}/>
             <br/>
-            <br/>
+            <CardMedia 
+            component="img"
+            height="100"
+            image={Painting}
+            sx={{ p: 2 }}
+
+      />
             The Dharug language, also spelt Darug, Dharuk, and other variants, and also known as the Sydney language, Gadigal language, is an Australian Aboriginal language of the Yuin–Kuric group that was traditionally spoken in the region of Sydney, New South Wales.
             It is the traditional language of the Dharug people.
         </Typography>
         </Grid>
-        <Grid
-        //  direction="flex" 
-         alignItems="center" 
-         justifyContent="center" 
-         textAlign="center" 
-         align="center"> 
+
+        <Grid item xs mr={10}
+          direction="flex" 
+          alignItems="center" 
+          justifyContent="center" 
+          textAlign="center" 
+          align="center">
         <RandomWordCard 
         variant="outlined"
         randomWord={randomWord}/>

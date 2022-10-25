@@ -28,27 +28,27 @@ function About() {
 
   const [randomWord, setRandomWord] = useState([]);
 
-//   useEffect(() => {
-//     const generateRandomWord= async () => {
+  useEffect(() => {
+    const generateRandomWord= async () => {
 
-//       try {
-//         const response = await getRandomWord()
+      try {
+        const response = await getRandomWord()
 
-//      if (!response.ok) {
-//         throw new Error('something went wrong!');
-//         }
+     if (!response.ok) {
+        throw new Error('something went wrong!');
+        }
 
-//     const randomWord = await response.json();
+    const randomWord = await response.json();
         
 
-//     setRandomWord(randomWord);
-//   } catch (err) {
-//     console.error(err)
+    setRandomWord(randomWord);
+  } catch (err) {
+    console.error(err)
 
-//   }
-// };
-// generateRandomWord();
-//   },[]);
+  }
+};
+generateRandomWord();
+  },[]);
 
 
     return (
@@ -98,60 +98,6 @@ function About() {
         randomWord={randomWord}/>
         </Grid>
       </Grid>
-
-
-
-        {/* <Box 
-
-        margin="55px"
-        alignItems="center"
-        justifyContent="center"
-      >
-
-        <Typography 
-            id="About" 
-            variant="h3"
-            align="center"
-            gutterBottom
-            >
-                About Dharug
-        </Typography>
-        <Typography            
-            direction="flex" 
-            alignItems="center" 
-            justifyContent="center" 
-            textAlign="center" 
-            align="center">
-            We respect and honour Aboriginal and Torres Strait Islander Elders past, present and future. We acknowledge the stories, traditions and living cultures of Aboriginal and Torres Strait Islander peoples on this land and commit to building a brighter future together.
-        </Typography>
-        <Typography 
-            direction="flex" 
-            alignItems="center" 
-            justifyContent="center" 
-            textAlign="center" 
-            align="center">              
-            The Dharug language, also spelt Darug, Dharuk, and other variants, and also known as the Sydney language, Gadigal language, is an Australian Aboriginal language of the Yuin–Kuric group that was traditionally spoken in the region of Sydney, New South Wales.
-            It is the traditional language of the Dharug people.
-        </Typography>
-        <Box sx={{ minWidth: 275 }} >
-        <RandomWordCard 
-        variant="outlined"
-        randomWord={randomWord}/>
-        </Box>
-
-        {randomWord.map((random) => (
-         <Card variant="outlined" sx={{ width: 320 }} key={random._id}>
-      <Typography level="h2" sx={{ fontSize: 'md', mt: 2 }}>
-        {random.word}
-      </Typography>
-      <Typography level="body2" sx={{ mt: 0.5, mb: 2 }}>
-       {random.definition}
-      </Typography>
-        <Typography level="body3" sx={{ fontWeight: 'md', color: 'text.secondary' }}>
-         {random.example}
-        </Typography>
-       </Card>
-      ))}  */}
 </div>
       
     )

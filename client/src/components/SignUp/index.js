@@ -31,7 +31,7 @@ const SignupForm = (props) => {
         } 
 
         try {
-            const response = await createUser(userFormData);
+            const response = await createUser(userFormData); // functin inside Utils 
 
             if (!response.ok) {
                 throw new Error('something went wrong!');
@@ -45,7 +45,6 @@ const SignupForm = (props) => {
         } catch (err) {
             console.error(err);
             setShowAlert(true);
-            // props.setIsAuthenticated(false)
         }
 
         setUserFormData({

@@ -16,11 +16,12 @@ function App() {
     { name: "sign-in" },
     { name: "sign-up" },
   ];
-
+  // set state 
   const [currentPage, setCurrentPage] = useState(pages[0]);
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-
+  // determins if a uyser is logged in, only some page visable
+  //to logged in users 
   useEffect(() => {
     setIsAuthenticated(Auth.loggedIn())
     }

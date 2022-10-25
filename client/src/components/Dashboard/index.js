@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
 const Dashboard = () => {
-  // create state for holding returned api data
+  // Create and set states 
   const [userData, setUserData] = useState({});
   const [addedwords, setaddedWords] = useState([]);
   const [AllFavouritesWords, setAllFavouritesWords] = useState([]);
@@ -64,14 +64,14 @@ const Dashboard = () => {
 
     setaddedWords(addedwords);
   } catch (err) {
-    console.error(err); //console.error(`ERROR: ${err}`);
+    console.error(err); 
 
   }
 };
 getWordData();
   },[]);
 
-
+// GET users Favourited words to load on dashboard 
   useEffect(() => {
     const getFavourites= async () => {
 
@@ -110,7 +110,7 @@ getFavourites();
         throw new Error('Whoops! We are unable to add this to your Favourites');
       }
 
-      // if word successfully Favourites to user's account, Favourite book id to state
+      // if word successfully Favourites to user's account, favourite word id to state
       setAllFavouritesWords([...AllFavouritesWords, wordToFavourite]);
     } catch (err) {
       console.error(err);
@@ -170,6 +170,7 @@ getFavourites();
       }
   };
 
+  // User to edit word if they were the one to add to dictionary 
   const handleEditWord = async (wordId, wordData) => {
     console.log('handle edit word', wordData)
 
@@ -213,13 +214,13 @@ getFavourites();
         throw new Error('unable to addWord');
       }
 
-      // if word successfully Favourites to user's account, Favourite book id to state
+      // if word successfully Favourites to user's account, favourite id to state
       setaddedWords([...addedwords, wordId.wordId]);
     } catch (err) {
       console.log('Unable to setWordList')
     }
   }
-
+// tab between pages on dashbaord
   const handleTabChange = (tabNumber) => {
     setTabActive(tabNumber);
   }

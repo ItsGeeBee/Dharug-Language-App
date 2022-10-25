@@ -1,7 +1,5 @@
 import { Grid } from "@mui/material";
 import Card from '@mui/material/Card';
-import CardHeader from "@mui/material/CardHeader";
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
 import Typography from '@mui/material/Typography';

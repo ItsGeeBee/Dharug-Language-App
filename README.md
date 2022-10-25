@@ -1,5 +1,5 @@
 # Dharug-Language-App
-# Module-22-Redux-Store
+# Project 3 
 
 ## Table of Content
 

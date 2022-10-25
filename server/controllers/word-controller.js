@@ -3,6 +3,8 @@ const { Word } = require('../models');
 
 module.exports = {
 
+
+  // GET all words for dictionary page 
   async getAllWords({ word }, res) {
     const allWords = await Word.find();
 
@@ -12,7 +14,7 @@ module.exports = {
     res.json(allWords);
   },
 
-
+// Random word for Word of the day
   async getRandomWord(req, res) {
     
     const word = await Word.aggregate(

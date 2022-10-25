@@ -1,6 +1,7 @@
 // route to get logged in user's info (needs the token)
 import Auth from "./auth";
 
+// Get JWT token 
 export const getMe = (token) => {
   return fetch("/api/users/:id", {
     headers: {
@@ -9,7 +10,7 @@ export const getMe = (token) => {
     },
   });
 };
-
+// Create new user 
 export const createUser = (userData) => {
   return fetch("/api/users", {
     method: "POST",
@@ -19,7 +20,7 @@ export const createUser = (userData) => {
     body: JSON.stringify(userData),
   });
 };
-
+// Exisiting user sign in 
 export const loginUser = (userData) => {
   return fetch("/api/users/login", {
     method: "POST",
@@ -29,7 +30,7 @@ export const loginUser = (userData) => {
     body: JSON.stringify(userData),
   });
 };
-
+// Get all words on dictionary page 
 export const getAllWords = (wordData) => {
   return fetch("/api/dictionary", {
     method: "GET",
@@ -40,6 +41,7 @@ export const getAllWords = (wordData) => {
   });
 };
 
+// Get a random word for words of the day 
 export const getRandomWord = (wordData) => {
   return fetch("/api/dictionary/randomword", {
     method: "GET",
@@ -50,6 +52,7 @@ export const getRandomWord = (wordData) => {
   });
 };
 
+// Add a word to the word schema 
 export const addWord = (wordData, token) => {
   const user = Auth.getProfile(token);
   return fetch(`/api/users/${user.data._id}/create`, {
@@ -61,6 +64,7 @@ export const addWord = (wordData, token) => {
   });
 };
 
+// Get a users added words
 export const getAddedWord = (wordData, token) => {
   const user = Auth.getProfile(token);
   return fetch(`/api/users/${user.data._id}/added`, {
@@ -73,7 +77,7 @@ export const getAddedWord = (wordData, token) => {
   });
 };
 
-// Favourite book data for a logged in user
+// Path to save favourtiate word for a logged in user
 export const addFavourite = (wordData, token) => {
   const user = Auth.getProfile(token);
   return fetch(`/api/users/${user.data._id}/addfavourite`, {
@@ -86,6 +90,7 @@ export const addFavourite = (wordData, token) => {
   });
 };
 
+//Delete a favourite word
 export const deleteFavourite = (wordId, token) => {
   const user = Auth.getProfile(token);
   return fetch(`/api/users/${user.data._id}/addfavourite/${wordId}`, {
@@ -94,7 +99,6 @@ export const deleteFavourite = (wordId, token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    // body: JSON.stringify(wordId),
   });
 };
 
@@ -123,6 +127,7 @@ export const editWord = (wordId, data, token) => {
   });
 };
 
+// Get users existing favourite words
 export const getFavouriteWords = (wordData, token) => {
   const user = Auth.getProfile(token);
   console.log("FavouritewordAPI", wordData);

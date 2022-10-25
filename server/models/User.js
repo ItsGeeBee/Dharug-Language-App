@@ -53,7 +53,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 // when we query a user, we'll also get another field called `wordCount`
-// with the number of AllFavourites books we have
+// with the number of FavouriteWords we have
 
 userSchema.virtual('wordCount').get(function () {
   return this.FavouriteWords.length;

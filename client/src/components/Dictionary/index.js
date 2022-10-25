@@ -6,10 +6,14 @@ import Auth from '../../utils/auth';
 import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFavouriteWords } from '../../utils/API';
 
   export default function Dictionary(props) {
+
+    // Set states 
       const [wordList, setWordList] = useState([]);
       const [wordDeleted, setWordDeleted] = useState(false);
       const [AllFavouritesWords, setAllFavouritesWords] = useState([]);
 
+
+      // GET all words on dictionary page load 
       useEffect(() => {
         const getWordData= async () => {
 
@@ -27,9 +31,10 @@ import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFa
       }
     };
     getWordData();
-    setWordDeleted(false);
+    setWordDeleted(false); // set state 
       },[wordDeleted]);
 
+      // Get Favourtie words so user can if they have already favourited
     useEffect(() => {
       const getFavourites= async () => {
 
@@ -69,13 +74,13 @@ import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFa
           throw new Error('Whoops! We are unable to add this to your Favourites');
         }
 
-      // if word successfully Favourites to user's account, Favourite book id to state
+      // if word successfully Favourites to user's account, favourite word id to state
       setAllFavouritesWords([...AllFavouritesWords, wordToFavourite]);
     } catch (err) {
       console.error(err);
     }
   };
-
+      // PULL favouratie word from FavouriteWords array 
   const handleDeleteFavouriteWord = async (wordId) => {
     console.log("handleDelete", wordId);
      // get token
@@ -105,7 +110,7 @@ import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFa
        }
      };
 
-
+     //Edit word if that user has entered that specific word
   const handleEditWord = async (wordId, wordData) => {
     console.log('handle edit word', wordData)
 
@@ -135,6 +140,7 @@ import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFa
       }
   };
 
+  // Delete Word from Word Schema if the user has added it originally 
    const handleDeleteWord = async (wordId) => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -147,7 +153,7 @@ import { addFavourite, editWord, getAllWords, deleteFavourite, deleteWord, getFa
         if (!response.ok) {
           throw new Error('Whoops! We are unable to delete this word');
         }
-        setWordDeleted(true);
+        setWordDeleted(true); // set State
     } catch (err) {
       console.error(err);
     }

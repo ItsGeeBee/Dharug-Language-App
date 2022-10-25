@@ -10,11 +10,11 @@ const RandomWordCard = (props) => {
  console.log(props);
     return (
         <>
-        <Grid justifyContent="center" alignItems="center" container columns={6} style={{backgroundColor: "#ffc44a",}} borderRadius={10}>
+        <Grid justifyContent="center" alignItems="center" container columns={6} borderRadius={4}>
           {props.randomWord.map((random) => (
             <Grid item xs={4} sm={4} md={6} m={6}>
               <Card elevation={2} >
-              <Typography variant="h4" color="black" gutterBottom pt={3}>
+              <Typography variant="h5" color="black" gutterBottom pt={3}>
                  <strong>Word of the Day</strong>   
                 </Typography>
                 <Divider variant="middle" />

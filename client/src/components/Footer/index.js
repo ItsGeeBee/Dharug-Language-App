@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-// import { loadStripe } from '@stripe/stripe-js';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -17,7 +16,6 @@ import Button from '@mui/material/Button';
 import {donation} from '../../utils/API'
 import "./style.css";
 import { createTheme } from '@mui/material/styles';
-import { positions } from '@mui/system';
 
 const theme = createTheme({
   palette: {

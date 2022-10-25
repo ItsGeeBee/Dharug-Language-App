@@ -10,12 +10,12 @@ export default function Header(props) {
     <div>
       <header><Grid container>
         <Grid item xs={12} md={5}>
-          <Box display="flex" justifyContent={{ xs: "center", md: "flex-start" }}>
+          <Box display="flex" justifyContent={{ xs: "center", lg: "flex-start" }}>
             <h1 className="logo">DHARUG</h1>
           </Box>
         </Grid>
         <Grid item xs={12} md={7}>
-          <Box display="flex" justifyContent={{ xs: "center", md: "flex-end" }}>
+          <Box display="flex" justifyContent={{ xs: "center", lg: "flex-end" }}>
             <Navigation
               pages={props.pages}
               setCurrentPage={props.setCurrentPage}

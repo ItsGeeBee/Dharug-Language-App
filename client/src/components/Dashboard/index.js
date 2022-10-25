@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
 const Dashboard = () => {
-  // Create and set states 
+  // Create and set states
   const [userData, setUserData] = useState({});
   const [addedwords, setaddedWords] = useState([]);
   const [AllFavouritesWords, setAllFavouritesWords] = useState([]);
@@ -64,14 +64,14 @@ const Dashboard = () => {
 
     setaddedWords(addedwords);
   } catch (err) {
-    console.error(err); 
+    console.error(err);
 
   }
 };
 getWordData();
   },[]);
 
-// GET users Favourited words to load on dashboard 
+// GET users Favourited words to load on dashboard
   useEffect(() => {
     const getFavourites= async () => {
 
@@ -170,7 +170,7 @@ getFavourites();
       }
   };
 
-  // User to edit word if they were the one to add to dictionary 
+  // User to edit word if they were the one to add to dictionary
   const handleEditWord = async (wordId, wordData) => {
     console.log('handle edit word', wordData)
 
@@ -214,8 +214,8 @@ getFavourites();
         throw new Error('unable to addWord');
       }
 
-      // if word successfully Favourites to user's account, favourite id to state
-      setaddedWords([...addedwords, wordId.wordId]);
+      // if word successfully delted remove from added words array
+      setaddedWords([...addedwords.filter(w => w._id !== wordId)]);
     } catch (err) {
       console.log('Unable to setWordList')
     }
@@ -273,5 +273,5 @@ getFavourites();
     </Box>
   </>
 )};
-
+// export dashboard
 export default Dashboard

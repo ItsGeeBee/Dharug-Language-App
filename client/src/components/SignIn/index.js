@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Box, Card, Typography, TextField, Alert, Button, Stack}  from '@mui/material'
-import { validateEmail, checkPassword } from '../../utils/helpers';
+import { validateEmail} from '../../utils/helpers';
 import { useNavigate } from "react-router-dom";
 import { loginUser } from '../../utils/API';
 import Auth from '../../utils/auth';
@@ -8,7 +8,6 @@ import Auth from '../../utils/auth';
 const SignIn = (props) => {
     const navigate = useNavigate();
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-    const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
     const handleInputChange = (event) => {

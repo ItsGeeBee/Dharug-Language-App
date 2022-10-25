@@ -11,7 +11,6 @@ const SignupForm = (props) => {
     const navigate = useNavigate();
     // set initial form state
     const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
-    const [validated] = useState(false);
     // set state for alert
     const [showAlert, setShowAlert] = useState(false);
 

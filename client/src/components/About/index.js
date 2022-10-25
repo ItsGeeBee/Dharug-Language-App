@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import "./style.css"
 import { getRandomWord } from '../../utils/API';
-import Divider from "@mui/material/Divider";
 import Typography from '@mui/material/Typography';
 import { Grid} from '@mui/material';
 import '@fontsource/roboto/300.css';
@@ -26,25 +25,17 @@ theme.typography.h3 = {
 
 function About() {
 
-//   const [randomWord, setRandomWord] = useState([]);
+  const [randomWord, setRandomWord] = useState([]);
 
-//   useEffect(() => {
-//     const generateRandomWord= async () => {
+  useEffect(() => {
+    const generateRandomWord= async () => {
 
-//       try {
-//         const response = await getRandomWord()
+      try {
+        const response = await getRandomWord()
 
-//      if (!response.ok) {
-//         throw new Error('something went wrong!');
-//         }
-
-
-//     const word = await response.json();
-//         console.log(word)
-
-//     setRandomWord(word);
-//   } catch (err) {
-//     console.error(err)
+     if (!response.ok) {
+        throw new Error('something went wrong!');
+        }
 
     const randomWord = await response.json();
         
@@ -53,20 +44,16 @@ function About() {
   } catch (err) {
     console.error(err)
 
-//   }
-// };
-// generateRandomWord();
-//   },[]);
+  }
+};
+generateRandomWord();
+  },[]);
 
 
-    // about me layout
     return (
 
       <div>
-        {/* <Box 
-
-      <>
-      <Grid container spacing={3}gap={2}>
+      <Grid container spacing={2}gap={3} pt={10} pb={20}>
         <Grid item xs={12}>
         <Typography 
             id="About" 
@@ -77,15 +64,16 @@ function About() {
                 About Dharug
         </Typography>
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={7} ml={6} mt={6}>
         <Typography            
             direction="flex" 
             alignItems="center" 
             justifyContent="center" 
             textAlign="center" 
-            align="center">
+            align="center"
+            variant="h5"> 
             We respect and honour Aboriginal and Torres Strait Islander Elders past, present and future. We acknowledge the stories, traditions and living cultures of Aboriginal and Torres Strait Islander peoples on this land and commit to building a brighter future together.
-            <br/>
+            <br p={16}/>
             <br/>
             <br/>
             The Dharug language, also spelt Darug, Dharuk, and other variants, and also known as the Sydney language, Gadigal language, is an Australian Aboriginal language of the Yuin–Kuric group that was traditionally spoken in the region of Sydney, New South Wales.
@@ -105,8 +93,8 @@ function About() {
       </Grid>
 
 
-{/* 
-        <Box 
+
+        {/* <Box 
 
         margin="55px"
         alignItems="center"
@@ -156,13 +144,9 @@ function About() {
          {random.example}
         </Typography>
        </Card>
-      ))} */}
-<Button>DONATE</Button>
+      ))}  */}
 </div>
-        );
-
-        </Box> */}
-         </>
+      
     )
 
 };

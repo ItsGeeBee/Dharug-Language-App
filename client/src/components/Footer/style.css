@@ -1,9 +1,8 @@
 footer {
   background-color: var(--primary);
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 100%;
-  line-height: 100px;
 }
 
 footer a {

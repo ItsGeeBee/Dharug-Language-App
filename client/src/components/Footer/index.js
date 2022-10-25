@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -13,11 +14,10 @@ import styled from '@emotion/styled'
 import { Box, Typography } from "@mui/material";
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import donation from '../../utils/API'
-
+import {donation} from '../../utils/API'
+import "./style.css";
 import { createTheme } from '@mui/material/styles';
 import { positions } from '@mui/system';
-
 
 const theme = createTheme({
   palette: {
@@ -27,6 +27,7 @@ const theme = createTheme({
     secondary: {
       main: '#c62828',
   },
+}
 });
 
 const useStyles = styled((theme) => ({
@@ -58,20 +59,67 @@ export default function Contact(props) {
   };
 
 
-  return (
-    <section>
-      <Container maxWidth="lg" style={{color: "textSecondary", position: "fixed", bottom: -50}} >
+  // useEffect(() => {
+  //   const handleDonation = async () => { 
+  //     try { 
+  //       const response = await donation()
+  //       console.log(response)
+
+  //       res.redirectToCheckout({ sessionId: data.checkout.session });
+        
+  //     } catch {
+  //       console.log('no dice!')
+
+  //     }
+  //   }
+  // }, []);
+
+  const handleDonation = async () => { 
+    try { 
+      const response = await donation()
+      console.log(response)
+
+      // res.redirectToCheckout({ sessionId: data.checkout.session });
       
-        <Box py={10} display="flex" flexWrap="wrap" alignItems="center" >
+    } catch {
+      console.log('no dice!')
+
+    }
+  }
+
+  return (
+
+
+    <section>
+       <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        // minHeight: '20vh',
+        
+      }} >
+      
+        <Box  component="footer"
+        sx={{
+          py: 3,
+          px: 3,
+          mt: 'auto',
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[200]
+              : theme.palette.grey[800],
+        }}>
+           <Container maxWidth="lg">
           <Grid container spacing={6}>
             <Grid item xs={12} md={4}>
               <Typography variant="h6" component="h2" gutterBottom={true}>{content['header']}</Typography>
               <Typography variant="subtitle1" color="textSecondary" paragraph={true}>{content['description']}</Typography>
-              <Button variant="contained" href="https://donate.stripe.com/6oE02s4q6fR4cz6000">Donate</Button>
+              <Button onClick={() => handleDonation()} variant="contained" >Donate</Button>
+                {/* href="https://donate.stripe.com/6oE02s4q6fR4cz6000" */}
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4} >
               <div className={classes.midColumn}>
-                <Box display="flex" mb={3}>
+                <Box display="flex" mb={3} justifyContent="center" alignItems="center" >
                   <div>
                     <Avatar className={classes.iconWrapper}>
                       <RoomIcon color="primary" fontSize="12" />
@@ -83,7 +131,7 @@ export default function Contact(props) {
                     <Typography variant="body2" color="textSecondary">{content['contact1-desc2']}</Typography>
                   </Box>
                 </Box>
-                <Box display="flex">
+                <Box display="flex" justifyContent="center" alignItems="center" mr={4} >
                   <div>
                     <Avatar className={classes.iconWrapper}>
                       <EmailIcon color="primary" fontSize="12" />
@@ -129,8 +177,9 @@ export default function Contact(props) {
               </Box>
             </Grid>
           </Grid>
+          </Container>
         </Box>
-      </Container>
+      </Box>
     </section>
   );
 }
